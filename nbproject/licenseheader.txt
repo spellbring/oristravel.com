@@ -1,0 +1,9 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Proyecto : oristravel.com
+${licensePrefix}Autor    : Tsyacom Ltda.
+${licensePrefix}Fecha    : Lunes, 28 de julio de 2014
+<#if licenseLast??>
+${licenseLast}
+</#if>
