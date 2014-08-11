@@ -117,21 +117,22 @@ class sistemaController extends Controller
         
         
         
+        /*BEIGN: Paginador; */
         $pagina= $this->filtrarInt($pagina);
-        
         $this->getLibrary('paginador');
         $paginador= new Paginador();
-        $paginador->paginar($booking->getConsRes(
+        /*$this->_view->getBookings=$paginador->paginar($booking->getConsRes(
                 Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'),
                 Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'),
                 Session::get('sess_pCR_tipoFecha'),
                 Session::get('sess_id_agencia'),
                 Session::getLevel('Admin'),
                 Session::get('sess_usuario')
-                ), $pagina);
-        
-        
+                ), $pagina);*/
         $this->_view->paginacion = $paginador->getView('prueba', 'sistema/consultarBooking');
+        /*END: Paginador;*/
+        
+        
         
         $this->_view->currentMenu=1;
         $this->_view->titulo='ORISTRAVEL';
@@ -142,6 +143,17 @@ class sistemaController extends Controller
     public function buscarHoteles()
     {
         Session::acceso('Usuario');
+        
+        
+        /*BEIGN: Paginador; */
+        $pagina= $this->filtrarInt($pagina);
+        $this->getLibrary('paginador');
+        $paginador= new Paginador();
+        /*$this->_view->getHoteles=$paginador->paginar($hoteles->getHoteles(), $pagina);*/
+        //$this->_view->paginacion = $paginador->getView('prueba', 'sistema/buscarHoteles');
+        /*END: Paginador;*/
+        
+        
         $this->_view->currentMenu=8;
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('buscarHoteles');

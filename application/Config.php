@@ -7,7 +7,7 @@
  */
 
 /* Begin: Globales */
-define('BASE_URL', 'http://localhost/New-Oristravel/');
+define('BASE_URL', 'http://localhost/oristravel.com/');
 define('DEFAULT_CONTROLLER', 'index');
 define('DEFAULT_LAYOUT', 'default');
 /* End: Globales */
@@ -25,6 +25,7 @@ define('DB_USER', 'seasons_user');
 define('DB_PASS', 'seasonstravel');
 define('DB_NAME', 'ereyes_seasonstravel');
 /* End: Database */
+
 
 
 /* Begin: Empresa ( Seasons Travel ) */
