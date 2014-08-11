@@ -16,8 +16,8 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        ////$servicios= $this->loadModel('servicios');
-        //$this->_view->servicios= $servicios->getServicios();
+        $ajax= $this->loadModel('ajax');
+        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
         
         
         //if(Session::get('sess_pBP_ciudadDes'))
@@ -29,6 +29,7 @@ class sistemaController extends Controller
                 $this->_view->mL_expandeFiltros='none';
         }*/
         
+                
         //$this->_view->assign('titulo', 'ORISTRAVELw'); SMARTY
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('index');
@@ -63,6 +64,18 @@ class sistemaController extends Controller
     public function hoteles()
     {
         Session::acceso('Usuario');
+        $hotel= $this->loadModel('hotel');
+        $ajax= $this->loadModel('ajax');
+        
+        $this->_view->getCategoriaHoteles= $hotel->getCatHoteles();
+        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
+        
+        $this->_view->getHoteles= $hotel->getAdmHoteles(
+                Session::get('sess_pCH_ciudad'), 
+                Session::get('sess_pCH_nombre'), 
+                Session::get('sess_pCH_cat') 
+                );
+                
         $this->_view->currentMenu=2;
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('hoteles');
@@ -71,6 +84,10 @@ class sistemaController extends Controller
     public function adminProgramas()
     {
         Session::acceso('Usuario');
+        
+        $ajax= $this->loadModel('ajax');
+        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
+        
         $this->_view->currentMenu=3;
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('adminProgramas');
@@ -88,6 +105,8 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
+        $ajax= $this->loadModel('ajax');
+        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
         
         $this->_view->CR_fechaDesde=date('d/m/Y');
         if(Session::get('sess_pCR_fechaDesde'))

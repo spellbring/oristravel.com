@@ -99,29 +99,28 @@ $(function()
                         <select name="mL_cmbCiudadDestino_H" id="mL_cmbCiudadDestino_H" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php 
-                            $var_getCiudades= false;//$privateFunctions->getCiudades($pOC_ciudad);
-							if($var_getCiudades!=FALSE)
-							{ 
-								foreach($var_getCiudades as $columCiudades)
-								{
-									$pOC_codigoCiu= mb_convert_encoding(trim($columCiudades['ccodigo']), "UTF-8", "ISO-8859-1");
-									$pOC_nombreCiu= mb_convert_encoding(trim($columCiudades['cnombre']), "UTF-8", "ISO-8859-1");
-									$pOC_nombreCiudad = $pOC_nombreCiu." (".$pOC_codigoCiu.")";
-									
-									if($_SESSION["sess_pBP_ciudadDes"]==$pOC_nombreCiu)
-									{
-									?>
-                                    	<option value="<?php echo $pOC_nombreCiu; ?>" selected="selected"><?php echo $pOC_nombreCiudad; ?></option>
-									<?php
-									}
-									else
-									{
-									?>
-                                    	<option value="<?php echo $pOC_nombreCiu; ?>"><?php echo $pOC_nombreCiudad; ?></option>
-									<?php
-									}
-								}
-							}
+                            if($this->getCiudadesHotel!=FALSE)
+                            { 
+                                foreach($this->getCiudadesHotel as $columLeftCiudades)
+                                {
+                                        $mL_codigoCiu= trim($columLeftCiudades['codigo_ciudad']);
+                                        $mL_nombreCiu= trim($columLeftCiudades['nombre_ciudad']);
+                                        $mL_nombreCiudad = $mL_nombreCiu." (".$mL_codigoCiu.")";
+
+                                        if(Session::get('sess_pCH_ciudad')==$mL_nombreCiu)
+                                        {
+                                        ?>
+                                            <option value="<?php echo $mL_nombreCiu; ?>" selected="selected"><?php echo $mL_nombreCiudad; ?></option>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                            <option value="<?php echo $mL_nombreCiu; ?>"><?php echo $mL_nombreCiudad; ?></option>
+                                        <?php
+                                        }
+                                }
+                            }
                             ?>
                         </select>
                         

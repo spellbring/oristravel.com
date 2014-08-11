@@ -107,10 +107,6 @@ class View /*extends Smarty*/
         
         if(is_readable($rutaView))
         {
-            /*include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'header.php';
-            include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'menu-left.php';
-            include_once $rutaView;
-            include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'footer.php';*/
             $this->assign('_contenido', $rutaView);
         }
         else
@@ -120,7 +116,6 @@ class View /*extends Smarty*/
         
         $this->assign('_layoutParams', $_params);
         $this->display('template.tpl');
-        
     }
     
     

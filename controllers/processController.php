@@ -36,4 +36,15 @@ class processController extends Controller
 
         $this->redireccionar('sistema/buscarHoteles');
     }
+    
+    public function admHoteles()
+    {
+        Session::acceso('Usuario');
+
+        Session::set('sess_pCH_ciudad', $this->getTexto('cmbCiudadDestino_H'));
+        Session::set('sess_pCH_nombre', $this->getTexto('txtNombre_H'));
+        Session::set('sess_pCH_cat', $this->getTexto('cmbCategoria_H'));
+        
+        $this->redireccionar('sistema/hoteles');
+    }
 }
