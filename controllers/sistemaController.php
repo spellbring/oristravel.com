@@ -29,6 +29,7 @@ class sistemaController extends Controller
                 $this->_view->mL_expandeFiltros='none';
         }*/
         
+        //$this->_view->assign('titulo', 'ORISTRAVELw'); SMARTY
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('index');
     }

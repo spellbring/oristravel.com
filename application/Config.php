@@ -7,7 +7,7 @@
  */
 
 /* Begin: Globales */
-define('BASE_URL', 'http://localhost/oristravel.com/');
+define('BASE_URL', 'http://jonathan-pc/oristravel.com/');
 define('DEFAULT_CONTROLLER', 'index');
 define('DEFAULT_LAYOUT', 'default');
 /* End: Globales */
