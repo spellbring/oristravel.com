@@ -101,22 +101,22 @@ $(function()
                             <?php 
                             if($this->getCiudadesHotel!=FALSE)
                             { 
-                                foreach($this->getCiudadesHotel as $columLeftCiudades)
+                                foreach($this->getCiudadesHotel as $columLeftCiudadesHot)
                                 {
-                                        $mL_codigoCiu= trim($columLeftCiudades['codigo_ciudad']);
-                                        $mL_nombreCiu= trim($columLeftCiudades['nombre_ciudad']);
-                                        $mL_nombreCiudad = $mL_nombreCiu." (".$mL_codigoCiu.")";
+                                        $mL_codigoCiuHot= trim($columLeftCiudadesHot['codigo_ciudad']);
+                                        $mL_nombreCiuHot= trim($columLeftCiudadesHot['nombre_ciudad']);
+                                        $mL_nombreCiudadHot = $mL_nombreCiuHot." (".$mL_codigoCiuHot.")";
 
-                                        if(Session::get('sess_pCH_ciudad')==$mL_nombreCiu)
+                                        if(Session::get('sess_pCH_ciudad')==$mL_nombreCiuHot)
                                         {
                                         ?>
-                                            <option value="<?php echo $mL_nombreCiu; ?>" selected="selected"><?php echo $mL_nombreCiudad; ?></option>
+                                            <option value="<?php echo $mL_nombreCiuHot; ?>" selected="selected"><?php echo $mL_nombreCiudadHot; ?></option>
                                         <?php
                                         }
                                         else
                                         {
                                         ?>
-                                            <option value="<?php echo $mL_nombreCiu; ?>"><?php echo $mL_nombreCiudad; ?></option>
+                                            <option value="<?php echo $mL_nombreCiuHot; ?>"><?php echo $mL_nombreCiudadHot; ?></option>
                                         <?php
                                         }
                                 }
@@ -449,29 +449,28 @@ $(function()
                         <select name="mL_txtCiudadDestino_S" id="mL_txtCiudadDestino_S" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php 
-                            $var_getCiudades= false;//$privateFunctions->getCiudades($pOC_ciudad);
-							if($var_getCiudades!=FALSE)
-							{ 
-								foreach($var_getCiudades as $columCiudades)
-								{
-									$pOC_codigoCiu= mb_convert_encoding(trim($columCiudades['ccodigo']), "UTF-8", "ISO-8859-1");
-									$pOC_nombreCiu= mb_convert_encoding(trim($columCiudades['cnombre']), "UTF-8", "ISO-8859-1");
-									$pOC_nombreCiudad = $pOC_nombreCiu." (".$pOC_codigoCiu.")";
-									
-									if($_SESSION["sess_pBP_ciudadDes"]==$pOC_nombreCiu)
-									{
-									?>
-                                    	<option value="<?php echo $pOC_nombreCiu; ?>" selected="selected"><?php echo $pOC_nombreCiudad; ?></option>
-									<?php
-									}
-									else
-									{
-									?>
-                                    	<option value="<?php echo $pOC_nombreCiu; ?>"><?php echo $pOC_nombreCiudad; ?></option>
-									<?php
-									}
-								}
-							}
+                            if($this->getCiudadesServ!=FALSE)
+                            { 
+                                foreach($this->getCiudadesServ as $columLeftCiudades_Serv)
+                                {
+                                        $mL_codigoCiu_Serv= trim($columLeftCiudades_Serv['codigo_ciudad']);
+                                        $mL_nombreCiu_Serv= trim($columLeftCiudades_Serv['nombre_ciudad']);
+                                        $mL_nombreCiudad_Serv = $mL_nombreCiu_Serv." (".$mL_codigoCiu_Serv.")";
+
+                                        if(Session::get('sess_pCS_ciudad')==$mL_nombreCiu_Serv)
+                                        {
+                                        ?>
+                                            <option value="<?php echo $mL_nombreCiu_Serv; ?>" selected="selected"><?php echo $mL_nombreCiudad_Serv; ?></option>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                            <option value="<?php echo $mL_nombreCiu_Serv; ?>"><?php echo $mL_nombreCiudad_Serv; ?></option>
+                                        <?php
+                                        }
+                                }
+                            }
                             ?>
                         </select>
                         
@@ -574,29 +573,28 @@ $(function()
                         <select name="mL_txtCiudadDestino_P" id="mL_txtCiudadDestino_P" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php 
-                            $var_getCiudades= false;//$privateFunctions->getCiudades($pOC_ciudad);
-							if($var_getCiudades!=FALSE)
-							{ 
-								foreach($var_getCiudades as $columCiudades)
-								{
-									$pOC_codigoCiu= mb_convert_encoding(trim($columCiudades['ccodigo']), "UTF-8", "ISO-8859-1");
-									$pOC_nombreCiu= mb_convert_encoding(trim($columCiudades['cnombre']), "UTF-8", "ISO-8859-1");
-									$pOC_nombreCiudad = $pOC_nombreCiu." (".$pOC_codigoCiu.")";
-									
-									if($_SESSION["sess_pBP_ciudadDes"]==$pOC_nombreCiu)
-									{
-									?>
-                                    	<option value="<?php echo $pOC_nombreCiu; ?>" selected="selected"><?php echo $pOC_nombreCiudad; ?></option>
-									<?php
-									}
-									else
-									{
-									?>
-                                    	<option value="<?php echo $pOC_nombreCiu; ?>"><?php echo $pOC_nombreCiudad; ?></option>
-									<?php
-									}
-								}
-							}
+                            if($this->getCiudadesPRG!=FALSE)
+                            { 
+                                foreach($this->getCiudadesPRG as $columLeftCiudadesPRG)
+                                {
+                                        $mL_codigoCiuPRG= trim($columLeftCiudadesPRG['codigo_ciudad']);
+                                        $mL_nombreCiuPRG= trim($columLeftCiudadesPRG['nombre_ciudad']);
+                                        $mL_nombreCiudadPRG = $mL_nombreCiuPRG." (".$mL_codigoCiuPRG.")";
+
+                                        if(Session::get('sess_pCP_ciudad')==$mL_nombreCiuPRG)
+                                        {
+                                        ?>
+                                            <option value="<?php echo $mL_nombreCiuPRG; ?>" selected="selected"><?php echo $mL_nombreCiudadPRG; ?></option>
+                                        <?php
+                                        }
+                                        else
+                                        {
+                                        ?>
+                                            <option value="<?php echo $mL_nombreCiuPRG; ?>"><?php echo $mL_nombreCiudadPRG; ?></option>
+                                        <?php
+                                        }
+                                }
+                            }
                             ?>
                         </select>
                         

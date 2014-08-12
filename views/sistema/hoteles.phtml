@@ -74,7 +74,7 @@
                                            </td>
                                            <td>Nombre:</td>
                                            <td>
-                                                <input type="text" id="txtNombre_H" name="txtNombre_H" style="width:200px" placeholder="Ingrese nombre hotel">
+                                               <input type="text" id="txtNombre_H" name="txtNombre_H" style="width:200px" value="<?php echo Session::get('sess_pCH_nombre'); ?>" placeholder="Ingrese nombre hotel">
                                            </td>
                                            <td>Categoria:</td>
                                            <td>
@@ -140,6 +140,11 @@
                     </script>
                     
                     
+                    
+                    
+                    <!--
+                    <iframe src="//dl-web.dropbox.com/get/Groupon/Boleta-614379.pdf?_subject_uid=185929076&amp;w=AAAmvZHAmgoOsG3JQEQZ1cYjg8TRx5thATaTlZHcFJYcGA&amp;get_preview=1"></iframe>
+                    -->
                     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -157,6 +162,8 @@
                             </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
+                    
+                    
                     
                     
                     
@@ -268,7 +275,7 @@ $('#btnHoteles').on('click',function()
                 document.getElementById('frmHoteles').submit();
         },2500);
         
-        $("#btnHoteles").delay(2000).queue(function(dis)
+        $("#btnHoteles").delay(5000).queue(function(dis)
         {
             $("#btnHoteles").removeAttr("disabled");
             dis();

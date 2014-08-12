@@ -41,11 +41,38 @@
                                         <tr>
  	                                       <td>Ciudad:</td>
                                            <td>
-                                           		<input type="text" id="txtCiudad-AdmProg" name="txtCiudad-AdmProg" style="width:200px" placeholder="Ingrese ciudad de destino" onkeyup="buscarCiudad(this.value, 'frmAdmProg', 'spnCiudad-prog', 'txtCiudad-AdmProg');" autocomplete="off">
-                                    <span id="spnCiudad-prog" class="twitter-typeahead" style="position: relative; display: none; direction: ltr;"></span>
+                                           		<!-- <input type="text" id="txtCiudad-AdmProg" name="txtCiudad-AdmProg" style="width:200px" placeholder="Ingrese ciudad de destino" onkeyup="buscarCiudad(this.value, 'frmAdmProg', 'spnCiudad-prog', 'txtCiudad-AdmProg');" autocomplete="off">
+                                                        <span id="spnCiudad-prog" class="twitter-typeahead" style="position: relative; display: none; direction: ltr;"></span> -->
+                                                <select name="aP_txtCiudadDestino_P" id="aP_txtCiudadDestino_P" class="form-control" >
+                                                <option value="0">Seleccione destino</option>
+                                                    <?php
+                                                    if($this->getCiudadesPRG!=FALSE)
+                                                    { 
+                                                        foreach($this->getCiudadesPRG as $columCiudadesPRG)
+                                                        {
+                                                            $aP_codigoCiuPRG= trim($columCiudadesPRG['codigo_ciudad']);
+                                                            $aP_nombreCiuPRG= trim($columCiudadesPRG['nombre_ciudad']);
+                                                            $aP_nombreCiudadPRG = $aP_nombreCiuPRG." (".$aP_codigoCiuPRG.")";
+
+                                                            if(Session::get('sess_pC_aP_ciudad')==$aP_nombreCiuPRG)
+                                                            {
+                                                            ?>
+                                                                <option value="<?php echo $aP_nombreCiuPRG; ?>" selected="selected"><?php echo $aP_nombreCiudadPRG; ?></option>
+                                                            <?php
+                                                            }
+                                                            else
+                                                            {
+                                                            ?>
+                                                                <option value="<?php echo $aP_nombreCiuPRG; ?>"><?php echo $aP_nombreCiudadPRG; ?></option>
+                                                            <?php
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
                                            </td>
                                            <td>&nbsp;&nbsp;&nbsp;
-                                           		<input type="button"  id="btnAdmProg" class="btn btn-primary" value="Buscar programa">
+                                                <input type="button"  id="btnAdmProg" class="btn btn-primary" value="Buscar programa">
                                                 <img id="imgLoading" src="iconos/loading.gif" style="display:none" width="32" border="0" />
                                            </td>
                                         </tr>

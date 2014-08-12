@@ -16,8 +16,10 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $ajax= $this->loadModel('ajax');
-        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
+        $common= $this->loadModel('common');
+        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
+        $this->_view->getCiudadesServ= $common->getCiudadesServ();
+        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
         
         
         //if(Session::get('sess_pBP_ciudadDes'))
@@ -65,10 +67,13 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         $hotel= $this->loadModel('hotel');
-        $ajax= $this->loadModel('ajax');
+        $common= $this->loadModel('common');
         
         $this->_view->getCategoriaHoteles= $hotel->getCatHoteles();
-        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
+        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
+        $this->_view->getCiudadesServ= $common->getCiudadesServ();
+        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        
         
         $this->_view->getHoteles= $hotel->getAdmHoteles(
                 Session::get('sess_pCH_ciudad'), 
@@ -85,8 +90,10 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $ajax= $this->loadModel('ajax');
-        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
+        $common= $this->loadModel('common');
+        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
+        $this->_view->getCiudadesServ= $common->getCiudadesServ();
+        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
         
         $this->_view->currentMenu=3;
         $this->_view->titulo='ORISTRAVEL';
@@ -96,6 +103,12 @@ class sistemaController extends Controller
     public function imagenes()
     {
         Session::acceso('Usuario');
+        
+        $common= $this->loadModel('common');
+        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
+        $this->_view->getCiudadesServ= $common->getCiudadesServ();
+        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        
         $this->_view->currentMenu=5;
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('imagenes');
@@ -105,8 +118,11 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $ajax= $this->loadModel('ajax');
-        $this->_view->getCiudadesHotel= $ajax->getCiudadesHot();
+        $common= $this->loadModel('common');
+        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
+        $this->_view->getCiudadesServ= $common->getCiudadesServ();
+        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        
         
         $this->_view->CR_fechaDesde=date('d/m/Y');
         if(Session::get('sess_pCR_fechaDesde'))
