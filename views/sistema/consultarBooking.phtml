@@ -189,6 +189,8 @@ $(function()
 
                                                     $cR_estado= trim($columRes['estado']);
                                                     $imgStatus='';
+                                                    $voucherStatus='';
+                                                    
                                                     if($cR_estado=='O')
                                                     {
                                                         $imgStatus= '<img src="'.$_layoutParams['ruta_img'].'st_amarillo.png" title="Pendiente de pago" />';
@@ -199,7 +201,6 @@ $(function()
                                                         
                                                         if($cR_voucher=='S')
                                                         {
-                                                            $voucherStatus='';
                                                             $voucherStatus='<a href="html2pdf/generar_vouchea.php?num_file='.$cR_booking.'" target="_blank" onclick="window.open(this.href, this.target, \'width=896, height=600,left = 200,top = 100\'); return false;">
                                                             <img src="'.$_layoutParams['ruta_img'].'pdf.png" alt="edit" width="24" border="0" />
                                                             </a>';

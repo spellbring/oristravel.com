@@ -18,6 +18,9 @@ class ajaxController extends Controller
     public function index()
     {
         $this->_view->titulo='AJAX';
+        
+        $this->_view->setJs(array('ajax'));
+        
         $this->_view->paises= $this->_ajax->getPaises();
         $this->_view->renderizaCentro('index');
     }

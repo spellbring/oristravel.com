@@ -21,6 +21,7 @@ class sistemaController extends Controller
         $this->_view->getCiudadesServ= $common->getCiudadesServ();
         $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
         
+        $this->_view->setJs(array('ajax'));
         
         //if(Session::get('sess_pBP_ciudadDes'))
         //{
@@ -63,11 +64,16 @@ class sistemaController extends Controller
     }
     
     
+    
+    
+    
     public function hoteles()
     {
         Session::acceso('Usuario');
         $hotel= $this->loadModel('hotel');
         $common= $this->loadModel('common');
+        
+        $this->_view->setJs(array('ajax'));
         
         $this->_view->getCategoriaHoteles= $hotel->getCatHoteles();
         $this->_view->getCiudadesHotel= $common->getCiudadesHot();
@@ -85,6 +91,14 @@ class sistemaController extends Controller
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('hoteles');
     }
+    
+    public function editHotel()
+    {
+        Session::acceso('Usuario');
+        $this->_view->renderizaCenterBox('editHotel');
+    }
+    
+    
     
     public function adminProgramas()
     {

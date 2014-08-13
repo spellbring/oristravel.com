@@ -20,16 +20,29 @@ class View /*extends Smarty*/
     }
     
     
+    public function setJs(array $js)
+    {
+        if(is_array($js) && count($js)){
+            for($i=0; $i < count($js); $i++){
+                //$this->_js[] = BASE_URL . 'views/' . $this->_controlador . '/js/' . $js[$i] . '.js';
+                $this->_js[] = BASE_URL . 'public/js/' . $js[$i] . '.js';
+            }
+        } else {
+            throw new Exception('Error de js');
+        }
+    }
+    
     
     public function renderizaPrincipal($vista, $item=false)
     {
-        $this->template_dir= ROOT . 'views' . DS . 'layout' . DEFAULT_LAYOUT . DS; //utilizando SMARTY
+        //$this->template_dir= ROOT . 'views' . DS . 'layout' . DEFAULT_LAYOUT . DS; //utilizando SMARTY
         
         //se incluye directamente el '/' ya que estas rutas siempre van a ser asi
         $_layoutParams= array(
             'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/css/', 
             'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
             'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/', 
+            'js' => $js
         );
         $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
         
@@ -52,14 +65,22 @@ class View /*extends Smarty*/
     
     public function renderizaSistema($vista, $item=false)
     {
-        $this->template_dir= ROOT . 'views' . DS . 'layout' . DEFAULT_LAYOUT . DS; //utilizando SMARTY
+        $js = array();
+        
+        if(count($this->_js)){
+            $js = $this->_js;
+        }
+        
+        
+        //$this->template_dir= ROOT . 'views' . DS . 'layout' . DEFAULT_LAYOUT . DS; //utilizando SMARTY
         
         //se incluye directamente el '/' ya que estas rutas siempre van a ser asi
         $_layoutParams= array(
             'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/css/', 
             'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
             'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/',
-            'ruta_hoteles' => BASE_URL . 'views/' . 'sistema' . '/img/hoteles/'
+            'ruta_hoteles' => BASE_URL . 'views/' . 'sistema' . '/img/hoteles/',
+            'js' => $js
         );
         $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
         
@@ -76,6 +97,21 @@ class View /*extends Smarty*/
         }
     }
     
+    
+    
+    
+    public function renderizaCenterBox($vista, $item=false)
+    {
+        $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . 'centerBox' . DS . $vista . '.phtml';
+        if(is_readable($rutaView))
+        {
+            include_once $rutaView;
+        }
+        else
+        {
+            throw new Exception('Error de vista AJAX');
+        }
+    }
     
     
     
@@ -118,23 +154,4 @@ class View /*extends Smarty*/
         $this->display('template.tpl');
     }
     
-    
-    
-    
-    public function renderizaCentro($vista, $item=false)
-    {
-        $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
-        
-        if(is_readable($rutaView))
-        {
-            //include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'header.php';
-            //include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'menu-left.php';
-            include_once $rutaView;
-            //include_once ROOT . 'views' . DS . 'layout' . DS . DEFAULT_LAYOUT . DS . 'footer.php';
-        }
-        else
-        {
-            throw new Exception('Error de vista');
-        }
-    }
 }

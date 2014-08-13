@@ -82,7 +82,7 @@ $(function()
 </script>
 
 <style>
-	.cambioColor:hover{background-color:#CCC;}
+	.colorText:hover{color: #0088CC; font-size: 13px;}
 </style>
 
 <nav id="page-leftbar" role="navigation">

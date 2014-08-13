@@ -1,0 +1,469 @@
+<form enctype="multipart/form-data" class="frmEditaHotel">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>DATOS HOTEL: <b><?php echo $eH_hotel; ?></b></h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                	<tr>
+                    	<td>Nombre hotel</td>
+                        <td><input name="txtEH_nombreHotel" type="text" value="<?php echo $eH_hotel; ?>" /></td>
+                        <td rowspan="3" width="100"></td>
+                        <td>Latitud</td>
+                        <td><input name="txtEH_latitud" type="text" value="<?php echo $eH_lat; ?>"  /></td>
+                	</tr>
+                    <tr>
+                    	<td>Categor&iacute;a</td>
+                        <td>
+                            <select name="cmbEH_categoria" style="width:100px" >
+							<?php
+                            $varEH_getCategoriasHotel= FALSE;//$privateFunctions->getCategoriasHotel();
+                            if($varEH_getCategoriasHotel!=FALSE)
+                            {
+                                echo '<option value="0">Todas</option>';
+                                foreach($varEH_getCategoriasHotel as $eH_columCatHot)
+                                {
+                                    $eH_nombreCat= trim($eH_columCatHot['nombre']);
+									if($eH_cat==$eH_nombreCat)
+									{ ?>
+										<option selected="selected" value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
+									<?php
+                                    }
+									else
+									{ ?>
+                                		<option value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
+                            <?php 
+									}
+								}
+                            }?>
+                            </select>
+                        </td>
+                        <td>Longitud</td>
+                        <td><input name="txtEH_longitud" type="text" value="<?php echo $eH_lon; ?>" /></td>
+                	</tr>
+                    <tr>
+                    	<td>Direcci&oacute;n</td>
+                    	<td><input name="txtEH_direc" type="text" value="<?php echo $eH_direc; ?>" /></td>
+                    	<td>Sitio web</td>
+                    	<td><input name="txtEH_sitioWeb" type="text" value="<?php echo $eH_sWeb; ?>" /></td>
+                	</tr>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Imagenes del hotel</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+               
+					<table align="center">
+                    	<tr>
+                        	<td width="350">
+                        <div class="col-sm-9">
+                        	<center>Imagen Principal</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if(!empty($eH_miniEnc)){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $eH_miniEnc; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen1"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                      <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Seleccionar</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        <input type="file" name="flImagen1" accept="image/*">
+                                      </span>
+                                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        
+                        	<td width="350">
+                        <div class="col-sm-9">
+                        	<center>Imagen 2</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if(!empty($eH_miniCon)){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $eH_miniCon; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen2"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                      <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Seleccionar</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        <input type="file" name="flImagen2" accept="image/*">
+                                      </span>
+                                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        
+                        	<td rowspan="2" valign="top">
+                        <div class="col-sm-9">
+                        	<center>Imagen 3</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if(!empty($eH_miniCon2)){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $eH_miniCon2; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen3"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                      <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Seleccionar</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        <input type="file" name="flImagen3" accept="image/*">
+                                      </span>
+                                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                       </tr>
+                       
+                       
+                       <tr> 
+                        	<td>
+                        <div class="col-sm-9" >
+                        	<center>Imagen 4</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if(!empty($eH_miniCon3)){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $eH_miniCon3; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen4"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                      <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Seleccionar</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        <input type="file" name="flImagen4" accept="image/*">
+                                      </span>
+                                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        
+                        	<td>
+                         <div class="col-sm-9" >
+                         	<center>Imagen 5</center>
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <?php if(!empty($eH_miniCon4)){?>
+                                    <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                    	<img src="<?php echo $eH_miniCon4; ?>" />
+                                    </div>
+                                    <center>
+                                        <label style="cursor:pointer">
+                                        	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen5"> Eliminar
+                                        </label>
+                                    </center>
+                            <?php }else{ ?>
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                    <div>
+                                      <span class="btn btn-default btn-file">
+                                        <span class="fileinput-new">Seleccionar</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        <input type="file" name="flImagen5" accept="image/*">
+                                      </span>
+                                      <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                    </div>
+                            <?php } ?>
+                            </div>
+                        </div>
+                        	</td>
+                        </tr>
+                    </table>
+                
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Servicios de Hotel</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                	<tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/restaurant.jpg" /><input type="checkbox" <?php echo $eH_rest; ?> name="chkEH_rest" > Restaurant</label>
+                            </div>
+                        </td>
+                        <td rowspan="5" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/lavanderia.jpg" /><input type="checkbox" <?php echo $eH_lavan; ?> name="chkEH_lavan" > Lavander&iacute;a</label>
+                            </div>
+                        </td>
+                        <td rowspan="5" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/piscina_desc.jpg" /><input type="checkbox" <?php echo $eH_pDes; ?> name="chkEH_pisDesc" > Piscina descubierta</label>
+                            </div>
+                        </td>
+                        <td rowspan="5" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/tenis.jpg" /><input type="checkbox" <?php echo $eH_tenis; ?> name="chkEH_cTenis" > Cancha de tenis</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/bar.jpg" /><input type="checkbox" <?php echo $eH_bar; ?> name="chkEH_bar" > Bar</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/business_center.jpg" /><input type="checkbox" <?php echo $eH_business; ?> name="chkEH_busCen" > Business center</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/spa.jpg" /><input type="checkbox" <?php echo $eH_spa; ?> name="chkEH_spa" > Spa</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/guar_inf.jpg" /><input type="checkbox" <?php echo $eH_guarderia; ?> name="chkEH_guarderia" > Club de ni&ntilde;os</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/cafeteria.jpg" /><input type="checkbox" <?php echo $eH_cafet; ?> name="chkEH_cafe" > Cafeter&iacute;a</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/internet.jpg" /><input type="checkbox" <?php echo $eH_intHot; ?> name="chkEH_interHot" > Internet hotel</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/gimnasio.jpg" /><input type="checkbox" <?php echo $eH_gym; ?> name="chkEH_gym" > Gimnasio</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/salones.jpg" /><input type="checkbox" <?php echo $eH_salasReu; ?> name="chkEH_sReu" > Salas de reuni&oacute;n</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/room_service.jpg" /><input type="checkbox" <?php echo $eH_sHab; ?> name="chkEH_servHab" > Servicio a la habitaci&oacute;n</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/estacionamiento.jpg" /><input type="checkbox" <?php echo $eH_est; ?> name="chkEH_estaciona" > Estacionamiento</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/piscina_cubierta.jpg" /><input type="checkbox" <?php echo $eH_pCub; ?> name="chkEH_pisCub" > Piscina cubierta</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/jardines.jpg" /><input type="checkbox" <?php echo $eH_jardin; ?> name="chkEH_jardin" > Jard&iacute;n</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/acceso_discap.jpg" /><input type="checkbox" <?php echo $eH_disca; ?> name="chkEH_disca" > Discapacitados</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/shopping.jpg" /><input type="checkbox" <?php echo $eH_baut; ?> name="chkEH_bou" > Boutique</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                       
+                        </td>
+                    	<td>
+                       
+                        </td>
+                	</tr>
+                    
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>Servicios Habitaci&oacute;n</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                	<tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/aire_acondicionado.jpg" /><input type="checkbox" <?php echo $eH_acond; ?> name="chkEH_airAcond" > Aire acondicionado</label>
+                            </div>
+                        </td>
+                        <td rowspan="3" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/caja_de_seguridad.jpg" /><input type="checkbox" <?php echo $eH_cFuerte; ?> name="chkEH_cFuerte" > Caja fuerte</label>
+                            </div>
+                        </td>
+                        <td rowspan="3" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/tv_cable.jpg" /><input type="checkbox" <?php echo $eH_tvCable; ?> name="chkEH_tvCable" > Televisi&oacute;n por Cable</label>
+                            </div>
+                        </td>
+                        <td rowspan="3" width="50">&nbsp;</td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/secador.jpg" /><input type="checkbox" <?php echo $eH_secPelo; ?> name="chkEH_sPelo" > Secador de pelo</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/calefaccion.jpg" /><input type="checkbox" <?php echo $eH_calefac; ?> name="chkEH_calefac" > Calefaci&oacute;n</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/minibar.jpg" /><input type="checkbox" <?php echo $eH_mBar; ?> name="chkEH_mBar" > Mini bar</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/telefono.jpg" /><input type="checkbox" <?php echo $eH_fono; ?> name="chkEH_fono" > Tel&eacute;fono</label>
+                            </div>
+                        </td>
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/barradeseguridad.jpg" /><input type="checkbox" <?php echo $eH_barraSeg; ?> name="chkEH_barraSeg" > Barra de Seguridad</label>
+                            </div>
+                        </td>
+                	</tr>
+                    
+                    <tr>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/habitacion_no_fum.jpg" /><input type="checkbox" <?php echo $eH_noFuma; ?> name="chkEH_noFumar" > No fumadores</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/tv.jpg" /><input type="checkbox" <?php echo $eH_tele; ?> name="chkEH_tv" > Televisi&oacute;n</label>
+                            </div>
+                        </td>
+                    	<td>
+                        	<div class="checkbox block">
+                            	<label><img src="iconos/hotel/internet.jpg" /><input type="checkbox" <?php echo $eH_interHab; ?> name="chkEH_interHab" > Internet en Habitaci&oacute;n</label>
+                            </div>
+                        </td>
+                        
+                        <td>
+                        </td>
+                	</tr>
+                    
+                </table>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+    <br />
+    <center>
+    <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Modificar Hotel" 
+    onclick="procesoEnviaForm('frmEditaHotel', 'process/procesoEditHotel.php', 'btnSubeVoucherAgen', 'divPopupH')">
+    </center>
+    
+   
+</div>
+
+
+</form>
