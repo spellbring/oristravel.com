@@ -8,6 +8,8 @@
 
 class sistemaController extends Controller
 {
+    private $_pdf;
+    
     public function __construct() {
         parent::__construct();
     }
@@ -128,6 +130,11 @@ class sistemaController extends Controller
         $this->_view->renderizaSistema('imagenes');
     }
     
+    
+    
+    
+    
+    
     public function consultarBooking($pagina = false)
     {
         Session::acceso('Usuario');
@@ -188,6 +195,26 @@ class sistemaController extends Controller
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('consultarBooking');
     }
+    
+    public function verPDF($id)
+    {
+        Session::acceso('Usuario');
+        
+        $this->getLibrary('fpdf');
+        $this->_pdf= new FPDF();
+        
+        //require_once BASE_URL . 'views' . DS . 'sistema' . DS . 'pdf' . DS . 'voucherPDF.php';
+        
+        $this->_pdf->AddPage();
+        $this->_pdf->SetFont('Arial','B',16);
+        //$this->_pdf->Cell(40,10, utf8_decode('¡Hola, Mundo!'));
+        $this->_pdf->Cell(40,10,'¡Hola, Mundo!');
+        $this->_pdf->Output();
+        
+        //$this->_view->renderizaCenterBox('editHotel');
+    }
+    
+    
     
     
     public function buscarHoteles()
