@@ -29,8 +29,15 @@ $(document).ready(function(){
         }
         else
         {
-            getCiudades;
+            getCiudades();
         }
+    });
+    
+    $('#btn_insertar').click(function(){
+        $.post('/oristravel.com/ajax/insertarCiudad', 'pais=' + $('#pais').val() + '&ciudad=' + $('#txtCiudad').val());
+        
+        $('#txtCiudad').val('');
+        getCiudades();
     });
     
 });
