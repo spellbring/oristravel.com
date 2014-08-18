@@ -22,6 +22,7 @@ class Database
             }
             else
             {
+                //@mysql_set_charset('UTF-8',$this->_conexion);
                 return TRUE;
             }
         }

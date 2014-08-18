@@ -53,17 +53,17 @@ class loginController extends Controller
                         Session::set('sess_tipo_usuario', $rowUsuarios[0]['tipo_usuario']);
                         Session::set('sess_usuario', $LC_user);
                         
-                        Session::set('sess_nombre', $rowUsuarios[0]['nombre']);
-                        Session::set('sess_apellido', $rowUsuarios[0]['apellido']);
+                        Session::set('sess_nombre', trim($rowUsuarios[0]['nombre']));
+                        Session::set('sess_apellido', trim($rowUsuarios[0]['apellido']));
                         Session::set('sess_id_usuario', $rowUsuarios[0]['id']);
                         Session::set('sess_id_agencia', $rowUsuarios[0]['id_agenc_na']);
                         Session::set('sess_status', $rowUsuarios[0]['estado']);
                         
-                        Session::set('sess_comag', $rowUsuarios[0]['comag']);
-                        Session::set('sess_agencia', $rowUsuarios[0]['agencia']);
-                        Session::set('sess_correo', $rowUsuarios[0]['correo']);
-                        Session::set('sess_correo_admin', $rowUsuarios[0]['correo_admin']);
-                        Session::set('sess_correo_ejecutivo', $rowUsuarios[0]['correo_ejecutivo']);
+                        Session::set('sess_comag', trim($rowUsuarios[0]['comag']));
+                        Session::set('sess_agencia', trim($rowUsuarios[0]['agencia']));
+                        Session::set('sess_correo', trim($rowUsuarios[0]['correo']));
+                        Session::set('sess_correo_admin', trim($rowUsuarios[0]['correo_admin']));
+                        Session::set('sess_correo_ejecutivo', trim($rowUsuarios[0]['correo_ejecutivo']));
                         Session::set('sess_grupo', $rowUsuarios[0]['grupo']);
                         
                         Session::set('level', 'Admin');

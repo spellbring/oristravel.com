@@ -1,0 +1,52 @@
+<!-- <div id="page-content" style="min-height: 948px"> -->
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+            <h1>Cont&aacute;ctenos</h1>
+        </div>
+		
+        
+        <div class="container">
+
+            
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>Formulario de cont&aacute;cto</h4>
+                        </div>
+                        <div class="panel-body">
+                            <p>NOTA: Este correo ser&aacute; enviado a su ejecutivo personal.</p>
+                            <div >
+                                <table class="table table-bordered " style="width: 600px;" >
+                                    <tbody>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <td><input type="text" disabled class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" value="<?php echo Session::get('sess_agencia'); ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Usuario</th>
+                                            <td><input type="text" disabled class="form-control" id="Cntac_txtUsuario" name="Cntac_txtUsuario" value="<?php echo Session::get('sess_nombre').' '.Session::get('sess_apellido');  ?>"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <textarea id="Cntac_areaNota" name="Cntac_areaNota" class="form-control" rows="4" placeholder="Escribe un mensaje..."></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center"> <input type="button" class="finish btn-primary btn" id="btnEnviar" value="Enviar" /> </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
