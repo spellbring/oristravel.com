@@ -7,12 +7,17 @@
  */
 
 
-include ("../conex/mysql.conex.php");
-include('fpdf.php');
-include('pdf_html.php');
+//include ("../conex/mysql.conex.php");
+
+$conex	=	@mysql_connect (DB_HOST, DB_USER, DB_PASS);			
+			@mysql_select_db (DB_NAME);
+			@mysql_set_charset('utf8',$conex);
+
+//include('fpdf.php');
+//include('pdf_html.php');
 
 // Diseño del PDF //
-$id_booking = $_GET['id'];
+$id_booking = $id; //$_GET['id'];
 $tipo_servicio = "";
 $row3 = "";
 
@@ -36,10 +41,10 @@ $sql = '
 	;';
 
 // Datos de la compañia
-$direccion = $_SESSION['direccion_emp_xml'];
-$comuna = $_SESSION['comuna_emp_xml'];
-$ciudad = $_SESSION['ciudad_emp_xml'];	
-$telefono = $_SESSION['fono_xml'];
+$direccion = ENT_DIREC;//$_SESSION['direccion_emp_xml'];
+$comuna = ENT_COMUNA;//$_SESSION['comuna_emp_xml'];
+$ciudad = ENT_CIUDAD; //$_SESSION['ciudad_emp_xml'];	
+$telefono = ENT_FONO; //$_SESSION['fono_xml'];
 
 $res = mysql_query($sql, $conex);
 
@@ -52,7 +57,7 @@ if($res)
 	if($cantidad > 0)
 	{
 		$contador = 0;
-		$pdf= new PDF('P', 'mm','letter');
+		//$pdf= new PDF('P', 'mm','letter');
 		$pdf->AddPage();
 		$pos_imagen = 25;
 		$pos_celda = 0;
@@ -136,7 +141,7 @@ if($res)
 			$prov_pais = "";
 			if($row['cod_provee'] == "" || $row['cod_provee'] == NULL)
 			{
-				$sql2 = 'select nombre, direc, fono, ciudad, pais from proveedores where codigo = "'.$_SESSION["adi_ope_xml"].'";';
+				$sql2 = 'select nombre, direc, fono, ciudad, pais from proveedores where codigo = "'. ENT_OPERADOR .'";';
 				$result = mysql_query($sql2, $conex);
 				$row2 = mysql_fetch_array($result);
 				$prov = $row2['nombre'];
@@ -199,7 +204,7 @@ if($res)
 			$pdf->SetLeftMargin(20);
 			$pdf->SetFontSize(8);
 			if($row['imagen'] == "" || $row['imagen'] == NULL)
-				$pdf->Image("../images/logovoucher.png", 20, $pos_imagen-5, 40, 18);
+				$pdf->Image($ruta_img . 'logovoucher.jpg', 20, $pos_imagen-5, 40, 18);
 			else
 				$pdf->Image("../logos/".$row['imagen'], 20, $pos_imagen-5, 40, 18);
 
@@ -208,38 +213,40 @@ if($res)
 			// Direccion (Calle)
 			$pdf->SetLeftMargin(20);
 			$pdf->SetFontSize(8);
-			$pdf->Cell(40, 9, convertirIdioma($direccion)." - ".$comuna, TR, 'C');
+			$pdf->Cell(40, 9, $direccion." - ".$comuna, TR, 'C');
 			
 			// Numero voucher
 			$pdf->SetFont('Arial');
 			$pdf->Cell(15, 9, "Voucher: ", LTB, 'C');
 			$pdf->SetFont('Arial', B);
-			$pdf->Cell(25, 9, agregarCeros($voucher), TBR, 'C');
+			$pdf->Cell(25, 9, Funciones::add_ceros($voucher, 6), TBR, 'C');
 			
 			// Numero Archivo
 			$pdf->SetFont('Arial');
 			$pdf->Cell(15, 9, "File:", LTB, 'C');
 			$pdf->SetFont('Arial', B);
-			$pdf->Cell(25, 9, agregarCeros($row['id_booking']), TBR, 'C');
+			$pdf->Cell(25, 9, Funciones::add_ceros($row['id_booking'], 6), TBR, 'C');
 			$pdf->Cell(0, 6, "", 0, 0);
 			$pdf->Ln();
 			
 			// Direccion (Comuna)
 			$pdf->SetFont('Arial');
 			$pdf->Cell(40, 6, "", 0, R);
-			$pdf->Cell(40, 6, convertirIdioma($ciudad), R, 'L');
+			$pdf->Cell(40, 6, $ciudad, R, 'L');
 			// Fecha
 			$pdf->SetFont('Arial');
 			$pdf->Cell(30, 12, "Issue Date:", LB, C);
 			$pdf->SetFont('Arial', B);
-			$pdf->Cell(50, 12, CorregirFecha($row['registro']), BR, C);
+                        $freg="";
+                        $freg= explode(" ", $row['registro']);
+			$pdf->Cell(50, 12, Funciones::invertirFecha($freg[0], '-', '/'), BR, C);
 			$pdf->Cell(0, 6, "", 0, 0);
 			$pdf->Ln();
 			
 			// Telefono
 			$pdf->SetFont('Arial');
 			$pdf->Cell(40, 6, "", 0, R);
-			$pdf->Cell(40, 3, "Phone ".convertirIdioma($telefono), R, L);
+			$pdf->Cell(40, 3, "Phone ".$telefono, R, L);
 			$pdf->Cell(0, 6, "", 0, R);
 			$pdf->Ln();
 			
@@ -249,27 +256,27 @@ if($res)
 				$pdf->SetFont('Arial');
 				$pdf->Cell(15, 4, "To: ", LT, L);
 				$pdf->SetFont('Arial', B);
-				$pdf->Cell(70, 4, convertirIdioma($row['hotel']), RT, L);
+				$pdf->Cell(70, 4, $row['hotel'], RT, L);
 				$pdf->SetFont('Arial');
 				$pdf->Cell(15, 4, "Mr/Ms", 0, L);
 				$pdf->SetFont('Arial', B);
-				$pdf->Cell(60, 4, convertirIdioma($row['nombre_pax']), R, L);
+				$pdf->Cell(60, 4, $row['nombre_pax'], R, L);
 				$pdf->Ln();
 				
 				$pdf->SetFont('Arial');
 				$pdf->Cell(15, 4, " ", L, L);
 				$pdf->SetFont('Arial', B);
-				$pdf->Cell(70, 4, convertirIdioma($row3['direc']), R, L);
+				$pdf->Cell(70, 4, $row3['direc'], R, L);
 				if($totalNinos > 0)
-					$pdf->Cell(75, 4, "        ".agregarUnCero($sumaPasajeros)." Passenger(s) + ".agregarUnCero($totalNinos)." Child(s)", R, L);
+					$pdf->Cell(75, 4, "        0".($sumaPasajeros)." Passenger(s) + 0".($totalNinos)." Child(s)", R, L);
 				else
-					$pdf->Cell(75, 4, "        ".agregarUnCero($sumaPasajeros)." Passenger(s)", R, L);
+					$pdf->Cell(75, 4, "        0".($sumaPasajeros)." Passenger(s)", R, L);
 				$pdf->Ln();
 				
 				$pdf->SetFont('Arial');
 				$pdf->Cell(15, 4, " ", L, L);
 				$pdf->SetFont('Arial', B);
-				$pdf->Cell(70, 4, convertirIdioma($row3['ciudad']), R, L);
+				$pdf->Cell(70, 4, $row3['ciudad'], R, L);
 				$pdf->Cell(75, 4, "", R, L);
 				$pdf->Ln();
 				
@@ -296,27 +303,27 @@ if($res)
 					$row4 = mysql_fetch_array($res4);
 			
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(70, 4, convertirIdioma($row['hotel']), TR, L);
+					$pdf->Cell(70, 4, $row['hotel'], TR, L);
 					$pdf->SetFont('Arial');
 					$pdf->Cell(15, 4, "Mr/Ms", 0, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(60, 4, convertirIdioma($row['nombre_pax']), R, L);
+					$pdf->Cell(60, 4, $row['nombre_pax'], R, L);
 					$pdf->Ln();
 					
 					$pdf->SetFont('Arial');
 					$pdf->Cell(15, 4, " ", L, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(70, 4, convertirIdioma($row4['direc']), R, L);
+					$pdf->Cell(70, 4, $row4['direc'], R, L);
 					if($totalNinos > 0)
-						$pdf->Cell(75, 4, "        ".agregarUnCero($sumaPasajeros)." Passenger(s) + ".agregarUnCero($totalNinos)." Child(s)", R, L);
+						$pdf->Cell(75, 4, "        0".($sumaPasajeros)." Passenger(s) + 0".($totalNinos)." Child(s)", R, L);
 					else
-						$pdf->Cell(75, 4, "        ".agregarUnCero($sumaPasajeros)." Passenger(s)", R, L);
+						$pdf->Cell(75, 4, "        0".($sumaPasajeros)." Passenger(s)", R, L);
 					$pdf->Ln();
 					
 					$pdf->SetFont('Arial');
 					$pdf->Cell(15, 4, " ", L, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(70, 4, convertirIdioma($row4['ciudad']), R, L);
+					$pdf->Cell(70, 4, $row4['ciudad'], R, L);
 					$pdf->Cell(75, 4, "", R, L);
 					$pdf->Ln();
 					
@@ -339,27 +346,27 @@ if($res)
 				else // if($row['cod_provee'] != "" && $row['cod_provee'] != NULL)
 				{
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(70, 4, convertirIdioma($prov), TR, L);
+					$pdf->Cell(70, 4, $prov, TR, L);
 					$pdf->SetFont('Arial');
 					$pdf->Cell(15, 4, "Mr/Ms", 0, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(60, 4, convertirIdioma($row['nombre_pax']), R, L);
+					$pdf->Cell(60, 4, $row['nombre_pax'], R, L);
 					$pdf->Ln();
 					
 					$pdf->SetFont('Arial');
 					$pdf->Cell(15, 4, " ", L, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(70, 4, convertirIdioma($prov_direc), R, L);
+					$pdf->Cell(70, 4, $prov_direc, R, L);
 					if($totalNinos > 0)
-						$pdf->Cell(75, 4, "        ".agregarUnCero($sumaPasajeros)." Passenger(s) + 0".agregarUnCero($totalNinos)." Child(s)", R, L);
+						$pdf->Cell(75, 4, "        0".($sumaPasajeros)." Passenger(s) + 0".($totalNinos)." Child(s)", R, L);
 					else
-						$pdf->Cell(75, 4, "        ".agregarUnCero($sumaPasajeros)." Passenger(s)", R, L);
+						$pdf->Cell(75, 4, "        0".($sumaPasajeros)." Passenger(s)", R, L);
 					$pdf->Ln();
 					
 					$pdf->SetFont('Arial');
 					$pdf->Cell(15, 4, " ", L, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(70, 4, convertirIdioma($prov_ciudad), R, L);
+					$pdf->Cell(70, 4, $prov_ciudad, R, L);
 					$pdf->Cell(75, 4, "", R, L);
 					$pdf->Ln();
 					
@@ -368,7 +375,7 @@ if($res)
 						$pdf->SetFont('Arial');
 						$pdf->Cell(15, 4, "Phone:", LB, L);
 						$pdf->SetFont('Arial', B);
-						$pdf->Cell(70, 4, convertirIdioma($prov_fono), RB, L);
+						$pdf->Cell(70, 4, $prov_fono, RB, L);
 						$pdf->Cell(75, 4, "", RB, L);
 						$pdf->Ln();
 					}
@@ -410,11 +417,11 @@ if($res)
 				$stringFinal = substr($stringFinal,0 , $longitud - 3);
 				
 				$pdf->SetFont('Arial', B);
-				$pdf->Cell(160, 4, convertirIdioma($stringFinal)." / ".convertirIdioma($row['tipoh'])." / ".convertirIdioma($row['pa'])." ", LR, L);
+				$pdf->Cell(160, 4, $stringFinal." / ".$row['tipoh']." / ".$row['pa']." ", LR, L);
 				$pdf->Ln();
 				
 				$pdf->SetFont('Arial', B);
-				$pdf->Cell(160, 4, "IN: ".CorregirFecha($row['fecha_in'])." / OUT: ".CorregirFecha($row['fecha_out'])." ", LR, L);
+				$pdf->Cell(160, 4, "IN: ".Funciones::invertirFecha($row['fecha_in'], '-', '/')." / OUT: ".Funciones::invertirFecha($row['fecha_out'], '-', '/')." ", LR, L);
 				$pdf->Ln();
 			}
 			else
@@ -441,7 +448,7 @@ if($res)
 					$pdf->SetFont('Arial');
 					$pdf->Cell(20, 4, "Fecha:", L, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(140, 4, CorregirFecha($row['fecha_in']), R, L);
+					$pdf->Cell(140, 4, Funciones::invertirFecha($row['fecha_in'], '-', '/'), R, L);
 					$pdf->Ln();
 				}
 				else
@@ -449,7 +456,7 @@ if($res)
 					$pdf->SetFont('Arial');
 					$pdf->Cell(20, 4, "Fecha:", L, L);
 					$pdf->SetFont('Arial', B);
-					$pdf->Cell(140, 4, CorregirFecha($row['fecha_in']), R, L);
+					$pdf->Cell(140, 4, Funciones::invertirFecha($row['fecha_in'], '-', '/'), R, L);
 					$pdf->Ln();
 					
 					$pdf->SetFont('Arial', B);
@@ -472,10 +479,10 @@ if($res)
 				($row['codigo_htl'] == "" || $row['codigo_htl'] == NULL || $row['codigo_htl'] == "0"))
 			{
 				
-				$pdf->Cell(70, 4, $_SESSION["nombre_emp_xml"], 0, L);
+				$pdf->Cell(70, 4, ENT_NAME , 0, L);
 			}
 			else
-				$pdf->Cell(70, 4, convertirIdioma($prov), 0, L);
+				$pdf->Cell(70, 4, $prov, 0, L);
 			
 			$pdf->SetFont('Arial');
 			if($prov_fono == "")
@@ -537,8 +544,8 @@ if($res)
 			
 			if($contador == 1 || $contador == 2)
 			{
-				$pdf->Image('images/tijeras_derecha.png', 16, ($pos_imagen-12.5), 5);
-				$pdf->Image('images/tijeras_izquierda.png', 180, ($pos_imagen-12.5), 5);
+				$pdf->Image($ruta_img . 'tijeras_derecha.png', 16, ($pos_imagen-12.5), 5);
+				$pdf->Image($ruta_img . 'tijeras_izquierda.png', 180, ($pos_imagen-12.5), 5);
 				$pdf->SetLeftMargin(1);
 				$pdf->SetFontSize(12);
 				$pdf->Cell(200, 10, "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -", 0, 'L');

@@ -5,6 +5,11 @@
                     <ul class="list-unstyled list-inline pull-left">
                         <li><?php echo APP_COMPANY; ?> &copy; <?php echo date('Y'); ?></li>
                     </ul>
+                    <ul class="list-unstyled list-inline pull-right">
+                        <li>
+                            <div>Iconos, <a href="http://www.flaticon.com" target="_blank" title="Flaticon">www.flaticon.com</a></div>
+                        </li>
+                    </ul>
                 </div>
             </footer>
 
@@ -33,5 +38,10 @@
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>placeholdr.js'></script> 
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>application.js'></script> 
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>demo.js'></script>
+        
+        <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jquery.stepy.js'></script>
+        <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>demo-formwizard.js'></script> 
+        
+        
     </body>
 </html>

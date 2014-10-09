@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/AppServ/www/oristravel.com/views/sistema/anularBooking.phtml</file>
             <file>file:/C:/AppServ/www/oristravel.com/controllers/sistemaController.php</file>
-            <file>file:/C:/AppServ/www/oristravel.com/controllers/ajaxController.php</file>
+            <file>file:/C:/AppServ/www/oristravel.com/views/sistema/carro.phtml</file>
             <file>file:/C:/AppServ/www/oristravel.com/views/ajax/js/ajax.js</file>
-            <file>file:/C:/AppServ/www/oristravel.com/views/sistema/hoteles.phtml</file>
+            <file>file:/C:/AppServ/www/oristravel.com/views/layout/default/menu-left.php</file>
+            <file>file:/C:/AppServ/www/oristravel.com/application/Config.php</file>
+            <file>file:/C:/AppServ/www/oristravel.com/views/layout/default/header.php</file>
+            <file>file:/C:/AppServ/www/oristravel.com/views/sistema/pdf/voucherPDF.php</file>
         </group>
     </open-files>
 </project-private>

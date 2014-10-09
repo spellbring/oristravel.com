@@ -85,7 +85,7 @@ $(function()
 	.colorText:hover{color: #0088CC; font-size: 13px;}
 </style>
 
-<nav id="page-leftbar" role="navigation">
+<nav id="page-leftbar" role="navigation" style="position:fixed;">
 
     <!-- BEGIN SIDEBAR MENU -->
     <ul class="acc-menu" id="sidebar">
@@ -1013,7 +1013,7 @@ $('#btnBuscarHoteles').on('click',function()
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema';
+            window.location.href = '<?php echo BASE_URL; ?>sistema/anularBooking';
         },2500);
     });
     

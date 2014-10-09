@@ -42,7 +42,7 @@
     
 </head>
 
-<body >
+<body>
 
 
 
@@ -59,12 +59,16 @@
     </div>
     
     <ul class="nav navbar-nav pull-right toolbar">
-
-       <li class="dropdown">
-
-            <a href="#" class="dropdown-toggle username" data-toggle="dropdown" >
-                <img src="<?php echo $_layoutParams['ruta_img']; ?>closed.png" width="24" />
-            </a> 
+        
+        
+        <li class="dropdown">
+            
+            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
+                <img src="<?php echo $_layoutParams['ruta_img']; ?>closed_blanco.png" height="24" />
+            </a>
+            <!-- <a href="#" class="dropdown-toggle username" data-toggle="dropdown" >
+                <img src="<?php echo $_layoutParams['ruta_img']; ?>closed_blanco.png" width="24" />
+            </a> -->
            
             <ul class="dropdown-menu userinfo arrow" style="width:300px">
                 
@@ -79,7 +83,7 @@
                         <!-- <li><a href="#">Usuario: <i class="pull-right"><b>jestay</b></i></a></li> -->
                         <li><a href="#">Usuario: <b><?php echo Session::get('sess_usuario');  ?></b></a></li>
                         <li><a href="#">Perfil: <b><?php echo Session::get('level');  ?></b></a></li>
-                        <li><a href="#">Cliente: <b><?php echo Session::get('sess_agencia');/*Session::get('level');*/  ?></b></a></li>
+                        <li><a href="#">Cliente: <b><?php echo Session::get('sess_agencia'); /*Session::get('level');*/  ?></b></a></li>
                         
                         <li class="divider"></li>
                         <li><a href="<?php echo BASE_URL . 'sistema/salir' ?>" class="text-right">Cerrar sesi&oacute;n</a></li>
@@ -87,43 +91,82 @@
                 </li>
             </ul>
 
-        </li>            
+        </li>
         
+
         <li class="dropdown">
-        		<a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
-                            <img src="<?php echo $_layoutParams['ruta_img']; ?>info.png" width="24" />
-                        </a>
-        		<ul class="dropdown-menu messages arrow" style="width:300px">
-        			<li class="dd-header">
-        				<span><?php echo ENT_NAME; ?></span>
-        				<span><a href="http://<?php echo ENT_WEB; ?>" target="_blank"><?php echo ENT_WEB; ?></a></span>
-        			</li>
-                                
-                                
-                            <div class="scrollthis">
-                                <li><a href="#">
-                                        <span class="time"><?php echo ENT_COMUNA; ?></span>
-                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>home.png" />
-                                        <div>
-                                            <span class="name">Direcci&oacute;n</span>
-                                            <span class="msg"><?php echo ENT_DIREC; ?><br><?php echo ENT_CIUDAD; ?></span>
-                                        </div>
-                                </a></li>
-                                <li><a href="#">
-                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>fono.png" />
-                                        <div><span class="name">Telefono</span><span class="msg"><?php echo ENT_FONO; ?></span></div>
-                                </a></li>
+            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
+                <img src="<?php echo $_layoutParams['ruta_img']; ?>info_blanco.png" width="24" />
+            </a>
+            <ul class="dropdown-menu messages arrow" style="width:300px">
+                <li class="dd-header">
+                    <span><?php echo ENT_NAME; ?></span>
+                    <span><a href="http://<?php echo ENT_WEB; ?>" target="_blank"><?php echo ENT_WEB; ?></a></span>
+                </li>
+
+
+                <div class="scrollthis">
+                    <li><a href="#">
+                            <span class="time"><?php echo ENT_COMUNA; ?></span>
+                            <img src="<?php echo $_layoutParams['ruta_img']; ?>home.png" />
+                            <div>
+                                <span class="name">Direcci&oacute;n</span>
+                                <span class="msg"><?php echo ENT_DIREC; ?><br><?php echo ENT_CIUDAD; ?></span>
                             </div>
-                                
-                                
-                                
-                                <li class="dd-footer">
-                                    <a href="mailto:<?php echo ENT_EMAIL; ?>?Subject=Consulta: " target="_top">
-                                        <?php echo ENT_EMAIL; ?>
-                                    </a>
-                                </li>
-        		</ul>
-        	</li>
+                    </a></li>
+                    <li><a href="#">
+                            <img src="<?php echo $_layoutParams['ruta_img']; ?>fono.png" />
+                            <div><span class="name">Telefono</span><span class="msg"><?php echo ENT_FONO; ?></span></div>
+                    </a></li>
+                </div>
+
+
+
+                <li class="dd-footer">
+                    <a href="mailto:<?php echo ENT_EMAIL; ?>?Subject=Consulta: " target="_top">
+                        <?php echo ENT_EMAIL; ?>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        
+        
+        <!-- <li class="dropdown">
+            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
+                <img src="<?php echo $_layoutParams['ruta_img']; ?>carro_blanco.png" width="24" />
+                <span class="badge">3</span>
+            </a>
+            <ul class="dropdown-menu notifications arrow">
+                <li class="dd-header">
+                    <span>Tiene (3) elementos en el carro</span>
+                </li>
+                <div class="scrollthis">
+                    <li>
+                        <a href="#" class="notification-warning">
+                            <span class="time">2 hrs</span>
+                            <i>S&nbsp;</i> 
+                            <span class="msg">Servicio. </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="notification-order">
+                            <span class="time">10 hrs</span>
+                            <i>P&nbsp;</i> 
+                            <span class="msg">Programa. </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="notification-failure">
+                            <span class="time">12 hrs</span>
+                            <i>H&nbsp;</i>
+                            <span class="msg">Hotel. </span>
+                        </a>
+                    </li>
+                </div>
+                <li class="dd-footer"><a href="<?php echo BASE_URL . 'sistema/carro' ?>">Ir al carro de compras</a></li>
+            </ul>
+        </li> -->
+        
     </ul>
              
 </header>
