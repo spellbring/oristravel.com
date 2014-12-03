@@ -37,7 +37,7 @@ class Database
         $rs= mysql_query($query, $this->_conexion);
         if(empty($rs))
         {
-           return FALSE; 
+            return FALSE; 
         }
         else
         {

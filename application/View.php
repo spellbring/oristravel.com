@@ -41,8 +41,8 @@ class View /*extends Smarty*/
         $_layoutParams= array(
             'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/css/', 
             'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
-            'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/', 
-            'js' => $js
+            'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/' 
+            //'js' => $js
         );
         $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';
         
@@ -79,7 +79,7 @@ class View /*extends Smarty*/
             'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/css/', 
             'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
             'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/',
-            'ruta_hoteles' => BASE_URL . 'views/' . 'sistema' . '/img/hoteles/',
+            'ruta_hoteles' => BASE_URL . 'public/img/hoteles/',
             'js' => $js
         );
         $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';

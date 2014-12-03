@@ -12,54 +12,68 @@ class sistemaController extends Controller
     
     public function __construct() {
         parent::__construct();
+        $this->_hotel= $this->loadModel('hotel');
+        $this->_servicio= $this->loadModel('servicio');
+        $this->_programa= $this->loadModel('programa');
     }
     
-    public function index()
-    {
+    public function index() {
         Session::acceso('Usuario');
-        
-        $common= $this->loadModel('common');
-        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
-        $this->_view->getCiudadesServ= $common->getCiudadesServ();
-        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
-        
+
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+
         $this->_view->setJs(array('ajax'));
-        
+
         //if(Session::get('sess_pBP_ciudadDes'))
         //{
-                $this->_view->mL_expandeFiltros='block';
-        /*}
-        else
-        {
-                $this->_view->mL_expandeFiltros='none';
-        }*/
-        
-                
-        //$this->_view->assign('titulo', 'ORISTRAVELw'); SMARTY
-        $this->_view->titulo='ORISTRAVEL';
+        $this->_view->mL_expandeFiltros = 'block';
+        /* }
+          else
+          {
+          $this->_view->mL_expandeFiltros='none';
+          } */
+
+
+        //$this->_view->assign('titulo', 'ORISTRAVEL'); SMARTY
+        $this->_view->currentMenu=false;
+        $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('index');
     }
-    
-    
-    
-    public function salir()
-    {
-        Session::destroy();
-        header('Location: ' . BASE_URL . 'login?ex');
-        exit;
-        /*
-         * Session::destroy();
-         * Session::destroy('sess_nombreUser');
-         * Session::destroy(array('sess_nombreUser', 'otra'));
-         */
-    }
-    
-    
+
     public function pagina2()
     {
         Session::acceso('Especial');
         //$servicios= $this->loadModel('servicios');
         //$this->_view->servicios= $servicios->getServicios();
+        
+        $imagen='';
+        if(isset($_FILES['imagen']['name']))
+        {
+            $this->getLibrary('upload' . DS . 'class.upload');
+            $rutaImg= ROOT . 'public' . DS . 'img' . DS .'hoteles' . DS;
+            $upload= new upload($_FILES['imagen'], 'es_ES');
+            $upload->allowed= array('image/jpg', 'image/png', 'image/gif');
+            $upload->file_new_name_body= 'upl_' . uniqid();
+            $upload->process($rutaImg);
+            
+            if($upload->processed)
+            {
+                $imagen= $upload->file_dst_name; //nombre de la imagen
+                $thumb= new upload($upload->file_dst_pathname);
+                $thumb->image_resize= true;
+                $thumb->image_x= 100;
+                $thumb->image_y= 100;
+                $thumb->file_name_body_pre= 'thumb_';
+                $thumb->process($rutaImg . 'thumb' . DS);
+            }
+            else
+            {
+                $this->_view->errorImg= $upload->error;
+            }
+        }
+        
         $this->_view->titulo='ORISTRAVEL';
         $this->_view->renderizaSistema('pagina2');
         //header('Location: ' . BASE_URL . 'confirmar');
@@ -73,14 +87,14 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         $hotel= $this->loadModel('hotel');
-        $common= $this->loadModel('common');
+
         
         $this->_view->setJs(array('ajax'));
         
-        $this->_view->getCategoriaHoteles= $hotel->getCatHoteles();
-        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
-        $this->_view->getCiudadesServ= $common->getCiudadesServ();
-        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        $this->_view->objCategoriaHoteles= $this->_hotel->getCatHoteles();
+        $this->_view->objCiudadesHotel= $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ= $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG= $this->_programa->getCiudadesPRG();
         
         
         $this->_view->getHoteles= $hotel->getAdmHoteles(
@@ -106,10 +120,9 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $common= $this->loadModel('common');
-        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
-        $this->_view->getCiudadesServ= $common->getCiudadesServ();
-        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        $this->_view->objCiudadesHotel= $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ= $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG= $this->_programa->getCiudadesPRG();
         
         $this->_view->currentMenu=3;
         $this->_view->titulo='ORISTRAVEL';
@@ -120,10 +133,9 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $common= $this->loadModel('common');
-        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
-        $this->_view->getCiudadesServ= $common->getCiudadesServ();
-        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        $this->_view->objCiudadesHotel= $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ= $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG= $this->_programa->getCiudadesPRG();
         
         $this->_view->currentMenu=5;
         $this->_view->titulo='ORISTRAVEL';
@@ -140,10 +152,9 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $common= $this->loadModel('common');
-        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
-        $this->_view->getCiudadesServ= $common->getCiudadesServ();
-        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        $this->_view->objCiudadesHotel= $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ= $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG= $this->_programa->getCiudadesPRG();
         
         
         $this->_view->CR_fechaDesde=date('d/m/Y');
@@ -152,6 +163,9 @@ class sistemaController extends Controller
             $this->_view->CR_fechaDesde=Session::get('sess_pCR_fechaDesde');
         }
         
+        
+        $this->_view->rdbRes=false;
+        $this->_view->rdbVia=false;
         $this->_view->CR_fechaHasta=Funciones::sumFecha(date('d/m/Y'), 0, 3);
         if(Session::get('sess_pCR_tipoFecha')==1)
         {
@@ -227,10 +241,9 @@ class sistemaController extends Controller
     {
         Session::acceso('Usuario');
         
-        $common= $this->loadModel('common');
-        $this->_view->getCiudadesHotel= $common->getCiudadesHot();
-        $this->_view->getCiudadesServ= $common->getCiudadesServ();
-        $this->_view->getCiudadesPRG= $common->getCiudadesPRG();
+        $this->_view->objCiudadesHotel= $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ= $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG= $this->_programa->getCiudadesPRG();
         
         
         $this->_view->CR_fechaDesde=date('d/m/Y');
@@ -239,6 +252,8 @@ class sistemaController extends Controller
             $this->_view->CR_fechaDesde=Session::get('sess_pCR_fechaDesde');
         }
         
+        $this->_view->rdbRes=false;
+        $this->_view->rdbVia=false;
         $this->_view->CR_fechaHasta=Funciones::sumFecha(date('d/m/Y'), 0, 3);
         if(Session::get('sess_pCR_tipoFecha')==1)
         {
@@ -263,6 +278,7 @@ class sistemaController extends Controller
         
         
         /*BEIGN: Paginador; */
+        $pagina=0;
         $pagina= $this->filtrarInt($pagina);
         $this->getLibrary('paginador');
         $paginador= new Paginador();
@@ -287,34 +303,36 @@ class sistemaController extends Controller
     
     
     
-    public function carro()
-    {
+    public function carro() {
         Session::acceso('Usuario');
-        
-        $this->_view->titulo='ORISTRAVEL';
+
+        $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('carro');
     }
-    
-    
-    public function contactenos()
-    {
+
+    public function contactenos() {
         Session::acceso('Usuario');
-        
-        $this->_view->currentMenu=7;
-        $this->_view->titulo='ORISTRAVEL';
+
+        $this->_view->currentMenu = 7;
+        $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('contactenos');
     }
-    
-    
-    
-    
-    
+
+    public function usuarios() {
+        Session::acceso('Usuario');
+
+        $this->_view->currentMenu = 4;
+        $this->_view->titulo = 'ORISTRAVEL';
+        $this->_view->renderizaSistema('usuarios');
+    }
+
     public function buscarHoteles()
     {
         Session::acceso('Usuario');
         
         
         /*BEIGN: Paginador; */
+        $pagina=0;
         $pagina= $this->filtrarInt($pagina);
         $this->getLibrary('paginador');
         $paginador= new Paginador();
@@ -328,6 +346,27 @@ class sistemaController extends Controller
         $this->_view->renderizaSistema('buscarHoteles');
     }
     
+    
+    
+    
+    
+    /*******************************************************************************
+    *                                                                              *
+    *                             METODOS PROCESADORES                             *
+    *                                                                              *
+    *******************************************************************************/
+    
+    public function salir() {
+        Session::destroy();
+        header('Location: ' . BASE_URL . 'login?ex');
+        exit;
+        /*
+         * Session::destroy();
+         * Session::destroy('sess_nombreUser');
+         * Session::destroy(array('sess_nombreUser', 'otra'));
+         */
+    }
+
 }
 
 ?>

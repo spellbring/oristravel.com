@@ -12,13 +12,14 @@ class loginController extends Controller
     
     public function __construct() {
         parent::__construct();
-        $this->_login= $this->loadModel('login');   // para cargar el modelo para todo el controller
+        $this->_login= $this->loadModel('usuario');   // para cargar el modelo para todo el controller
     }
     
     public function index()
     {
         $this->_view->titulo='Iniciar sesi&oacute;n';
         $this->_view->renderizaPrincipal('login');
+        $this->_alertDestroy();
     }
     
     
@@ -29,13 +30,13 @@ class loginController extends Controller
         
         if(!empty($LC_user) && !empty($LC_pass))
         {   
-            $rowUsuarios= $this->_login->getUsuarios($LC_user);
+            $objUsuarios= $this->_login->getUsuarios($LC_user);
             
-            if($rowUsuarios!=false)
+            if($objUsuarios)
             {
-                if(strtolower(trim($rowUsuarios[0]['login']))==$LC_user && $rowUsuarios[0]['clave']==crypt($LC_pass,'t5y4c0m'))
+                if(strtolower($objUsuarios[0]->getLogin())==$LC_user && $objUsuarios[0]->getClave()==crypt($LC_pass,'t5y4c0m'))
                 {
-                    if($rowUsuarios[0]['estado']!=1)
+                    if($objUsuarios[0]->getEstado()!=1)
                     {
                         $this->redireccionar();
                     }
@@ -50,21 +51,21 @@ class loginController extends Controller
                         
                         Session::set('Autenticado', true);
                         Session::set('sess_key_', $numero_aleatorio);
-                        Session::set('sess_tipo_usuario', $rowUsuarios[0]['tipo_usuario']);
+                        Session::set('sess_tipo_usuario', $objUsuarios[0]->getTipoUsuario());
                         Session::set('sess_usuario', $LC_user);
                         
-                        Session::set('sess_nombre', trim($rowUsuarios[0]['nombre']));
-                        Session::set('sess_apellido', trim($rowUsuarios[0]['apellido']));
-                        Session::set('sess_id_usuario', $rowUsuarios[0]['id']);
-                        Session::set('sess_id_agencia', $rowUsuarios[0]['id_agenc_na']);
-                        Session::set('sess_status', $rowUsuarios[0]['estado']);
+                        Session::set('sess_nombre', $objUsuarios[0]->getNombre());
+                        Session::set('sess_apellido', $objUsuarios[0]->getApellido());
+                        Session::set('sess_id_usuario', $objUsuarios[0]->getIdUsuario());
+                        Session::set('sess_id_agencia', $objUsuarios[0]->getIdAgencNa());
+                        Session::set('sess_status', $objUsuarios[0]->getEstado());
                         
-                        Session::set('sess_comag', trim($rowUsuarios[0]['comag']));
-                        Session::set('sess_agencia', trim($rowUsuarios[0]['agencia']));
-                        Session::set('sess_correo', trim($rowUsuarios[0]['correo']));
-                        Session::set('sess_correo_admin', trim($rowUsuarios[0]['correo_admin']));
-                        Session::set('sess_correo_ejecutivo', trim($rowUsuarios[0]['correo_ejecutivo']));
-                        Session::set('sess_grupo', $rowUsuarios[0]['grupo']);
+                        Session::set('sess_comag', $objUsuarios[0]->getComag());
+                        Session::set('sess_agencia', $objUsuarios[0]->getAgencia());
+                        Session::set('sess_correo', $objUsuarios[0]->getCorreo());
+                        Session::set('sess_correo_admin', $objUsuarios[0]->getCorreoAdmin());
+                        Session::set('sess_correo_ejecutivo', $objUsuarios[0]->getCorreoEjecutivo());
+                        Session::set('sess_grupo', $objUsuarios[0]->getGrupo());
                         
                         Session::set('level', 'Admin');
                         Session::set('tiempo', time());
@@ -75,13 +76,14 @@ class loginController extends Controller
                         ######################################################################################
                         
                         
-                        $this->_login->deleteOlVenta();
-                        Session::set('sess_tcambio', $this->_login->getTipoCambio());
+                        $business= $this->loadModel('business');
+                        $business->deleteOlVenta($LC_user);
+                        Session::set('sess_tcambio', $business->getTipoCambio());
                         $ua= Funciones::getBrowser();
                         
                         $browser_web= $ua['name']." ".$ua['version'];
                         $so= $ua['platform'];
-                        $this->_login->auditor($LC_user, $browser_web, $so);
+                        $business->auditor($LC_user, $browser_web, $so);
                         /*
                         ***************************************************************** 
                         */
@@ -91,18 +93,35 @@ class loginController extends Controller
                 }
                 else
                 {
-                     $this->redireccionar(); //Error Usuario o Pass
+                    $this->_alert(2, 'Usuario o password son incorrectos.');
+                    $this->redireccionar(); //Error Usuario o Pass
                 }
             }
             else
             {
-                 $this->redireccionar(); //No existe
+                $this->_alert(2, 'Usuario o password son incorrectos.');
+                $this->redireccionar(); //No existe
             }
         }
         else
         {
-             $this->redireccionar(); //Ingrese un usuario o Pass
+            $this->_alert(2, 'Ingrese un usuario o password.');
+            $this->redireccionar(); //Ingrese un usuario o Pass
         }
+    }
+    
+    
+    
+    
+    
+    private function _alert($tipo = false, $msg = false) {
+        Session::set('sess_alerts', $tipo); //Tipo alerta
+        Session::set('sess_alerts_msg', $msg);
+    }
+
+    private function _alertDestroy() {
+        Session::destroy('sess_alerts');
+        Session::destroy('sess_alerts_msg');
     }
 }
 

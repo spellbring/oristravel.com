@@ -6,11 +6,16 @@
  * Fecha    : Lunes, 28 de julio de 2014
  */
 
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
-header('Content-Type: text/html; charset=UTF-8');
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', realpath(dirname(__FILE__)) . DS);
 define('APP_PATH', ROOT . 'application' . DS);
+define('CHARSET', 'UTF-8'); //ISO-8859-1
+session_name('0ri5tR4v3l');
+session_cache_limiter('nocache');
+date_default_timezone_set('America/Santiago');
+header('Content-Type: text/html; charset=' . CHARSET);
 
 try
 {

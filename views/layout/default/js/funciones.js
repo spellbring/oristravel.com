@@ -316,30 +316,28 @@ function procesoCargaDiv(valor, div, php)
 
 function habitaciones(table, num)
 {
-	for(var x=1;x<=3;x++)
-	{
-		document.getElementById(table+'_'+x).style.display="none";
-	}
-	
-	for(var x=1;x<=num;x++)
-	{
-		var id=table+'_'+x;
-		mostrado=0;
-		elem = document.getElementById(id);
-		if(elem.style.display=="block")
-		{
-			mostrado=1;
-			elem.style.display="none";
-		}
-		if(mostrado!=1)
-		{
-			//elem.style.display="block";
-			$('#'+table+'_'+x).fadeIn( 1000 );
-			$('#'+table+'_'+x).animate({
-				'display': 'block'
-			});
-		}		
-	}
+    for(var x=1;x<=3;x++)
+    {
+        $("#"+table+'_'+x).css("display", "none");
+    }
+
+    for(var x=1;x<=num;x++)
+    {
+        var id=table+'_'+x;
+        mostrado=0;
+        if($('#'+id).css('display') === 'block')
+        {
+            mostrado=1;
+            $('#'+id).css('display', 'none');
+        }
+        if(mostrado!==1)
+        {
+            $('#'+table+'_'+x).fadeIn( 1000 );
+            $('#'+table+'_'+x).animate({
+                    'display': 'block'
+            });
+        }		
+    }
 }
 
 
@@ -347,37 +345,43 @@ function habitaciones(table, num)
 
 function habilitaEdadChild(id,hab)
 {
-	var i, x;
-	status_1 = new Array (true, false, false); 
-	status_2 = new Array (true, true, false); 
-	
-	for(i=0; i<3; i++)
-	{
-		if(id==i)
-		{
-			for(x=1; x<4; x++)
-			{
-				if(hab==x)
-				{
-					document.getElementById('mL_edadChild_1_'+x).disabled = status_1[i];
-					document.getElementById('mL_edadChild_2_'+x).disabled = status_2[i];
-				}
-			}
-		}
-	}
+    var i, x;
+    status_1 = new Array (true, false, false); 
+    status_2 = new Array (true, true, false); 
+
+    for(i=0; i<3; i++)
+    {
+        if(id==i)
+        {
+            for(x=1; x<4; x++)
+            {
+                if(hab==x)
+                {
+                    $("#mL_edadChild_1_"+x).prop('disabled', status_1[i]);
+                    $("#mL_edadChild_2_"+x).prop('disabled', status_2[i]);
+                }
+            }
+        }
+    }
 }
 
 
 function muestraOculta(id, estado)
 {
-	if(estado==1)
-	{
-		document.getElementById(id).style.display="block";
-	}
-	else
-	{
-		document.getElementById(id).style.display="none";
-	}
+    if(estado===1)
+    {
+        $('#'+id).delay( 10 ).fadeIn( 500 );
+        $('#'+id).animate({
+                'display': 'block'
+        });
+    }
+    else
+    {
+        $('#'+id).delay( 10 ).fadeOut( 500 );
+        $('#'+id).animate({
+                            'display': 'none'
+                        });
+    }
 }
 
 
@@ -407,4 +411,20 @@ function checkServ(idChk, nConf, fPPago)
             $("#"+idChk).prop("checked", "checked");
         }
     }
+}
+
+
+function abrePopup(div, docPHP, idTitulo, titulo, val)
+{
+    initLoad();
+    $("#" + div).html('');
+    $("#" + idTitulo ).html(titulo);
+    $.post(docPHP, 
+    {
+        varCenterBox: val
+    }, function(data)
+    {
+        $("#" + div).html(data);
+        endLoad();
+    });
 }
