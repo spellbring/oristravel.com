@@ -1,10 +1,41 @@
 <div id="page-content">
 	<div id='wrap'>
-		<div id="page-heading">
+            <div id="page-heading">
 
-                    <h1>Bienvenido Pagina 2</h1>
+                <h1>Bienvenido Pagina 2</h1>
+
+            </div>
+            
+            <div class="container">
+
 			
-		</div>
-		
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <form enctype="multipart/form-data" method="post" action="<?php echo BASE_URL . 'sistema/pagina2'; ?>">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input type="file" name="imagen">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <a href="<?php echo $_layoutParams['ruta_hoteles']; ?>" ><img src="<?php echo $_layoutParams['ruta_hoteles'].'thumb/'; ?>"</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" >
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            
 	</div> <!--wrap -->
 </div> <!-- page-content -->

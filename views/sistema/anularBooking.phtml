@@ -73,24 +73,24 @@ $(function()
                                     <form method="post" id="frmConsRes" action="<?php echo BASE_URL ?>process/consBooking">
                                     <table align="center" cellspacing="5" cellpadding="5">
                                         <tr>
- 	                                       <td>Fecha desde:</td>
-                                           <td>
-                                           		<input type="text" id="txtFechaDesde-ConsRes" name="txtFechaDesde-ConsRes" style="width:100px" value="<?php echo $this->CR_fechaDesde; ?>">
-                                           </td>
-                                           <td>Fecha hasta:</td>
-                                           <td>
-                                           		<input type="text" id="txtFechaHasta-ConsRes" name="txtFechaHasta-ConsRes" style="width:100px" value="<?php echo $this->CR_fechaHasta; ?>">
-                                           </td>
-                                           <td rowspan="2">&nbsp;&nbsp;&nbsp;
-                                           <input type="button"  id="btnConsBooking" class="btn btn-primary" value="Buscar">
-                                           <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" />
-                                           </td>
+                                            <td>Fecha desde:</td>
+                                            <td>
+                                                <input type="text" id="txtFechaDesde-ConsRes" name="txtFechaDesde-ConsRes" style="width:100px" value="<?php echo $this->CR_fechaDesde; ?>">
+                                            </td>
+                                            <td>Fecha hasta:</td>
+                                            <td>
+                                                <input type="text" id="txtFechaHasta-ConsRes" name="txtFechaHasta-ConsRes" style="width:100px" value="<?php echo $this->CR_fechaHasta; ?>">
+                                            </td>
+                                            <td rowspan="2">&nbsp;&nbsp;&nbsp;
+                                                <input type="button"  id="btnConsBooking" class="btn btn-primary" value="Buscar">
+                                                <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" />
+                                            </td>
                                         </tr>
                                         <tr>
- 	                                       <td>Fecha reserva:</td>
-                                           <td><input type="radio" id="rdbReserva" name="rdbFecha" value="1" <?php echo $this->rdbRes; ?>></td>
-                                           <td>Fecha viaje:</td>
-                                           <td><input type="radio" id="rdbViaje" name="rdbFecha" value="2" <?php echo $this->rdbVia; ?>></td>
+                                            <td>Fecha reserva:</td>
+                                            <td><input type="radio" id="rdbReserva" name="rdbFecha" value="1" <?php echo $this->rdbRes; ?>></td>
+                                            <td>Fecha viaje:</td>
+                                            <td><input type="radio" id="rdbViaje" name="rdbFecha" value="2" <?php echo $this->rdbVia; ?>></td>
                                         </tr>
                                     </table>
                                     </form>
@@ -99,7 +99,7 @@ $(function()
                                 
                             </div>
                         </div>
-                    </div>	
+                    </div>
 								
 								
 								

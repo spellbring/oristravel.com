@@ -10,8 +10,16 @@ class Funciones
 {
     public static function invertirFecha($fecha, $char, $newChar)
     {
-        $datos = explode($char, $fecha);
-        $fechaFinal = $datos[2].$newChar.$datos[1].$newChar.$datos[0];
+        if($fecha)
+        {
+            $datos = explode($char, $fecha);
+            $fechaFinal = $datos[2].$newChar.$datos[1].$newChar.$datos[0];
+        }
+        else
+        {
+            $fechaFinal='';
+        }
+        
         return $fechaFinal;
     }
     

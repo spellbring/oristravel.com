@@ -1,0 +1,139 @@
+<div id="page-content">
+    <div id='wrap'>
+        <div id="page-heading">
+
+                <!-- <ol class="breadcrumb">
+                        <li><a href="index.php">Dashboard</a></li>
+                        <li>UI Components</li>
+                        <li class="active">Tabs &amp; Accordions</li>
+                </ol> -->
+
+                <h1>Usuarios</h1>
+        </div>
+		
+        
+        <div class="container">
+
+			
+
+            <div class="row">
+                <div class="col-md-12">
+
+
+
+
+                    <div class="panel panel-primary" style="min-width: 680px;">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#usuarios" data-toggle="tab">Nuevo Usuario</a>
+                                </li>
+                                <li>
+                                    <a href="#editUser" data-toggle="tab">Editar Usuario</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="usuarios">
+                                    
+                                    <table class="table table-bordered " style="width: 650px;" align="center">
+                                        <tbody>
+                                            <tr>
+                                                <th>Nombre agencia</th>
+                                                <td>
+                                                    <select name="U_cmbAgencia" id="U_cmbAgencia" class="form-control" >
+                                                        <option value="0">Seleccione destino</option>
+                                                        <option value="1">destino</option>
+                                                        <option value="2">Seleccione</option>
+                                                    </select>
+                                                </td>
+                                                <th>Tipo usuario</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                                <th>Apellido</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Usuario</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                                <th>Contrase&ntilde;a</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                                <th>Correo Administrativo</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo ejecutivo</th>
+                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
+                                                <th>Estado</th>
+                                                <td>
+                                                    <select name="U_cmbEstado" id="U_cmbEstado" class="form-control" >
+                                                        <option value="0">Seleccione destino</option>
+                                                        <option value="1">destino</option>
+                                                        <option value="2">Seleccione</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" align="center"> <input type="button" class="finish btn-primary btn" id="btnCrearUsuario" value="Crear nuevo usuario" /> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                                
+                                
+                                <div class="tab-pane" id="editUser">
+                                    <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
+                                        <thead>
+                                            <tr style="background-color:#76c4ed;">
+                                                <th>Usuario</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido</th>
+                                                <th>Agencia</th>
+                                                <th>Tipo</th>
+                                                <th width="39"></th>
+                                                <th width="39"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr>
+                                                <td><?php echo $cR_fecha; ?></td>
+                                                <td><?php echo $cR_fViaje; ?></td>
+                                                <td><?php echo $cR_nFile; ?></td>
+                                                <td><?php echo $cR_agencia; ?></td>
+                                                <td><?php echo $cR_vendedor; ?></td>
+                                                <td><?php echo $cR_pasajero; ?></td>
+                                                <td><?php echo $xxx; ?></td>
+                                            </tr>
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                    
+                                    
+                </div>
+            </div>
+            
+            
+
+
+			
+
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
