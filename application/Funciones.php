@@ -163,6 +163,64 @@ class Funciones
             'pattern'    => $pattern
         );
     }
+    public function validaFoto($tipoFotoPerfil)
+    {
+        $tipoImagen=false;
+            if(strpos(strtolower($tipoFotoPerfil), "gif")){ $tipoImagen= "gif"; }
+        elseif(strpos(strtolower($tipoFotoPerfil), "png")){ $tipoImagen= "png"; }
+        elseif(strpos(strtolower($tipoFotoPerfil), "jpeg")){ $tipoImagen= "jpg"; }
+        elseif(strpos(strtolower($tipoFotoPerfil), "jpg")){ $tipoImagen= "jpg"; }
+
+        if($tipoImagen)
+        {
+            return $tipoImagen;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public function validaArchivo($archivo){
+     $tipoArchivo= false;
+        if(strpos(strtolower($archivo), "pdf")){$tipoArchivo = "pdf";}
+        
+        if($tipoArchivo)
+        {
+           return $tipoArchivo; 
+        }
+        else
+        {           
+           return false; 
+        }
+        
+    }
+    
+     public function validaChk($chk)
+    {
+        if($chk=='on')
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    public function eliminaFile($file)
+    {
+        if(is_readable($file))
+        {
+            @unlink($file);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+   
 }
 
 ?>

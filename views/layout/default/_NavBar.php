@@ -133,7 +133,7 @@
         </li>
         
         
-        <!-- <li class="dropdown">
+        <li class="dropdown">
             <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
                 <img src="<?php echo $_layoutParams['ruta_img']; ?>carro_blanco.png" width="24" />
                 <span class="badge">3</span>
@@ -167,7 +167,7 @@
                 </div>
                 <li class="dd-footer"><a href="<?php echo BASE_URL . 'sistema/carro' ?>">Ir al carro de compras</a></li>
             </ul>
-        </li> -->
+        </li>
         
     </ul>
              

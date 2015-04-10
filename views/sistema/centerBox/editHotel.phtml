@@ -1,7 +1,8 @@
-<form enctype="multipart/form-data" class="frmEditaHotel">
+
+<form enctype="multipart/form-data" class="frmEditaHotel" id="frmEditaHotel">
 <div class="panel panel-info">
     <div class="panel-heading">
-        <h4>DATOS HOTEL: <b><?php echo $eH_hotel; ?></b></h4>
+        <h4>DATOS HOTEL: <b><?php echo $this->EH_hotel; ?></b></h4>
     </div>
     <div class="panel-body">
         <div class="row">
@@ -11,31 +12,34 @@
                 <table align="center">
                 	<tr>
                     	<td>Nombre hotel</td>
-                        <td><input name="txtEH_nombreHotel" type="text" value="<?php echo $eH_hotel; ?>" /></td>
+                        <td><input name="txtEH_nombreHotel" type="text" value="<?php echo $this->EH_hotel; ?>" /></td>
                         <td rowspan="3" width="100"></td>
                         <td>Latitud</td>
-                        <td><input name="txtEH_latitud" type="text" value="<?php echo $eH_lat; ?>"  /></td>
+                        <td><input name="txtEH_latitud" type="text" value="<?php echo $this->EH_lat; ?>"  /></td>
                 	</tr>
                     <tr>
                     	<td>Categor&iacute;a</td>
                         <td>
                             <select name="cmbEH_categoria" style="width:100px" >
 							<?php
-                            $varEH_getCategoriasHotel= FALSE;//$privateFunctions->getCategoriasHotel();
-                            if($varEH_getCategoriasHotel!=FALSE)
+                            //$varEH_getCategoriasHotel= FALSE;//$privateFunctions->getCategoriasHotel();
+                            if($this->objCategorias)
                             {
+                               
                                 echo '<option value="0">Todas</option>';
-                                foreach($varEH_getCategoriasHotel as $eH_columCatHot)
+                                foreach($this->objCategorias as $eH_columCatHot)
                                 {
-                                    $eH_nombreCat= trim($eH_columCatHot['nombre']);
-									if($eH_cat==$eH_nombreCat)
+                                    $eH_nombreCat= trim($eH_columCatHot->getNombre());
+									if($this->EH_cat==$eH_nombreCat)
+                                                                            
 									{ ?>
+                                
 										<option selected="selected" value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
 									<?php
                                     }
 									else
 									{ ?>
-                                		<option value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
+                                                                                <option value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
                             <?php 
 									}
 								}
@@ -43,13 +47,13 @@
                             </select>
                         </td>
                         <td>Longitud</td>
-                        <td><input name="txtEH_longitud" type="text" value="<?php echo $eH_lon; ?>" /></td>
+                        <td><input name="txtEH_longitud" type="text" value="<?php echo $this->EH_lon; ?>" /></td>
                 	</tr>
                     <tr>
                     	<td>Direcci&oacute;n</td>
-                    	<td><input name="txtEH_direc" type="text" value="<?php echo $eH_direc; ?>" /></td>
+                    	<td><input name="txtEH_direc" type="text" value="<?php echo $this->EH_direc; ?>" /></td>
                     	<td>Sitio web</td>
-                    	<td><input name="txtEH_sitioWeb" type="text" value="<?php echo $eH_sWeb; ?>" /></td>
+                    	<td><input name="txtEH_sitioWeb" type="text" value="<?php echo $this->EH_web; ?>" /></td>
                 	</tr>
                 </table>
             </div>
@@ -75,9 +79,9 @@
                         <div class="col-sm-9">
                         	<center>Imagen Principal</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if(!empty($eH_miniEnc)){?>
+                            <?php if(!empty($this->EH_imgEnc)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $eH_miniEnc; ?>" />
+                                    	<img src="<?php echo $this->EH_imgEnc; ?>" />
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -103,9 +107,9 @@
                         <div class="col-sm-9">
                         	<center>Imagen 2</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if(!empty($eH_miniCon)){?>
+                            <?php if(!empty($this->EH_imgCont)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $eH_miniCon; ?>" />
+                                    	<img src="<?php echo $this->EH_imgCont; ?>" />
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -131,9 +135,9 @@
                         <div class="col-sm-9">
                         	<center>Imagen 3</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if(!empty($eH_miniCon2)){?>
+                            <?php if(!empty($this->EH_imgCont2)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $eH_miniCon2; ?>" />
+                                    	<img src="<?php echo $this->EH_imgCont2; ?>" />
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -162,9 +166,9 @@
                         <div class="col-sm-9" >
                         	<center>Imagen 4</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if(!empty($eH_miniCon3)){?>
+                            <?php if(!empty($this->EH_imgCont3)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $eH_miniCon3; ?>" />
+                                    	<img src="<?php echo $this->EH_imgCont3; ?>" />
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -190,9 +194,9 @@
                          <div class="col-sm-9" >
                          	<center>Imagen 5</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if(!empty($eH_miniCon4)){?>
+                            <?php if(!empty($this->EH_imgCont)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $eH_miniCon4; ?>" />
+                                    	<img src="<?php echo $this->EH_imgCont4; ?>" />
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -238,25 +242,25 @@
                 	<tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/restaurant.jpg" /><input type="checkbox" <?php echo $eH_rest; ?> name="chkEH_rest" > Restaurant</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/restaurant.jpg" /><input type="checkbox" <?php echo $this->EH_rest; ?> name="chkEH_rest" > Restaurant</label>
                             </div>
                         </td>
                         <td rowspan="5" width="50">&nbsp;</td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/lavanderia.jpg" /><input type="checkbox" <?php echo $eH_lavan; ?> name="chkEH_lavan" > Lavander&iacute;a</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/lavanderia.jpg" /><input type="checkbox" <?php echo $this->EH_lavan; ?>  name="chkEH_lavan" > Lavander&iacute;a</label>
                             </div>
                         </td>
                         <td rowspan="5" width="50">&nbsp;</td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/piscina_desc.jpg" /><input type="checkbox" <?php echo $eH_pDes; ?> name="chkEH_pisDesc" > Piscina descubierta</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/piscina_desc.jpg" /><input type="checkbox" <?php echo $this->EH_pDes; ?> name="chkEH_pisDesc" > Piscina descubierta</label>
                             </div>
                         </td>
                         <td rowspan="5" width="50">&nbsp;</td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/tenis.jpg" /><input type="checkbox" <?php echo $eH_tenis; ?> name="chkEH_cTenis" > Cancha de tenis</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/tenis.jpg" /><input type="checkbox" <?php echo $this->EH_tenis; ?> name="chkEH_cTenis" > Cancha de tenis</label>
                             </div>
                         </td>
                 	</tr>
@@ -264,22 +268,22 @@
                     <tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/bar.jpg" /><input type="checkbox" <?php echo $eH_bar; ?> name="chkEH_bar" > Bar</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/bar.jpg" /><input type="checkbox" <?php echo $this->EH_bar; ?> name="chkEH_bar" > Bar</label>
                             </div>
                         </td>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/business_center.jpg" /><input type="checkbox" <?php echo $eH_business; ?> name="chkEH_busCen" > Business center</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/business_center.jpg" /><input type="checkbox" <?php echo $this->EH_business; ?> name="chkEH_busCen" > Business center</label>
                             </div>
                         </td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/spa.jpg" /><input type="checkbox" <?php echo $eH_spa; ?> name="chkEH_spa" > Spa</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/spa.jpg" /><input type="checkbox" <?php echo $this->EH_spa; ?> name="chkEH_spa" > Spa</label>
                             </div>
                         </td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/guar_inf.jpg" /><input type="checkbox" <?php echo $eH_guarderia; ?> name="chkEH_guarderia" > Club de ni&ntilde;os</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/guar_inf.jpg" /><input type="checkbox" <?php echo $this->EH_guard; ?> name="chkEH_guarderia" > Club de ni&ntilde;os</label>
                             </div>
                         </td>
                 	</tr>
@@ -287,24 +291,24 @@
                     <tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/cafeteria.jpg" /><input type="checkbox" <?php echo $eH_cafet; ?> name="chkEH_cafe" > Cafeter&iacute;a</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/cafeteria.jpg" /><input type="checkbox" <?php echo $this->EH_cafe; ?> name="chkEH_cafe" > Cafeter&iacute;a</label>
                             </div>
                         </td>
                         
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/internet.jpg" /><input type="checkbox" <?php echo $eH_intHot; ?> name="chkEH_interHot" > Internet hotel</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/internet.jpg" /><input type="checkbox" <?php echo $this->EH_intHot; ?> name="chkEH_interHot" > Internet hotel</label>
                             </div>
                         </td>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/gimnasio.jpg" /><input type="checkbox" <?php echo $eH_gym; ?> name="chkEH_gym" > Gimnasio</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/gimnasio.jpg" /><input type="checkbox" <?php echo $this->EH_gym; ?> name="chkEH_gym" > Gimnasio</label>
                             </div>
                         </td>
                         
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/salones.jpg" /><input type="checkbox" <?php echo $eH_salasReu; ?> name="chkEH_sReu" > Salas de reuni&oacute;n</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/salones.jpg" /><input type="checkbox" <?php echo $this->EH_salas; ?> name="chkEH_sReu" > Salas de reuni&oacute;n</label>
                             </div>
                         </td>
                 	</tr>
@@ -312,24 +316,24 @@
                     <tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/room_service.jpg" /><input type="checkbox" <?php echo $eH_sHab; ?> name="chkEH_servHab" > Servicio a la habitaci&oacute;n</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/room_service.jpg" /><input type="checkbox" <?php echo $this->EH_servHab; ?> name="chkEH_servHab" > Servicio a la habitaci&oacute;n</label>
                             </div>
                         </td>
                         
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/estacionamiento.jpg" /><input type="checkbox" <?php echo $eH_est; ?> name="chkEH_estaciona" > Estacionamiento</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/estacionamiento.jpg" /><input type="checkbox" <?php echo $this->EH_est; ?> name="chkEH_estaciona" > Estacionamiento</label>
                             </div>
                         </td>
                         
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/piscina_cubierta.jpg" /><input type="checkbox" <?php echo $eH_pCub; ?> name="chkEH_pisCub" > Piscina cubierta</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/piscina_cubierta.jpg" /><input type="checkbox" <?php echo $this->EH_pCub; ?> name="chkEH_pisCub" > Piscina cubierta</label>
                             </div>
                         </td>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/jardines.jpg" /><input type="checkbox" <?php echo $eH_jardin; ?> name="chkEH_jardin" > Jard&iacute;n</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/jardines.jpg" /><input type="checkbox" <?php echo $this->EH_jardin; ?> name="chkEH_jardin" > Jard&iacute;n</label>
                             </div>
                         </td>
                 	</tr>
@@ -338,14 +342,16 @@
                     <tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/acceso_discap.jpg" /><input type="checkbox" <?php echo $eH_disca; ?> name="chkEH_disca" > Discapacitados</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/acceso_discap.jpg" /><input type="checkbox" <?php echo $this->EH_disca; ?> name="chkEH_disca" > Discapacitados</label>
                             </div>
                         </td>
                         
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/shopping.jpg" /><input type="checkbox" <?php echo $eH_baut; ?> name="chkEH_bou" > Boutique</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/shopping.jpg" /><input type="checkbox" <?php echo $this->EH_bou; ?> name="chkEH_bou" > Boutique </label>
                             </div>
+                            
+                           
                         </td>
                         
                         <td>
@@ -381,25 +387,25 @@
                 	<tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/aire_acondicionado.jpg" /><input type="checkbox" <?php echo $eH_acond; ?> name="chkEH_airAcond" > Aire acondicionado</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/aire_acondicionado.jpg" /><input type="checkbox" <?php echo $this->EH_acon; ?> name="chkEH_airAcond" > Aire acondicionado</label>
                             </div>
                         </td>
                         <td rowspan="3" width="50">&nbsp;</td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/caja_de_seguridad.jpg" /><input type="checkbox" <?php echo $eH_cFuerte; ?> name="chkEH_cFuerte" > Caja fuerte</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/caja_de_seguridad.jpg" /><input type="checkbox" <?php echo $this->EH_cajaF; ?> name="chkEH_cFuerte" > Caja fuerte</label>
                             </div>
                         </td>
                         <td rowspan="3" width="50">&nbsp;</td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/tv_cable.jpg" /><input type="checkbox" <?php echo $eH_tvCable; ?> name="chkEH_tvCable" > Televisi&oacute;n por Cable</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/tv_cable.jpg" /><input type="checkbox" <?php echo $this->EH_tvC; ?> name="chkEH_tvCable" > Televisi&oacute;n por Cable</label>
                             </div>
                         </td>
                         <td rowspan="3" width="50">&nbsp;</td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/secador.jpg" /><input type="checkbox" <?php echo $eH_secPelo; ?> name="chkEH_sPelo" > Secador de pelo</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/secador.jpg" /><input type="checkbox" <?php echo $this->EH_seca; ?> name="chkEH_sPelo" > Secador de pelo</label>
                             </div>
                         </td>
                 	</tr>
@@ -407,22 +413,22 @@
                     <tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/calefaccion.jpg" /><input type="checkbox" <?php echo $eH_calefac; ?> name="chkEH_calefac" > Calefaci&oacute;n</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/calefaccion.jpg" /><input type="checkbox" <?php echo $this->EH_cale; ?> name="chkEH_calefac" > Calefaci&oacute;n</label>
                             </div>
                         </td>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/minibar.jpg" /><input type="checkbox" <?php echo $eH_mBar; ?> name="chkEH_mBar" > Mini bar</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/minibar.jpg" /><input type="checkbox" <?php echo $this->EH_mBar; ?> name="chkEH_mBar" > Mini bar</label>
                             </div>
                         </td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/telefono.jpg" /><input type="checkbox" <?php echo $eH_fono; ?> name="chkEH_fono" > Tel&eacute;fono</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/telefono.jpg" /><input type="checkbox" <?php echo $this->EH_fono; ?> name="chkEH_fono" > Tel&eacute;fono</label>
                             </div>
                         </td>
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/barradeseguridad.jpg" /><input type="checkbox" <?php echo $eH_barraSeg; ?> name="chkEH_barraSeg" > Barra de Seguridad</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/barradeseguridad.jpg" /><input type="checkbox" <?php echo $this->EH_barra; ?> name="chkEH_barraSeg" > Barra de Seguridad</label>
                             </div>
                         </td>
                 	</tr>
@@ -430,18 +436,18 @@
                     <tr>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/habitacion_no_fum.jpg" /><input type="checkbox" <?php echo $eH_noFuma; ?> name="chkEH_noFumar" > No fumadores</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/habitacion_no_fum.jpg" /><input type="checkbox" <?php echo $this->EH_noFuma; ?> name="chkEH_noFumar" > No fumadores</label>
                             </div>
                         </td>
                         
                         <td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/tv.jpg" /><input type="checkbox" <?php echo $eH_tele; ?> name="chkEH_tv" > Televisi&oacute;n</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/tv.jpg" /><input type="checkbox" <?php echo $this->EH_tv; ?> name="chkEH_tv" > Televisi&oacute;n</label>
                             </div>
                         </td>
                     	<td>
                         	<div class="checkbox block">
-                            	<label><img src="iconos/hotel/internet.jpg" /><input type="checkbox" <?php echo $eH_interHab; ?> name="chkEH_interHab" > Internet en Habitaci&oacute;n</label>
+                            	<label><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel/internet.jpg" /><input type="checkbox"<?php echo $this->EH_intHab; ?> name="chkEH_interHab" > Internet en Habitaci&oacute;n</label>
                             </div>
                         </td>
                         
@@ -459,11 +465,53 @@
     <br />
     <center>
     <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Modificar Hotel" 
-    onclick="procesoEnviaForm('frmEditaHotel', 'process/procesoEditHotel.php', 'btnSubeVoucherAgen', 'divPopupH')">
+    onclick="procesoEnviaForm('frmEditaHotel','<?php echo BASE_URL?>sistema/modificarHotel', 'btnSubeVoucherAgen')">
     </center>
+    
+    <script>
+    function procesoEnviaForm(classFrm,url,btn){
+    
+        initLoad();
+      var formData = new FormData($("." + classFrm)[0]);
+     
+        $.ajax({
+             type:"POST", 
+             url:url,
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             {  
+                 endLoad();
+                 if(data != 'OK'){
+                    $("#msjWar").html(data);
+                 noExito();
+                 }
+                 else{
+                    $("#divPopupH").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="<?php echo $_layoutParams['ruta_img'];?>ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>'); 
+                    //exito();    
+                 }
+             }
+             
+             
+             
+         });
+         return false;
+    
+        
+     
+        
+        
+    } 
+    </script>
     
    
 </div>
 
 
 </form>
+<?php
+                    

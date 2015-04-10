@@ -16,16 +16,18 @@ abstract class Controller
     
     abstract public function index();
     
-    protected function loadModel($class) {
+
+    
+    protected function loadModel($class) {// se carga el modelo que se ocupara.
         $dao = $class . 'DAO';
         $dto = $class . 'DTO';
-        $rutaDAO = ROOT . 'models' . DS . 'dao' . DS . $dao . '.php';
+        $rutaDAO = ROOT . 'models' . DS . 'dao' . DS . $dao . '.php';// se concatenan los modelos para hacer la 
         $rutaDTO = ROOT . 'models' . DS . 'dto' . DS . $dto . '.php';
-        $rutaDetalleDTO = ROOT . 'models' . DS . 'dto' . DS . 'detalle' . $dto . '.php';
+        $rutaDetalleDTO = ROOT . 'models' . DS . 'dto' . DS . 'detalle' . $dto . '.php';//?
 
-        if (is_readable($rutaDAO)) {
-            if (is_readable($rutaDTO)) {
-                require_once $rutaDAO;
+        if (is_readable($rutaDAO)) {// si se pueden leer DAO
+            if (is_readable($rutaDTO)) {//si se puede leer DTO
+                require_once $rutaDAO; // se carga en la pagina tanto DTO Y DAO.
                 require_once $rutaDTO;
 
                 if (is_readable($rutaDetalleDTO)) {
@@ -119,6 +121,14 @@ abstract class Controller
         }
         else{
             return 0;
+        }
+    }
+    
+    protected function getServer($clave)
+    {
+        if(!empty($_SERVER[$clave]))
+        {
+            return $_SERVER[$clave];
         }
     }
 }

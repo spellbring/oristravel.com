@@ -47,4 +47,16 @@ class processController extends Controller
         
         $this->redireccionar('sistema/hoteles');
     }
+    
+    public function admProgramas()
+    {
+        Session::acceso('Usuario');
+        //Session::set('sess_combo_pais',$this->getTexto('elegido'));
+        Session::set('sess_pC_aP_ciudad',$this->getTexto('aP_txtCiudadDestino_P'));
+        Session::set('sess_pC_aP_Pais',$this->getTexto('aP_txtPaisDestino_P'));
+        
+        
+        $this->redireccionar('sistema/adminProgramas');
+        
+    }
 }
