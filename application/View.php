@@ -41,7 +41,8 @@ class View /*extends Smarty*/
         $_layoutParams= array(
             'ruta_css' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/css/', 
             'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
-            'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/' 
+            'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/',
+            'ruta_pdf' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT. '/pdf/'
             //'js' => $js
         );
         $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . $vista . '.phtml';

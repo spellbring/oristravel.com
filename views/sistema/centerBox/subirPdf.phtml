@@ -1,60 +1,76 @@
+ <form enctype="multipart/form-data" class="frmEditPDF">
 
-<form enctype="multipart/form-data" accept="application/pdf" class="frmSubirPdf" id="frmSubirPdf">
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h4>SUBIR PDF </h4>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-        
-            <div class="col-md-12">
-            
-                <table align="center">
-                	<tr>
-                        
-                    	<td>Subir archivo Pdf<?php  ?></td>
-                        <td><input id="SpFile" name="SpFile" type="file" value="" /></td>
-                        <td><input type="hidden" id="txtFile" name="txtFile" value="<?php echo $this->SP_codProg;?>"/></td>
-                        <td rowspan="3" width="100"></td>
-                	</tr>
-                       
-                        <?php
-                        $texto_cambiado = str_replace(" ", "_",$this->SP_codProg);  
+    <div class="panel panel-info" id="divEditPDF">
+        <div class="panel-heading">
+            <h4><b>Programa:</b> <?php echo $this->SP_codProg; ?></h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table align="center">
+                        <tr>
+                            <td width="450">
+                                <div class="col-sm-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+
+                                       <?php
+                                        $texto_cambiado = str_replace(" ", "_",$this->SP_codProg);  
                                            $nomArchivo = ROOT. DS .'public'. DS .'pdf'. DS .'upl_'.$texto_cambiado.'.pdf';
                                            
                                            if (file_exists($nomArchivo)) 
                                            {  
-                        ?>
-                        
-                        <tr>
-                        <td>Eliminar Archivo</td>
-                        <td>
-                            <input type="text" disabled class="form-control" id="txtNombre" name="txtNombre" value="<?php echo $texto_cambiado ?>"/>
-                            <input type="hidden" class="form-control" id="txtNombreFile" name="txtNombreFile" value="upl_<?php echo $texto_cambiado ?>.pdf"/>
-                        </td>
-                        <td>    
-                        <center><a data-toggle="modal" href="#myModal" onClick="procesoEnviaForm('frmSubirPdf','<?php echo BASE_URL ?>sistema/eliminarPdf')">
-                         <img src="<?php echo $_layoutParams['ruta_img']; ?>pdf.png" width="40" border="" />
-                            </a></center>   
-                        </td>
-                        <?php
+                                           ?>
+                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
+                                            
+                                                    <img src="<?php echo $_layoutParams['ruta_img']; ?>pdf_gran.png" />
+                                            
+                                            <input id="txtNombreFile" name="txtNombreFile" type="hidden" value="<?php echo 'upl_'.$texto_cambiado.'.pdf'; ?>"/>
+                                        </div>
+                                        <center>
+                                            <label style="cursor:pointer; display: none;">
+                                                <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chkEP_flPDF" checked="checked"> Eliminar
+                                            </label>
+                                            <input type="button"  id="btnEP_CargaPDF" class="btn btn-primary" value="Eliminar" 
+                                            onclick="procesoEnviaForm('frmEditPDF', '<?php echo BASE_URL ?>sistema/eliminarPdf', 'btnEP_CargaPDF', 'divEditPDF')">
+                                        </center>
+                                         <?php
                                            }
-                        ?>
+                                           
+                                           else{
+                                          ?>
+                                        
+
+                                        <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>
+                                        <div>
+                                            <span class="btn btn-default btn-file">
+                                                <span class="fileinput-new">Seleccionar</span>
+                                                <span class="fileinput-exists">Cambiar</span>
+                                                <input type="file" name="SpFile" id="SpFile" accept="application/pdf"/>
+                                            </span>
+                                            <input type="hidden" id="txtFile" name="txtFile" value="<?php echo $this->SP_codProg;?>"/>
+                                            <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
+                                            <input type="button"  id="btnEP_CargaPDF" class="btn btn-primary" value="Subir PDF" 
+                                            onclick="procesoEnviaForm('frmEditPDF', '<?php echo BASE_URL ?>sistema/subirCarPdf', 'btnEP_CargaPDF', 'divEditPDF')">
+                                        </div>
+
+                                       <?php
+                                       
+                                           }
+                                       ?>
+
+                                    </div>
+                                </div>
+                            </td>
                         </tr>
-                </table>
-            </div>        </div>
-
-            
+                     </table>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
-    
-    <center>
-    <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Subir PDF" 
-    onclick="procesoEnviaForm('frmSubirPdf','<?php echo BASE_URL?>sistema/subirCarPdf')">
-    </center>
-    
-    <script>
+</form> 
+
+ <script>
     function procesoEnviaForm(classFrm,url){
     
         initLoad();
@@ -98,11 +114,3 @@
     } 
     
     </script>
-    
-   
-</div>
-
-
-</form>
-<?php
-                    

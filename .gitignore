@@ -1,5 +1,6 @@
 $ cat .gitignore	
 application/Config.php
+public/pdf/*.pdf
 nbproject/*
 php-errors.log
 log-errores.log
