@@ -159,14 +159,31 @@
                                            <td><?php echo $aP_codigoProg; ?></td>
                                            <td><?php echo $aP_nombreProg; ?></td>
                                            <td><?php echo $aP_ciudadProg; ?></td>
-                                           <td align="center">
-                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/subirPdf', 'Subir Pdf', '<?php echo $aP_codigoProg; ?>');">
-                                           <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
-                                           </a></td>
-                                           <?php
+                                            <?php
                                            $texto_cambiado = str_replace(" ", "_",$aP_codigoProg);  
                                            $nomArchivo = ROOT. DS .'public'. DS .'pdf'. DS .'upl_'.$texto_cambiado.'.pdf';
                                            
+                                           if (file_exists($nomArchivo)) 
+                                           {  
+                                              
+                                           ?>
+                    
+                                           <td align="center">
+                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/subirPdf', 'Eliminar Archivo', '<?php echo $aP_codigoProg; ?>');">
+                                           <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
+                                           </a></td>
+                                           <?php
+                                           }
+                                           else
+                                           {
+                                           ?>
+                                           <td align="center">
+                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/subirPdf', 'Subir Archivo', '<?php echo $aP_codigoProg; ?>');">
+                                           <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
+                                           </a></td>    
+                                           <?php    
+                                               
+                                           }
                                            if (file_exists($nomArchivo)) 
                                            {  
                                               
