@@ -2,5 +2,6 @@ $ cat .gitignore
 application/Config.php
 nbproject/*
 php-errors.log
+log-errores.log
 
 *~	
