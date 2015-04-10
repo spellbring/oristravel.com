@@ -327,6 +327,7 @@ $(function()
         
         
         
+        
         <li >  <!-- class="open active" -->
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>servicio.png" /></i> <span>Servicios</span> <span style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
             <ul class="acc-menu"  > <!--style="display: block;" -->
@@ -837,6 +838,22 @@ $('#btnBuscarHoteles').on('click',function()
             window.location.href = '<?php echo BASE_URL; ?>sistema/imagenes';
         },2500);
     });
+    //////#####
+     $('#menuContacto').on('click',function(){
+        $(document).skylo('start');
+
+        setTimeout(function(){
+            $(document).skylo('set',50);
+        },1000);
+
+        setTimeout(function(){
+            $(document).skylo('end');
+        },1500);
+		setTimeout(function(){
+            window.location.href = '<?php echo BASE_URL; ?>sistema/contactenos';
+        },2500);
+    });
+    
     
     
     function abrePopup(docPHP, titulo, varProg)
@@ -865,8 +882,8 @@ $('#btnBuscarHoteles').on('click',function()
 <div class="ui-pnotify " id="divAlertWar" style="width: 300px; right: 25px; top: 25px; opacity: 1; display: none; cursor: auto;">
 	<div class="alert ui-pnotify-container alert-danger ui-pnotify-shadow" style="min-height: 16px;">
         <h4 class="ui-pnotify-title">&iexcl;Atenci&oacute;n!</h4>
-        <div class="ui-pnotify-text" id="mensajeWar"></div>
-    </div>
+        <div class="ui-pnotify-text" id="mensajeWar"><span id="msjWar"></span></div>
+    </div><!--<img src="<?php echo $_layoutParams['ruta_img']; ?>st_rojo.png" width="16" border="0"  />-->
 </div>
 
 <div class="ui-pnotify " id="divAlertInfo" style="width: 300px; right: 25px; top: 25px; opacity: 1; display: none; cursor: auto;">
@@ -875,3 +892,25 @@ $('#btnBuscarHoteles').on('click',function()
         	<span class="fa fa-spin"><img src="<?php echo $_layoutParams['ruta_img']; ?>loading.png" width="32" border="0" /></span> Procesando, espere un momento.</div>
     </div>
 </div>
+
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ML_tituloForm"></h4>
+            </div>
+
+            <div class="modal-body" id="ML_divPopup"></div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

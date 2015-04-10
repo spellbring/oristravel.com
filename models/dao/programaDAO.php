@@ -12,13 +12,12 @@ class programaDAO extends Model
         parent::__construct();
     }
     
-    public function getCiudadesPRG() {
-        $sql = 'SELECT pais.nombre AS nombre_pais, pais.codigo AS codigo_pais, ciudad.nombre AS nombre_ciudad, ciudad.codigo AS codigo_ciudad '
-                . 'FROM pais '
-                . 'JOIN ciudad ON (pais.codigo = ciudad.codigop) '
-                //. 'WHERE'
-                //. 'ciudad.nombre LIKE "%'.$nombre_h.'%" OR pais.nombre LIKE "%'.$nombre_h.'%" OR ciudad.codigo LIKE "%'.$nombre_h.'%" '
-                . 'ORDER BY ciudad.nombre ASC';
+    public function getCiudadesPRG() {//WHERE pais.nombre =  '".$asd."'
+        $sql = "SELECT pais.nombre AS nombre_pais, pais.codigo AS codigo_pais, ciudad.nombre AS nombre_ciudad, ciudad.codigo AS codigo_ciudad 
+                FROM pais 
+                JOIN ciudad ON (pais.codigo = ciudad.codigop) 
+                 
+                 ORDER BY ciudad.nombre ASC";
 
         $ciudadesProg = $this->_db->consulta($sql);
         if ($this->_db->numRows($ciudadesProg) > 0) {
@@ -42,5 +41,50 @@ class programaDAO extends Model
             return false;
         }
     }
+    
+    public function getAdmProgramas()// cuando son dos condicionales en una busqueda
+    {
+        
+
+        $sql="SELECT P.id, P.nombre, P.codigo, C.nombre AS nombreC
+            FROM h2h_programa P
+            JOIN ciudad	C ON (C.codigo = P.Ciudad)
+             
+            WHERE C.nombre = '" . Session::get('sess_pC_aP_ciudad') ."'
+	    ORDER BY P.nombre ASC";
+           
+        //echo $sql;
+        $datos= $this->_db->consulta($sql);
+        
+        if($this->_db->numRows($datos)>0)
+        {
+            
+            $objetosPack= array();
+            $arrayPackages= $this->_db->fetchAll($datos);
+            
+            foreach ($arrayPackages as $packDB)
+            {
+                $objPackages= new programaDTO();
+                
+                $objPackages->setCodigo(trim($packDB['codigo']));
+                $objPackages->setNombre(trim($packDB['nombre']));
+                $objPackages->setId(trim($packDB['id']));
+                $objPackages->setCiudad(trim($packDB['nombreC']));
+                
+                $objetosPack[]= $objPackages;
+            }
+            
+            return $objetosPack;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    
+    
+    
+    
 
 }

@@ -46,28 +46,26 @@
                                                 <select name="cmbCiudadDestino_H" id="cmbCiudadDestino_H" class="form-control" >
                                                     <option value="0">Seleccione destino</option>
                                                     <?php 
-                                                    if($this->getCiudadesHotel!=FALSE)
+                                                    if($this->objCiudadesHotel)
                                                     { 
-                                                        foreach($this->getCiudadesHotel as $columCiudades)
-                                                        {
-                                                                $H_codigoCiu= trim($columCiudades['codigo_ciudad']);
-                                                                $H_nombreCiu= trim($columCiudades['nombre_ciudad']);
-                                                                $H_nombreCiudad = $H_nombreCiu." (".$H_codigoCiu.")";
-                                                                
-                                                                if(Session::get('sess_pCH_ciudad')==$H_nombreCiu)
-                                                                {
+                                                        foreach($this->objCiudadesHotel as $objCiuHot)
+                                                        {                                                            
+                                                                if(Session::get('sess_pCH_ciudad')==$objCiuHot->getCodCiudad()){
                                                                 ?>
-                                                                    <option value="<?php echo $H_nombreCiu; ?>" selected="selected"><?php echo $H_nombreCiudad; ?></option>
+                                                                    <option value="<?php echo $objCiuHot->getCodCiudad();?>" selected="selected"> <?php echo $objCiuHot->getCiudad()." (". $objCiuHot->getCodCiudad().")";  ?></option>
+                                                                               
                                                                 <?php
+                                                                                                                      
                                                                 }
                                                                 else
                                                                 {
                                                                 ?>
-                                                                    <option value="<?php echo $H_nombreCiu; ?>"><?php echo $H_nombreCiudad; ?></option>
+                                                                    <option value="<?php echo $objCiuHot->getCodCiudad(); ?>"><?php echo $objCiuHot->getCiudad() ." (". $objCiuHot->getCodCiudad().")";
+                                                                    ?></option>
                                                                 <?php
                                                                 }
                                                         }
-                                                    }
+                                                    }         
                                                     ?>
                                                 </select>
                                     
@@ -81,22 +79,24 @@
                                                 <select name="cmbCategoria_H" id="cmbCategoria_H" class="form-control">
                                                     <option value="0">Todas</option>
                                                     <?php
-                                                    if($this->getCategoriaHoteles!=FALSE)
+                                                    if($this->objCategoriaHoteles)
                                                     {
-                                                        foreach($this->getCategoriaHoteles as $columCatHot)
+                                                        foreach($this->objCategoriaHoteles as $objCatHot)
                                                         {
-                                                            $h_nombreCat= trim($columCatHot['nombre']);
+                                                            //$asdasd= $this->objCategoriaHoteles->getCategoria();
+                                                            $h_objCat = $objCatHot->getCodCat();
+                                                            //$h_cat = $this->objCategoriaHoteles->getCodCat();
                                                             
-                                                            if(Session::get('sess_pCH_cat')==$h_nombreCat)
+                                                            if(Session::get('sess_pCH_cat')==$h_objCat)
                                                             {
                                                             ?>
-                                                                <option value="<?php echo $h_nombreCat; ?>" selected="selected"><?php echo $h_nombreCat; ?></option>
+                                                                <option value="<?php echo $objCatHot->getCodCat(); ?>" selected="selected" ><?php echo $objCatHot->getCategoria(); ?></option>
                                                             <?php
                                                             }
                                                             else
                                                             {
                                                             ?>
-                                                                <option value="<?php echo $h_nombreCat; ?>"><?php echo $h_nombreCat; ?></option>
+                                                                <option value="<?php echo $objCatHot->getCodCat(); ?>"><?php echo $objCatHot->getCategoria(); ?></option>
                                                             <?php
                                                             }
                                                         }
@@ -138,32 +138,7 @@
                                                     'display': 'block'
                                                 });
                     </script>
-                    
-                    
-                    
-                    
-                    <!--
-                    <iframe src="//dl-web.dropbox.com/get/Groupon/Boleta-614379.pdf?_subject_uid=185929076&amp;w=AAAmvZHAmgoOsG3JQEQZ1cYjg8TRx5thATaTlZHcFJYcGA&amp;get_preview=1"></iframe>
-                    -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="tituloForm"></h4>
-                                </div>
-                                
-                                <div class="modal-body" id="divPopupH"></div>
-                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                    
-                    
+                                 
                     
                     
                     
@@ -181,13 +156,12 @@
                                         <th>Ciudad</th>
                                         <th>Categor&iacute;a</th>
                                         <th width="100">Modifica</th>
-                                        <th width="100">Tipo Hab.</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 	
                                     <?php
-                                    if($this->getHoteles!=FALSE)
+                                    if($this->getHoteles)
                                     {
                                         foreach($this->getHoteles as $columHotel)
                                         {
@@ -202,14 +176,11 @@
                                            <td><?php echo $h_paisH; ?></td>
                                            <td><?php echo $h_ciudadH; ?></td>
                                            <td><?php echo $h_catH; ?></td>
-                                           <td align="center">
-                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupHotel('/oristravel.com/sistema/editHotel', 'Editar Hotel', '<?php echo $h_codigoHotel; ?>');">
+                                             <td align="center">
+                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupHotel('<?php echo BASE_URL ?>sistema/editHotel', 'Editar Hotel', '<?php echo $h_codigoHotel; ?>');">
                                            <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
                                            </a></td>
-                                           <td align="center">
-                                          <a data-toggle="modal" href="#myModal" onClick="abrePopupHotel('editTipoH.php', 'Editar tipo habitaci&oacute;n', '<?php echo $h_codigoHotel; ?>');">
-                                           <img src="<?php echo $_layoutParams['ruta_img']; ?>camara.png" width="24" border="0" />
-                                           </a></td>
+                                          
                                        </tr>
                                    <?php }
 									}
@@ -287,15 +258,15 @@ $('#btnHoteles').on('click',function()
 
 function abrePopupHotel(docPHP, titulo, codHotel)
 {
-    $("#divPopupH").html('');
-    $("#tituloForm").html(titulo);
+    $("#ML_divPopup").html('');
+    $("#ML_tituloForm").html(titulo);
     $.post(docPHP, 
     {
         post_open: 'on',
         post_codHotel: codHotel
     }, function(data)
     {
-        $("#divPopupH").html(data);
+        $("#ML_divPopup").html(data);
     });
 }
 </script>

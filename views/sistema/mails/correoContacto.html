@@ -1,0 +1,56 @@
+
+<html>  
+    
+   
+                               <head>
+                                               <style>
+                                                               .s1
+                                                               {
+                                                                              color:#000000; 
+                                                                              font-weight:bold; 
+                                                                              font:Verdana, Arial, Helvetica, sans-serif;
+                                                               }
+                                                               /*s2
+                                                               {
+                                                                              font:Georgia, 'Times New Roman', Times, serif bgcolor='#FFFFCC'
+                                                               }*/
+                                               </style>
+                               </head>
+                               <body class='s2'>
+                               <a href='http://{subdominio}.oristravel.com'>
+                                               <img src='http://{subdominio}.oristravel.com/sistema/images/{logo}' alt='' />
+                               </a>
+                               <br /> <br />
+        <table border='0' width='600px'>
+                <tr>
+                                                               <td width='80px' style='font-weight:bold'>Cliente:</td>
+                  <td> {hdCliente} </td>
+          </tr>
+            <tr>
+                <td style='font-weight:bold'>Usuario:</td>
+                                <td> {nombre_completo} </td>
+            </tr>
+            <tr>
+                <td style='font-weight:bold'>Fecha:</td>
+                <td>{fecha}</td>
+          </tr>
+            <tr>
+                <td style='font-weight:bold'>Hora:</td>
+                <td> {hora}</td><!--".date('H:i:s')." -->
+            </tr>
+            <tr>   
+                <td colspan='2'>&nbsp;</td>
+            </tr>
+            <tr>   
+                <td colspan='2' style='font-weight:bold'>Detalle:</td>
+            </tr>
+            <tr>   
+                <td colspan='2'>&nbsp;</td>
+            </tr>
+            <tr>   
+                <td class='s1' colspan='2'> {comentario}</td>
+            </tr>
+        </table>
+    </body>
+</html>
+

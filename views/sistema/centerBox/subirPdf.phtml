@@ -1,0 +1,108 @@
+
+<form enctype="multipart/form-data" accept="application/pdf" class="frmSubirPdf" id="frmSubirPdf">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h4>SUBIR PDF </h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+        
+            <div class="col-md-12">
+            
+                <table align="center">
+                	<tr>
+                        
+                    	<td>Subir archivo Pdf<?php  ?></td>
+                        <td><input id="SpFile" name="SpFile" type="file" value="" /></td>
+                        <td><input type="hidden" id="txtFile" name="txtFile" value="<?php echo $this->SP_codProg;?>"/></td>
+                        <td rowspan="3" width="100"></td>
+                	</tr>
+                       
+                        <?php
+                        $texto_cambiado = str_replace(" ", "_",$this->SP_codProg);  
+                                           $nomArchivo = ROOT. DS .'public'. DS .'pdf'. DS .'upl_'.$texto_cambiado.'.pdf';
+                                           
+                                           if (file_exists($nomArchivo)) 
+                                           {  
+                        ?>
+                        
+                        <tr>
+                        <td>Eliminar Archivo</td>
+                        <td>
+                            <input type="text" disabled class="form-control" id="txtNombre" name="txtNombre" value="<?php echo $texto_cambiado ?>"/>
+                            <input type="hidden" class="form-control" id="txtNombreFile" name="txtNombreFile" value="upl_<?php echo $texto_cambiado ?>.pdf"/>
+                        </td>
+                        <td>    
+                        <center><a data-toggle="modal" href="#myModal" onClick="procesoEnviaForm('frmSubirPdf','<?php echo BASE_URL ?>sistema/eliminarPdf')">
+                         <img src="<?php echo $_layoutParams['ruta_img']; ?>pdf.png" width="40" border="" />
+                            </a></center>   
+                        </td>
+                        <?php
+                                           }
+                        ?>
+                        </tr>
+                </table>
+            </div>        </div>
+
+            
+    </div>
+</div>
+
+    
+    <center>
+    <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Subir PDF" 
+    onclick="procesoEnviaForm('frmSubirPdf','<?php echo BASE_URL?>sistema/subirCarPdf')">
+    </center>
+    
+    <script>
+    function procesoEnviaForm(classFrm,url){
+    
+        initLoad();
+      var formData = new FormData($("." + classFrm)[0]);
+     
+        $.ajax({
+             type:"POST", 
+             url:url,
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             {  
+                 //alert(data);
+                 endLoad();
+                 if(data != 'OK'){
+                    $("#msjWar").html(data);
+                    noExito();
+                 }
+                 else{
+                    
+                    $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="<?php echo $_layoutParams['ruta_img'];?>ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>'); 
+                   //exito();
+                    setTimeout("location.href = '<?php echo BASE_URL;?>sistema/adminProgramas'", 2000);
+                    
+                 }
+             }
+             
+             
+             
+         });
+         return false;
+    
+        
+     
+        
+        
+    } 
+    
+    </script>
+    
+   
+</div>
+
+
+</form>
+<?php
+                    

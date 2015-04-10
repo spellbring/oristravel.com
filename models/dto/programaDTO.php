@@ -12,8 +12,29 @@ class programaDTO
     private $_pais;
     private $_cod_ciudad;
     private $_ciudad;
+    private $_nombre;
+    private $_codigo;
+    private $_id;
     
-    
+     public function getNombre() {
+        return $this->_nombre;
+    }
+    public function setNombre($nomb) {
+        $this->_nombre = $nomb;
+    }
+     public function getCodigo() {
+        return $this->_codigo;
+    }
+    public function setCodigo($cod) {
+        $this->_codigo = $cod;
+    }
+     public function getId() {
+        return $this->_id;
+    }
+    public function setId($id) {
+        $this->_id = $id;
+    }
+     
     public function getCiudad() {
         return $this->_ciudad;
     }

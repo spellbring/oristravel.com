@@ -18,6 +18,7 @@ class Bootstrap
         
         if(is_readable($rutaControlador)) //verifica si el archivo existe y tambien es valido
         {
+            
             require_once $rutaControlador;
             $controller= new $controller; //instanciando clase del indexController
             
@@ -30,7 +31,7 @@ class Bootstrap
                 $metodo='index';
             }
             
-            if($args!=null)
+            if($args!=null)//argumentos
             {
                 call_user_func_array(array($controller, $metodo), $args); //en un arreglo enviamos nombre de clase y metodo que queremos llamar y parametros que queremos pasar
             }
