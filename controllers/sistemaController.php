@@ -682,7 +682,7 @@ class sistemaController extends Controller
         $this->_view->renderizaSistema('carro');
     }
 
-    public function contactenos() {
+    public function contactenos() {        
         Session::acceso('Usuario');      
         $this->_view->currentMenu = 7;
         $this->_view->titulo = 'ORISTRAVEL';
@@ -691,8 +691,11 @@ class sistemaController extends Controller
     
   
     public function enviarContacto() 
-    {
-        Session::destroy('sessError');
+    { 
+        Session::set('sess_ultima_hora', date('H:i:s'));
+        if(Session::get('sess_ipcfg')){
+        if(Session::get('sess_ultima_hora')) {
+              Session::destroy('sessError');
         $hd_Cliente=Session::get('sess_agencia');
         $usuario=Session::get('sess_nombre').' '.Session::get('sess_apellido');
         $mensaje = $this->getTexto('area');
@@ -731,23 +734,45 @@ class sistemaController extends Controller
 
             $mail->MsgHTML($html);
 
-            $mail->AddAddress('jjreyes.romero88@gmail.com', "Jaime Reyes");
-            if (!$mail->Send()) 
-            {              
-                echo 'Error al enviar el mail';               
-            } else {
-                echo 'OK';               
-            }
+            $mail->AddAddress('jjreyes.romero88@gmail.com', "Jaime Reyes");            
+                if(date('H:i:s') <= date('H:i:s' , strtotime('+60 second',strtotime(Session::get('sess_ultima_hora')))))
+                {
+   
+                    if(Session::get('sess_intentos') >= 5) 
+                    {
+                        
+                        echo 'Debe cerrar sesion';
+                    } 
+                    else
+                    {
+                        if($mail->Send()){
+                        Session::set('sess_intentos', (Session::get('sess_intentos')+1));
+                        echo 'OK';
+                        }
+                        else{
+                        
+                         echo 'Error al enviar el Correo';
+                            
+                        }
+                    
+                    
+                }
+              }
+                               
+            
         }
             else
             {
-                echo 'Esbriba un mensaje';
+                echo 'Escriba un mensaje';
             }
+                
+                
+                
+                
+            } 
+  
+        }     
   }
-        
-    
-
-    
     public function usuarios() {
         Session::acceso('Usuario');
 

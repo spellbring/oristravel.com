@@ -70,6 +70,8 @@ class loginController extends Controller
                         
                         Session::set('level', 'Admin');
                         Session::set('tiempo', time());
+                        Session::set('sess_intentos', 0);
+                        Session::set('sess_ipcfg', $_SERVER["REMOTE_ADDR"]);
                         
                         
                         ######################################################################################
