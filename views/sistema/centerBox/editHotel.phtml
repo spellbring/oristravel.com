@@ -36,13 +36,13 @@
                                 
 										<option selected="selected" value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
 									<?php
-                                    }
+                                                                        }
 									else
 									{ ?>
                                                                                 <option value="<?php echo $eH_nombreCat; ?>"><?php echo $eH_nombreCat; ?></option>
                             <?php 
 									}
-								}
+				}
                             }?>
                             </select>
                         </td>
@@ -484,15 +484,17 @@
              beforeSend: function () {
              },
              success:function(data)
-             {  
+             { 
+                 $('#btnCrearUsuario').attr("disabled","disabled");
                  endLoad();
                  if(data != 'OK'){
-                    $("#msjWar").html(data);
-                 noExito();
+                    //$("#msjWar").html(data);
+                    noExito(data);
+                 
                  }
                  else{
                     $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="<?php echo $_layoutParams['ruta_img'];?>ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>'); 
-                    //exito();    
+                     
                  }
              }
              
