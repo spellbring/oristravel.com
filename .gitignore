@@ -1,10 +1,10 @@
 $ cat .gitignore	
 application/Config.php
 public/pdf/*.pdf
-public/img/voucher*.jpg
-public/img/voucher*.jpge
-public/img/voucher*.png
-public/img/voucher*.gif
+public/img/voucher/*.jpg
+public/img/voucher/*.jpge
+public/img/voucher/*.png
+public/img/voucher/*.gif
 nbproject/*
 php-errors.log
 log-errores.log
