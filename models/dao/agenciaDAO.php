@@ -8,10 +8,14 @@
 
 class agenciaDAO extends Model
 {
-    public function getAgencias()
+    public function getAgencias($cod)
     {
-        $sql='SELECT id, agencia FROM agenc_na ';
-
+        $sql='SELECT id, agencia, imagenv FROM agenc_na ';
+        if($cod != 0)
+        {
+            $sql.=' WHERE id ='.$cod.''; 
+        }
+        
         $datos= $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0)
         {
@@ -23,6 +27,7 @@ class agenciaDAO extends Model
                 $objAgencia= new agenciaDTO();
                 $objAgencia->setId(trim($agDB['id']));
                 $objAgencia->setNombre(trim($agDB['agencia']));
+                $objAgencia->setImagen(trim($agDB['imagenv']));
   
                 $objetosAgencia[]= $objAgencia;
             }
