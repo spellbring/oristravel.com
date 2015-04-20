@@ -436,20 +436,20 @@ class sistemaController extends Controller {
                 } else {
                     if ($i == 1) {
                         if ($this->getTexto('chkEH_flImagen' . $i) == 'on') {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            //Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . 'thumb' . DS .'thumb_'. Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_encabezado = "", mini_img_encabezado = "" ';
                         }
                     } else if ($i == 2) {
                         if ($this->getTexto('chkEH_flImagen' . $i) == 'on') {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            //Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . 'thumb' . DS .'thumb_'. Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_contenido = "", mini_img_contenido = "" ';
                         }
                     } else {
                         if ($this->getTexto('chkEH_flImagen' . $i) == 'on') {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            Funciones::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . 'thumb' . DS .'thumb_'. Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_contenido' . ($i - 1) . ' = "", mini_img_contenido' . ($i - 1) . ' = "" ';
                         }
                     }
