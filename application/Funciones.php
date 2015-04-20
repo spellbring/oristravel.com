@@ -212,7 +212,7 @@ class Funciones
     {
         if(is_readable($file))
         {
-            unlink($file);
+            @unlink($file);
             return true;
         }
         else
