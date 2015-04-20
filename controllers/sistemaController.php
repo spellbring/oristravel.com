@@ -404,6 +404,7 @@ class sistemaController extends Controller {
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($_FILES['flImagen' . $i]['name'])) {
                     if ($_FILES['flImagen' . $i]['name']) {
+                        $this->getLibrary('upload' . DS . 'class.upload');
                         $upload = new upload($_FILES['flImagen' . $i], 'es_ES');
                         $upload->allowed = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
                         $upload->file_max_size = '524288'; // 512KB
