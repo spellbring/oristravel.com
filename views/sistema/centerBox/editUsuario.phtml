@@ -179,16 +179,18 @@
     
     $(document).ready(function(){
    $("#chkHabilita").click(function(){
-     $("#EU_txtClave").val('');
+     
       if (!$("#chkHabilita").is(":checked")){
-        $("#EU_txtClave").attr("readonly",true);
+            $("#EU_txtClave").val('************');
+            $("#EU_txtClave").attr("readonly",true);
           
      }
         
      else
      {
+        $("#EU_txtClave").val('');
         $("#EU_txtClave").removeAttr("readonly");
-       
+        
      }
        });
    }); 
