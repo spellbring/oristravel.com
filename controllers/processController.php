@@ -59,4 +59,14 @@ class processController extends Controller
         $this->redireccionar('sistema/adminProgramas');
         
     }
+    
+    public function admUsuarios(){
+        Session::acceso('Usuarios');
+        
+        //Session::set('sess_US_NomAge', $this->getTexto('US_cmbAgencia'));
+        
+        //$this->redireccionar('sistema/insertUsuarios');
+        
+        
+    }
 }

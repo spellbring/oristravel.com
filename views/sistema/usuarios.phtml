@@ -33,7 +33,7 @@
                                 </li>
                             </ul>
                         </div>
-                        
+                        <form id='frmCrearUsuario' name='frmCrearUsuario' class='frmCrearUsuario' method='post'>   
                         <div class="panel-body">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="usuarios">
@@ -43,47 +43,75 @@
                                             <tr>
                                                 <th>Nombre agencia</th>
                                                 <td>
-                                                    <select name="U_cmbAgencia" id="U_cmbAgencia" class="form-control" >
-                                                        <option value="0">Seleccione destino</option>
-                                                        <option value="1">destino</option>
-                                                        <option value="2">Seleccione</option>
+                                                    <select name="US_cmbAgencia" id="US_cmbAgencia" class="form-control">
+                                                        <option value = "0">Seleccione Agencia</option>
+                                                        <?php
+                                                        
+                                                        if($this->objAgencia)
+                                                        {
+                                                            foreach($this->objAgencia as $US_objAgencia)
+                                                            {
+                                                                if(Session::get('sess_US_NomAge')==$US_objAgencia->getNombre()){   
+                                                              ?>
+                                                              <option value='<?php echo $US_objAgencia->getId(); ?>' selected="selected"><?php echo $US_objAgencia->getNombre(); ?></option>
+                                                              <?php
+                                                                }
+                                                                else{
+                                                              ?>
+                                                              <option value='<?php echo $US_objAgencia->getId(); ?>'><?php echo $US_objAgencia->getNombre(); ?></option>
+                                                              <?php   
+                                                                }
+                                                                
+                                                            }    
+                                                        }
+                                                        
+                                                        ?>
                                                     </select>
                                                 </td>
                                                 <th>Tipo usuario</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Nombre</td>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                                <th>Apellido</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Usuario</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                                <th>Contrase&ntilde;a</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Correo</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                                <th>Correo Administrativo</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                            </tr>
-                                            <tr>
-                                                <th>Correo ejecutivo</th>
-                                                <td><input type="text" class="form-control" id="Cntac_txtCliente" name="Cntac_txtCliente" ></td>
-                                                <th>Estado</th>
                                                 <td>
-                                                    <select name="U_cmbEstado" id="U_cmbEstado" class="form-control" >
-                                                        <option value="0">Seleccione destino</option>
-                                                        <option value="1">destino</option>
-                                                        <option value="2">Seleccione</option>
+                                                    <select name="US_cmbTipoUs" id="US_cmbTipoUs" class="form-control" >
+                                                        <option value="0">Seleccione Tipo Usuario</option>
+                                                        <option value="1">Administrador</option>
+                                                        <option value="2">Supervisor</option>
+                                                        <option value="3">Vendedor</option>
+                                                        <option value="4">Consulta</option>
                                                     </select>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="4" align="center"> <input type="button" class="finish btn-primary btn" id="btnCrearUsuario" value="Crear nuevo usuario" /> </td>
+                                                <td>Nombre</td>
+                                                <td><input type="text" class="form-control" id="US_txtNombre" name="US_txtNombre" ></td>
+                                                <th>Apellido</th>
+                                                <td><input type="text" class="form-control" id="US_txtApe" name="US_txtApe" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Usuario</th>
+                                                <td><input type="text" class="form-control" id="US_txtLogin" name="US_txtLogin" ></td>
+                                                <th>Contrase&ntilde;a</th>
+                                                <td><input type="password" class="form-control" id="US_txtClave" name="US_txtClave"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo</th>
+                                                <td><input type="text" class="form-control" id="US_txtCorreo" name="US_txtCorreo" ></td>
+                                                <th>Correo Administrativo</th>
+                                                <td><input type="text" class="form-control" id="US_txtCorreoAdm" name="US_txtCorreoAdm" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo ejecutivo</th>
+                                                <td><input type="text" class="form-control" id="US_txtCorreoEj" name="US_txtCorreoEj" ></td>
+                                                <th>Estado</th>
+                                                <td>
+                                                    <select name="US_cmbEstado" id="US_cmbEstado" class="form-control" >
+                                                     
+                                                        <option value="0">Deshabilitado</option>
+                                                        <option value="1" selected="selected">Habilitado</option>
+                                                       
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" align="center"> <input type="button" class="finish btn-primary btn" id="btnCrearUsuario" value="Crear nuevo usuario" onclick="procesoEnviaForm('frmCrearUsuario','<?php echo BASE_URL?>sistema/insertUsuarios', 'btnCrearUsuario')"/> </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -100,34 +128,126 @@
                                                 <th>Apellido</th>
                                                 <th>Agencia</th>
                                                 <th>Tipo</th>
-                                                <th width="39"></th>
-                                                <th width="39"></th>
+                                                <th width="39">Modificar</th>
+                                                
                                             </tr>
                                         </thead>
                                         <tbody>
-
+                                           <?php
+                                           if($this->objEditUs)
+                                           {
+                                            foreach($this->objEditUs as $EU_usuario ){   
+                                              
+                                           ?>
                                             <tr>
-                                                <td><?php echo $cR_fecha; ?></td>
-                                                <td><?php echo $cR_fViaje; ?></td>
-                                                <td><?php echo $cR_nFile; ?></td>
-                                                <td><?php echo $cR_agencia; ?></td>
-                                                <td><?php echo $cR_vendedor; ?></td>
-                                                <td><?php echo $cR_pasajero; ?></td>
-                                                <td><?php echo $xxx; ?></td>
+                                                <td><?php echo $EU_usuario->getLogin(); ?></td>
+                                                <td><?php echo $EU_usuario->getNombre(); ?></td>
+                                                <td><?php echo $EU_usuario->getApellido(); ?></td>
+                                                <td><?php echo $EU_usuario->getAgencia(); ?></td>
+                                                <td>
+                                                    <?php
+                                                    $tiposUs = array(1=>'Administrador', 2=>'Supervisor', 3 =>'Vendedor', 4=>'Consulta');
+                                                      
+                                                     echo $tiposUs[$EU_usuario->getTipoUsuario()];
+                        
+                                                    ?>
+                                                </td>
+                                                <td align="center">
+                                                <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/editUsuarios', 'Editar Usuario', '<?php echo $EU_usuario->getIdUsuario(); ?>');">
+                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
+                                                </a></td>
+                                             
                                             </tr>
 
-
+                                            <?php
+                                            }
+                                            
+                                            }
+                                           
+                                            ?>
 
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        </form>    
                     </div>
                                     
                                     
                 </div>
             </div>
+            
+            <script>
+                
+    function procesoEnviaForm(classFrm,url,btn){
+             
+        initLoad();
+      var formData = new FormData($("." + classFrm)[0]);
+     
+        $.ajax({
+             type:"POST", 
+             url:url,
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             { 
+             $('#btnCrearUsuario').attr("disabled","disabled");
+                 
+                 endLoad();
+                 if(data !== 'OK'){
+                 //$("#msjWar").html(data);  
+                 $("#btnCrearUsuario").delay(2000).queue(function(dis)
+                                                        {
+                                                                  $("#btnCrearUsuario").removeAttr("disabled");
+                                                                  dis();
+                                                        });  
+                                                        noExito(data);
+                 
+                 }
+                 else{
+    
+                    $("#btnCrearUsuario").delay(2000).queue(function(dis)
+                                                        {
+                                                                  $("#btnCrearUsuario").removeAttr("disabled");
+                                                                  dis();
+                                                        });
+                                                        exito();
+                                                       
+                    setTimeout("location.href = '<?php echo BASE_URL;?>sistema/usuarios'", 2000);
+                 }
+             }
+             
+             
+             
+         });
+         return false;
+    
+        
+     
+        
+        
+    }
+    
+    function abrePopupPrograma(docPHP, titulo, cod)
+{
+    $("#ML_divPopup").html('');
+    $("#ML_tituloForm").html(titulo);
+    $.post(docPHP, 
+    {
+        post_open: 'on',
+        post_codUs: cod
+    }, function(data)
+    {
+        $("#ML_divPopup").html(data);
+    });
+}
+
+    </script>
             
             
 

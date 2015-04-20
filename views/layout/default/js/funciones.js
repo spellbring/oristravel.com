@@ -413,6 +413,7 @@ function exito() {//
     $('#divAlertExito').animate({
         'display': 'block'
     });
+    
 
     $('#divAlertExito').delay(1000).fadeOut(500);
     $('#divAlertExito').animate({
@@ -420,14 +421,14 @@ function exito() {//
     });
     
 }
-function noExito() {
+function noExito(data) {
     endLoad();
     $('#divAlertWar').delay(1000).fadeIn(500);
     $('#divAlertWar').animate({
     
         'display': 'block'
     });
-    
+    $("#msjWar").html(data);    
 
     $('#divAlertWar').delay(1000).fadeOut(500);
     $('#divAlertWar').animate({

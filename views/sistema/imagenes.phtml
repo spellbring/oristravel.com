@@ -29,18 +29,18 @@
                                 
                                     <div class="col-md-12">
                                     
-                                        <select name="cmbCategoria_lVA" id="cmbCategoria_lVA" style="width:400px" onchange="procesoCargaDiv(this.value, 'lVA_divDetalle', 'detalleLogoVoucherAgen.php')">
+                                        <select name="cmbCategoria_lVA" id="cmbCategoria_lVA" style="width:400px" onchange="procesoCargaDiv(this.value, 'lVA_divDetalle', '<?php echo BASE_URL; ?>sistema/logoVoucher')">
                                             <option value="0">Seleccione una agencia</option>
                                            <?php
                                             //$var_getAgen= false; //$privateFunctions->getAgencias();
-                                            if($var_getAgen!=FALSE)
+                                            if($this->objAgenciaImagenes)
                                             {
-                                                foreach($var_getAgen as $columGetAgen)
+                                                foreach($this->objAgenciaImagenes as $columGetAgen)
                                                 {
-                                                    $eTH_codTipoH=trim($columGetAgen['id']);
-                                                    $eTH_nombreTipoH= mb_convert_encoding(trim($columGetAgen['agencia']), "UTF-8", "ISO-8859-1");
+                                                    $eTH_codAge=$columGetAgen->getId();
+                                                    $eTH_nombreTipoAge= $columGetAgen->getNombre();
                                             ?>
-                                                <option value="<?php echo $eTH_codTipoH; ?>"><?php echo $eTH_nombreTipoH; ?></option>
+                                                <option value="<?php echo  $eTH_codAge; ?>"><?php echo $eTH_nombreTipoAge; ?></option>
                                              <?php } 
                                             } ?>
                                         </select>

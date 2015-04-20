@@ -70,6 +70,8 @@ class loginController extends Controller
                         
                         Session::set('level', 'Admin');
                         Session::set('tiempo', time());
+                        Session::set('sess_intentos', 0);
+                        Session::set('sess_ipcfg', $_SERVER["REMOTE_ADDR"]);
                         
                         
                         ######################################################################################
@@ -94,19 +96,19 @@ class loginController extends Controller
                 }
                 else
                 {
-                    $this->_alert(2, 'Usuario o password son incorrectos.');
+                    $this->_alert(2, 'Usuario o password son incorrectos. 1');
                     $this->redireccionar(); //Error Usuario o Pass
                 }
             }
             else
             {
-                $this->_alert(2, 'Usuario o password son incorrectos.');
+                $this->_alert(2, 'Usuario o password son incorrectos. 2');
                 $this->redireccionar(); //No existe
             }
         }
         else
         {
-            $this->_alert(2, 'Ingrese un usuario o password.');
+            $this->_alert(2, 'Ingrese un usuario o password. 2');
             $this->redireccionar(); //Ingrese un usuario o Pass
         }
     }

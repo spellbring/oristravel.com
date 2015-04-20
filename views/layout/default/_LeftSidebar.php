@@ -838,6 +838,24 @@ $('#btnBuscarHoteles').on('click',function()
             window.location.href = '<?php echo BASE_URL; ?>sistema/imagenes';
         },2500);
     });
+    
+    $('#menuUsuarios').on('click',function(){
+        $(document).skylo('start');
+
+        setTimeout(function(){
+            $(document).skylo('set',50);
+        },1000);
+
+        setTimeout(function(){
+            $(document).skylo('end');
+        },1500);
+		setTimeout(function(){
+            window.location.href = '<?php echo BASE_URL; ?>sistema/usuarios';
+        },2500);
+    });
+    
+    
+    
     //////#####
      $('#menuContacto').on('click',function(){
         $(document).skylo('start');

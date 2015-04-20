@@ -1,0 +1,221 @@
+
+    <div class="panel panel-info" id="divEditPDF">
+        <div class="panel-heading">
+         <?php
+                      if(Session::get('sess_usuario')== $this->EU_login)
+                      {
+                       ?>
+            <center><img src="<?php echo $_layoutParams['ruta_img'];?>info.png"><?php echo 'Atención: Si desea ver los cambios realizados, reinicie sesión.' ?></center> 
+                       <?php   
+                      }             
+                        ?>   
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <div class="col-sm-9" style="width: 100%;">
+                               <form id='frmEditUsuario' name='frmEditUsuario' class='frmEditUsuario' method='post'>      
+                                 <table class="table table-bordered "  align="center">
+                                     <?php
+                                     
+                                     ?>
+                                        <tbody>
+                                            <tr>
+                                                <th>Nombre agencia</th>
+                                                <td>
+                                                    <select name="EU_cmbAgencia" id="EU_cmbAgencia" class="form-control">
+                                                        <option value = "0">Seleccione destino</option>
+                                                        <?php
+                                                        if($this->objAgencia)
+                                                            echo '<option value="0">Todas</option>';
+                                                        {
+                                                            foreach($this->objAgencias as $US_objAgencia)
+                                                            {
+                                                                $EU_idage= trim($US_objAgencia->getId());
+                                                                    if($this->EU_idAgen == $EU_idage)
+                                                                    {
+                                                                    ?>
+                                                                    <option selected="selected" value='<?php echo $EU_idage; ?>'> <?php echo $US_objAgencia->getNombre(); ?></option>
+                                                                    <?php
+                                                                    }
+                                                                    else
+                                                                     {
+                                                                    ?>
+                                                                    <option value='<?php echo $EU_idage; ?>'> <?php echo $US_objAgencia->getNombre(); ?></option>
+                                                                    <?php
+                                                                    }
+                                                               
+                                                                
+                                                            }    
+                                                        
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </td>
+                                                <th>Tipo usuario</th>
+                                                <td>
+                                                    
+                                                    <select name="EU_cmbTipoUs" id="EU_cmbTipoUs" class="form-control" selected="selected" value='<?php echo $this->EU_tipoUs; ?>'  >   
+                                                        <option>Seleccione un Usuario</option>
+                                                        <option value="1"<?php if($this->EU_tipoUs == "1"){echo "selected = 'selected'";} ?>>Administrador</option>
+                                                        <option value="2"<?php if($this->EU_tipoUs == "2"){echo "selected = 'selected'";} ?>>Supervisor</option>
+                                                        <option value="3"<?php if($this->EU_tipoUs == "3"){echo "selected = 'selected'";} ?>>Vendedor</option>
+                                                        <option value="4"<?php if($this->EU_tipoUs == "4"){echo "selected = 'selected'";} ?>>Consulta</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <?php
+                                                
+                                                ?>
+                                                <td>Nombre</td>
+                                                <td><input type="text" class="form-control" id="EU_txtNombre" name="EU_txtNombre" value="<?php echo $this->EU_nombre;?>"></td>
+                                                <th>Apellido</th>
+                                                <td><input type="text" class="form-control" id="EU_txtApe" name="EU_txtApe" value="<?php echo $this->EU_apellido;?>" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Usuario</th>
+                                                <td><input type="text" class="form-control" readonly style="background-color: #FFFFCC;" id="EU_txtLogin" name="EU_txtLogin" value="<?php echo $this->EU_login;?>"></td>
+                                                <th>Contrase&ntilde;a</th>
+                                                <td><input type="password" class="form-control" readonly class="form-control" id="EU_txtClave" name="EU_txtClave" value="************" ></td> 
+                                            </tr>
+     
+                                            <tr>
+                                                <th>Correo</th>
+                                                <td><input type="text" class="form-control" id="EU_txtCorreo" name="EU_txtCorreo" value="<?php echo $this->EU_correo;?>" ></td>
+                                                <th>Correo Administrativo</th>
+                                                <td><input type="text" class="form-control" id="EU_txtCorreoAdm" name="EU_txtCorreoAdm" value="<?php echo $this->EU_correoAdm;?>" ></td>
+                                            </tr>
+                                            <tr>
+                                                <th>Correo ejecutivo</th>
+                                                <td><input type="text" class="form-control" id="EU_txtCorreoEj" name="EU_txtCorreoEj" value="<?php echo $this->EU_correoEjec;?>" ></td>
+                                                <th>Estado</th>
+                                                <td>
+                                                    <select name="EU_cmbEstado" id="EU_cmbEstado" class="form-control">
+                                                        
+                                                        <option value="0"<?php if($this->EU_estado == "0"){echo "selected = 'selected'";} ?>>Deshabilitado</option>
+                                                        <option value="1"<?php if($this->EU_estado == "1"){echo "selected = 'selected'";} ?>>Habilitado</option>
+                                                       
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                
+                                                <td colspan="4" align="center"> <input type="button" class="finish btn-primary btn" id="btnEditUsuario" value="Modificar Usuario" onclick="procesoEnviaFormEdit('frmEditUsuario','<?php echo BASE_URL?>sistema/modificarUsuario', 'btnEditUsuario')"/> 
+                                                <?php
+                                               
+                                                if($this->EU_login != Session::get('sess_usuario'))
+                                                {
+                                                ?>
+                                                    <input type="button" class="finish btn-primary btn" style='background-color:#f29797;' id="btnBorrarUsuario" value="Eliminar Usuario" onclick="abreEliminarUser('<?php echo BASE_URL; ?>sistema/borrarUsuariosPopUp', 'Eliminar Usuario','123123')"/></td>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                  <div class="checkbox block">
+                                   <input type="checkbox" id="chkHabilita" name="chkHabilita">
+                                   <label>Cambiar Contraseña</label>
+                                  </div>
+                                   <?php
+                                   
+                                   
+                                   Session::set('sess_nom_us', $this->EU_nombre. ' '.$this->EU_apellido);
+                                   
+                                                        
+                                   ?>
+                                    
+                                   
+                                 
+                               </form>    
+                                </div>
+                            </td>
+                        </tr>
+                     </table>
+                    <script>
+    function procesoEnviaFormEdit(classFrm,url,btn){
+    
+        initLoad();
+      var formData = new FormData($("." + classFrm)[0]);
+     
+        $.ajax({
+             type:"POST", 
+             url:url,
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             { 
+                 //alert(data);
+                
+                 endLoad();
+                 
+                 if(data !== 'OK'){
+                    //$("#msjWar").html(data);
+                    noExito(data);
+                 }  
+                 else{
+                                 
+                          $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="<?php echo $_layoutParams['ruta_img'];?>ok.png" width="32" border="0" />  Proceso realizado con &eacute;xito. </div>'); 
+                           setTimeout("location.href = '<?php echo BASE_URL;?>sistema/usuarios'", 2500); 
+                         
+                      }
+                 
+
+             }
+         });
+         return false;
+    
+    }
+    
+    
+    $(document).ready(function(){
+   $("#chkHabilita").click(function(){
+     $("#EU_txtClave").val('');
+      if (!$("#chkHabilita").is(":checked")){
+        $("#EU_txtClave").attr("readonly",true);
+          
+     }
+        
+     else
+     {
+        $("#EU_txtClave").removeAttr("readonly");
+       
+     }
+       });
+   }); 
+    
+    
+    function abreEliminarUser(docPHP, titulo, cod)
+    {
+        $("#ML_divPopup").html('');
+        $("#ML_tituloForm").html(titulo);
+        
+        $.post(docPHP, 
+        {
+            post_open: 'on',
+            post_codUs: cod
+        }, function(data)
+        {
+           
+            $("#ML_divPopup").html(data);
+            //setTimeout("location.href = '<?php echo BASE_URL;?>sistema/usuarios'", 2000);
+           
+        });
+    }
+    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+                    

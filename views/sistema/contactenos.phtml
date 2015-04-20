@@ -64,6 +64,7 @@
         var cliente= $("#Cntac_txtCliente").val();
         var usuario = $("#Cntac_txtUsuario").val();
         var area= $("#Cntac_areaNota").val();
+        var boton= $('#btnEnviar').val;
         $('#btnEnviar').attr("disabled","disabled");
         
    
@@ -72,7 +73,8 @@
                     //en el controlador el metodod para pasar mensajes(getTexto) se debe pasar por el nombre que se define aca.
                     area:area,
                     cliente:cliente,
-                    usuario:usuario                                       
+                    usuario:usuario,
+                    boton:boton
                 }, function (data) 
                                  {                                       
                                     if(data=='OK')
