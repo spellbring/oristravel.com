@@ -19,9 +19,11 @@
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                         
                             <?php if($this->I_imagen){?> 
+                            <input type="hidden" id="txtImg" name="txtImg" value="<?php echo $this->I_imagen;?>">
                             <div class="fileinput-preview thumbnail" id="I_file" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
                                 <img src="<?php echo $_layoutParams['ruta_voucher'] . $this->I_imagen; ?>" />
-                            </div>
+                                
+                            </div>    
                             <center>
                                 <label style="cursor:pointer; display:none;">
                                     <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chk_flImagenVouAgen" checked="checked"> Eliminar
@@ -44,7 +46,10 @@
                             </div>
                            <div>
                             
-                            <?php } ?>
+                            <?php 
+                            
+                            
+                                } ?>
                             
                         </div>
                     </div>
@@ -76,6 +81,7 @@ function procesoEnviaForm(classFrm,url,btn){
              $('#btnSubeVoucherAgen').attr("disabled","disabled");
                  
                  endLoad();
+                 
                  if(data !== 'OK'){
                  //$("#msjWar").html(data);  
                  $("#btnSubeVoucherAgen").delay(2000).queue(function(dis)

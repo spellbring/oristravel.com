@@ -940,7 +940,8 @@ $objEditUsuario = $this->_agencia->getAgencias($id_Agen);
     if($id_Agen){
         if($objEditUsuario){
             $this->_view->I_imagen = $objEditUsuario[0]->getImagen();
-            $this->_view->I_nombre = $objEditUsuario[0]->getImagen();
+            $this->_view->I_nombre = $objEditUsuario[0]->getNombre();
+            $this->_view->I_Id = $objEditUsuario[0]->getId();
         }
         else{
             throw new Exception('Error al desplegar la edicion del usuario');
@@ -979,6 +980,7 @@ $this->_view->renderizaCenterBox('logoVoucher');
                         //echo $upload->file_dst_name_body.'.'.$upload->file_dst_name_ext;
                        $this->_agencia->actualizaVoucherAgen(Session::get('sess_id_agen'), $upload->file_dst_name_body.'.'.$upload->file_dst_name_ext);
                         echo 'OK';
+                        
                     }
                     else
                     {
@@ -997,9 +999,10 @@ $this->_view->renderizaCenterBox('logoVoucher');
                 {
                     if($this->getTexto('chk_flImagenVouAgen')=='on')
                     {
-                        if(Funciones::eliminaFile($rutaIMG .$this->getTexto('I_file')))
+                        if(Funciones::eliminaFile($rutaIMG . $this->getTexto('txtImg')))
                         {
                             $this->_agencia->actualizaVoucherAgen(Session::get('sess_id_agen'), '');
+                            
                             echo 'OK';
                         }
                         else
