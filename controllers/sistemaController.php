@@ -19,6 +19,7 @@ class sistemaController extends Controller {
         $this->_pais = $this->loadModel('pais');
         $this->_agencia = $this->loadModel('agencia');
         $this->_usuarios = $this->loadModel('usuario');
+        $this->_booking = $this->loadModel('booking');
     }
 
     public function index() {
@@ -593,9 +594,9 @@ class sistemaController extends Controller {
             $this->_view->rdbVia = 'checked';
         }
 
-        $booking = $this->loadModel('booking');
+        
 
-        $this->_view->getBookings = $booking->getConsRes(
+        $this->_view->getBookings = $this->_booking->getConsRes(
                 Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'), Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'), Session::get('sess_pCR_tipoFecha'), Session::get('sess_id_agencia'), Session::getLevel('Admin'), Session::get('sess_usuario')
         );
 
@@ -1027,6 +1028,50 @@ $this->_view->renderizaCenterBox('logoVoucher');
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
         }
     }
+    
+    public function reservaBooking(){
+    Session::acceso('Usuario');
+    
+    $objBooking = $this->_booking->getBooking($this->getTexto('n_file'));
+    if($objBooking){
+    $this->_view->BK_Id = $objBooking[0]->getId();
+    $this->_view->BK_Agencia = $objBooking[0]->getAgencia();
+    $this->_view->BK_NomPax = $objBooking[0]->getNomPax();
+    $this->_view->BK_Fecha_Anul = $objBooking[0]->getFecha_Anul();
+    $this->_view->BK_NombreUser = $objBooking[0]->getNombreUser();
+    $this->_view->BK_ApellidoUser = $objBooking[0]->getApellidoUser();
+    $this->_view->BK_FechaIn = $objBooking[0]->getFechaIn();
+    $this->_view->BK_Total = $objBooking[0]->getTotal();
+    $this->_view->BK_Registro = $objBooking[0]->getRegistro();
+    $this->_view->BK_moneda  = $objBooking[0]->getMoneda();
+    }
+    else {
+                throw new Exception('Error al desplegar la Reserva');
+         }
+    $this->_view->ObjDbk = $this->_booking->getDbooking($this->getTexto('n_file'));
+    $this->_view->ObjPbk = $this->_booking->getPbooking($this->getTexto('n_file'));
+    
+    $objHabPbk = $this->_booking->getPbooking($this->getTexto('n_file'));
+    if($objHabPbk){
+    $this->_view->PBK_nhab = $objHabPbk[0]->getNhab();   
+        
+    }
+    else {
+                throw new Exception('Error al desplegar la Reserva');
+         }
+    
+    $this->_view->renderizaCenterBox('reservaBooking');   
+
+    
+    }
+    
+    public function verReservaBooking(){
+    
+        
+    
+    
+        
+}
 
 
 
