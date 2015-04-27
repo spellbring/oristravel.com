@@ -16,11 +16,163 @@ class bookingDTO
     private $_total;
     private $_moneda;
     private $_vuelo_in;
-    private $_estado;
+    private $_estado;//
     private $_glosa;
     private $_nombre_us;
     private $_apellido_us;
     private $_agencia;
+    private $_registro;
+    private $_fecha_anul;//nuevo atributo
+    private $_cliente;//nuevo atributo
+    private $_hotel;//nuevo atributo dbooking
+    private $_tipoh;//nuevo atributo dbooking
+    private $_pa;//nuevo atributo dbooking
+    private $_tot_pax;//nuevo atributo dbooking
+    private $_tot_hab;//nuevo atributo dbooking
+    private $_tot_child1;//nuevo atributo dbooking
+    private $_ciudad;//nuevo atributo dbooking
+    private $_fecha_out;//nuevo atributo dbooking
+    private $_total_venta;//nuevo atributo dbooking
+    private $_apellido_pax;//nuevo atributo para pbooking
+    private $_hab;//nuevo atributo para pbooking
+    private $_nhab;//nuevo atributo para pbooking
+    //pbooking
+    function getApellido_pax() {
+        return $this->_apelldo_pax;
+    }
+
+    function getHab() {
+        return $this->_hab;
+    }
+
+    function getNhab() {
+        return $this->_nhab;
+    }
+
+    function setApellido_pax($apelldo_pax) {
+        $this->_apelldo_pax = $apelldo_pax;
+        return $this;
+    }
+
+    function setHab($hab) {
+        $this->_hab = $hab;
+        return $this;
+    }
+
+    function setNhab($nhab) {
+        $this->_nhab = $nhab;
+        return $this;
+    }
+
+    
+    //dbooking
+    function getTot_pax() {
+        return $this->_tot_pax;
+    }
+
+    function setTot_pax($tot_pax) {
+        $this->_tot_pax = $tot_pax;
+        return $this;
+    }
+
+        function getHotel() {
+        return $this->_hotel;
+    }
+
+    function getTipoh() {
+        return $this->_tipoh;
+    }
+
+    function getPa() {
+        return $this->_pa;
+    }
+
+    function getTot_hab() {
+        return $this->_tot_hab;
+    }
+
+    function getTot_child1() {
+        return $this->_tot_child1;
+    }
+
+    function getCiudad() {
+        return $this->_ciudad;
+    }
+
+    function getFecha_out() {
+        return $this->_fecha_out;
+    }
+
+    function getTotal_venta() {
+        return $this->_total_venta;
+    }
+
+    function setHotel($hotel) {
+        $this->_hotel = $hotel;
+        return $this;
+    }
+
+    function setTipoh($tipoh) {
+        $this->_tipoh = $tipoh;
+        return $this;
+    }
+
+    function setPa($pa) {
+        $this->_pa = $pa;
+        return $this;
+    }
+
+    function setTot_hab($tot_hab) {
+        $this->_tot_hab = $tot_hab;
+        return $this;
+    }
+
+    function setTot_child1($tot_child1) {
+        $this->_tot_child1 = $tot_child1;
+        return $this;
+    }
+
+    function setCiudad($ciudad) {
+        $this->_ciudad = $ciudad;
+        return $this;
+    }
+
+    function setFecha_out($fecha_out) {
+        $this->_fecha_out = $fecha_out;
+        return $this;
+    }
+
+    function setTotal_venta($total_venta) {
+        $this->_total_venta = $total_venta;
+        return $this;
+    }
+
+    ////// 
+    
+    function getRegistro() {
+        return $this->_registro;
+    }
+
+    function setRegistro($registro) {
+        $this->_registro = $registro;
+        return $this;
+    }
+
+         public function getCliente(){
+        return $this->_cliente;        
+    }
+    
+    public function setCliente($clie){
+         $this->_cliente = $clie;
+    }
+    
+    public function getFecha_Anul(){
+        return $this->_fecha_anul;        
+    }
+    
+    public function setFecha_Anul($fecha_anul){
+         $this->_fecha_anul = $fecha_anul;
+    }
     
     public function getAgencia() {
         return $this->_agencia;
