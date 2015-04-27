@@ -151,7 +151,7 @@ $(function()
                             <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
                                 <thead>
                                     <tr style="background-color:#76c4ed;">
-                                        <th width="39"></th>
+                                        <th width="39">Estado</th>
                                         <th width="110">Fecha</th>
                                         <th width="110">Fecha In</th>
                                         <th width="70">File</th>
@@ -160,34 +160,34 @@ $(function()
                                         <th>Pasajero</th>
                                         <th width="110">Total</th>
                                         <th width="39">Vou</th>
-                                        <th width="39"></th>
+                                        <th width="39">Reserva</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 
                                  <?php
-                                    if($this->getBookings!=FALSE)
+                                    if($this->getBookings)
                                     { 
                                             foreach($this->getBookings as $columRes)
                                             {
                                                     //$valorVenta =intval($columRes["id_booking"]);
-                                                    $cR_valorTotal= number_format(trim($columRes["total"]), 0, ',', '.');;
-                                                    $cR_moneda = Funciones::getTipoMoneda(trim($columRes["moneda"]));
-                                                    $cR_fecha= trim($columRes['fecha']);
-                                                    $cR_fViaje= trim($columRes['fecha_in']);
-                                                    $cR_booking=trim($columRes['id_booking']);
+                                                    $cR_valorTotal= number_format(trim($columRes->getTotal()), 0, ',', '.');;
+                                                    $cR_moneda = Funciones::getTipoMoneda(trim($columRes->getMoneda()));
+                                                    $cR_fecha= trim($columRes->getFecha());
+                                                    $cR_fViaje= trim($columRes->getFechaIn());
+                                                    $cR_booking=trim($columRes->getId());
                                                     $cR_nFile= Funciones::add_ceros($cR_booking,6);
-                                                    $cR_agencia= trim($columRes['agencia']);
-                                                    $cR_vendedor= trim($columRes['nombre']).' '.trim($columRes['apellido']);
-                                                    $cR_pasajero= trim($columRes['nombre_pax']);
-                                                    $cR_voucher= trim($columRes['voucher']);
+                                                    $cR_agencia= trim($columRes->getAgencia());
+                                                    $cR_vendedor= trim($columRes->getNombreUser()).' '.$columRes->getApellidoUser();
+                                                    $cR_pasajero= trim($columRes->getNomPax());
+                                                    $cR_voucher= trim($columRes->getVoucher());
                                                     /*$cR_totVenta= $functions->formatoValor($cR_moneda, trim($columRes['totventa']));
 
                                                     $cR_codProg= $privateFunctions->getCodPak_numFile($cR_nFile);
                                                     $cR_codBloq= $privateFunctions->getCodBloq_numFile($cR_nFile);*/
 
 
-                                                    $cR_estado= trim($columRes['estado']);
+                                                    $cR_estado= trim($columRes->getEstado());
                                                     $imgStatus='';
                                                     $voucherStatus='';
                                                     
@@ -224,7 +224,7 @@ $(function()
                                         <td style="color: #FF0000; font-weight: bold;" align="right"><?php echo $cR_moneda.' '.$cR_valorTotal; ?></td>
                                         <td align="center"><?php echo $voucherStatus; ?></td>
                                         <td align="center">
-                                        	<a data-toggle="modal" href="#myModal" onClick="abreCartaConfirm('<?php echo $cR_nFile; ?>', '<?php echo $cR_codProg; ?>', '<?php echo $cR_codBloq; ?>');"><img src="<?php echo $_layoutParams['ruta_img']; ?>search.png" width="24" border="0" /></a>
+                                        	<a data-toggle="modal" href="#myModal" onClick="abreCartaConfirm('<?php echo $cR_nFile; ?>', '<?php //echo $cR_codProg; ?>', '<?php //echo $cR_codBloq; ?>','<?php echo BASE_URL ?>sistema/reservaBooking');"><img src="<?php echo $_layoutParams['ruta_img']; ?>search.png" width="24" border="0" /></a>
                                         </td>
                                     </tr>
                                   	<?php }
@@ -240,10 +240,7 @@ $(function()
                                         <?php
 									}
 								   ?>
-                                    
-                                    
-                                    
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -297,16 +294,19 @@ $('#btnConsBooking').on('click',function(){
 });
 
 
-function abreCartaConfirm(nFile, codProg, codBloq)
+function abreCartaConfirm(nFile, codProg, codBloq, php)
 {
-	$.post("process/procesoCartaConfirm.php", 
+        $("#ML_divPopup").html('');
+        $("#ML_tituloForm").html('Reserva');
+	$.post(php, 
 	{
 		n_file: nFile,
 		cod_prog: codProg,
 		cod_bloq: codBloq
 	}, function(data)
-	{
-		$("#divCartaConfirm").html(data);
+	{   
+		$("#modal_dialog").css({"width":"80%"});
+                $("#ML_divPopup").html(data);
 	});
 }
 </script>
