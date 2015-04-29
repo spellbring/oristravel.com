@@ -593,9 +593,6 @@ class sistemaController extends Controller {
         } else {
             $this->_view->rdbVia = 'checked';
         }
-
-        
-
         $this->_view->getBookings = $this->_booking->getConsRes(
                 Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'), Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'), Session::get('sess_pCR_tipoFecha'), Session::get('sess_id_agencia'), Session::getLevel('Admin'), Session::get('sess_usuario')
         );
@@ -1065,15 +1062,149 @@ $this->_view->renderizaCenterBox('logoVoucher');
     
     }
     
-    public function verReservaBooking(){
-    
+    public function generarExcel(){
+        Session::acceso('Usuario');
+        $this->getLibrary('phpExcel' . DS . 'PHPExcel');
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->getProperties()->setCreator("Codedrinks") // Nombre del autor
+        ->setLastModifiedBy("Codedrinks") //Ultimo usuario que lo modificó
+        ->setTitle("Reporte Excel con PHP y MySQL") // Titulo
+        ->setSubject("Reporte Excel con PHP y MySQL") //Asunto
+        ->setDescription("Reporte Oris") //Descripción
+        ->setKeywords("reporte alumnos carreras") //Etiquetas
+        ->setCategory("Reporte excel"); //Categorias
         
-    
-    
         
-}
+        $tituloReporte = "Negocios Oris";
+        
+       $objPHPExcel->setActiveSheetIndex(0)
+       ->setCellValue('A1',  $tituloReporte);
+        
+        $titulosColumnas = array('Negocio', 'Estado', 'Fecha', 'Fecha In', 'Nombre Cliente', 'Vendedor', 'Nombre Pasajero', 'Moneda', 'Total');
+        $objPHPExcel->setActiveSheetIndex(0)
+        ->mergeCells('A1.I1');
+            $objPHPExcel->setActiveSheetIndex(0)
+             ->setCellValue('A1',  $titulosColumnas[0])  
+             ->setCellValue('B1',  $titulosColumnas[1])
+             ->setCellValue('C1',  $titulosColumnas[2])
+             ->setCellValue('D1',  $titulosColumnas[3])
+             ->setCellValue('E1',  $titulosColumnas[4])
+             ->setCellValue('F1',  $titulosColumnas[5])
+             ->setCellValue('G1',  $titulosColumnas[6])
+             ->setCellValue('H1',  $titulosColumnas[7])
+             ->setCellValue('I1',  $titulosColumnas[8]);
+             
+        $i=1;
+        $j= $i+1;
+        $k=j+1;
+        $l=k+1;
+        
+        $objBooking = $this->_booking->getConsRes(
+                Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'), Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'), Session::get('sess_pCR_tipoFecha'), Session::get('sess_id_agencia'), Session::getLevel('Admin'), Session::get('sess_usuario')
+        );
 
+        
+        foreach($objBooking as $objb){
+            $objPHPExcel->setActiveSheetIndex(0) 
+                ->setCellValue('A'.$j, $objb->getId())
+                ->setCellValue('B'.$j, $objb->getEstado())
+                ->setCellValue('C'.$j, $objb->getFecha())
+                ->setCellValue('D'.$j, $objb->getFechaIn())
+                ->setCellValue('E'.$j, $objb->getAgencia())
+                ->setCellValue('F'.$j, $objb->getNombreUser().$objb->getApellidoUser())
+                ->setCellValue('G'.$j, $objb->getNomPax())
+                ->setCellValue('H'.$j, $objb->getMoneda())
+                ->setCellValue('I'.$j, $objb->getTotal());
+            
+            $i++;
+             $objDBooking = $this->_booking->getDBooking($objb->getId());
+             foreach($objDBooking as $objdb){
+                $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('B'.$k, $objdb->getEstado());
+              $i++;
+              $k++;
+             }
+        }
+           header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="ReporteOris.xlsx"');
+        header('Cache-Control: max-age=0');
+        
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+        $objWriter->save('php://output');
+        
+    }
+    public function crearExcel(){
+    header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");  
+    header ("Cache-Control: no-cache, must-revalidate");  
+    header ("Pragma: no-cache");  
+    header ("Content-type: application/vnd.ms-excel");
+    header ("Content-Disposition: attachment; filename=\"NengocioOris.csv\"" );
+    
+    $objBooking = $this->_booking->getConsRes(
+                Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'), Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'), Session::get('sess_pCR_tipoFecha'), Session::get('sess_id_agencia'), Session::getLevel('Admin'), Session::get('sess_usuario')
+        );
+      echo "Negocio; Estado; Fecha; Fecha In; Nombre Cliente; Vendedor; Nombre Pasajero; Moneda; Total; \n";      
+        foreach($objBooking as $objb){
+          
+                echo  $objb->getId().";"
+                    . $objb->getEstado().";"
+                    . $objb->getFecha().";"
+                    . $objb->getFechaIn().";"
+                    . $objb->getAgencia().";"
+                    . $objb->getNombreUser().$objb->getApellidoUser().";"
+                    . $objb->getNomPax().";"
+                    . $objb->getMoneda().";"
+                    . round($objb->getTotal()).";"; 
+                echo "\n";
+        }             
+        
+    }
+    
+    public function crearExcelDet(){
+    header ("Last-Modified: " . gmdate("D,d M YH:i:s") . " GMT");  
+    header ("Cache-Control: no-cache, must-revalidate");  
+    header ("Pragma: no-cache");  
+    header ("Content-type: application/vnd.ms-excel");
+    header ("Content-Disposition: attachment; filename=\"NegocioOrisDetalle.csv\"" );
+    
+    $objBooking = $this->_booking->getConsRes(
+                Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'), Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'), Session::get('sess_pCR_tipoFecha'), Session::get('sess_id_agencia'), Session::getLevel('Admin'), Session::get('sess_usuario')
+        );
 
+      //echo "Negocio; Estado; Fecha; Fecha In; Nombre Cliente; Vendedor; Nombre Pasajero; Moneda; Total; \n\n"; 
+        foreach($objBooking as $objb){
+          echo "Negocio; Estado; Fecha; Fecha In; Nombre Cliente; Vendedor; Nombre Pasajero; Moneda; Total; \n";   
+                echo  $objb->getId().";"
+                    . $objb->getEstado().";"
+                    . $objb->getFecha().";"
+                    . $objb->getFechaIn().";"
+                    . $objb->getAgencia().";"
+                    . $objb->getNombreUser().$objb->getApellidoUser().";"
+                    . $objb->getNomPax().";"
+                    . $objb->getMoneda().";"
+                    . round($objb->getTotal()).";"; 
+                echo "\n\n";
+                
+               $objDBooking = $this->_booking->getDBooking($objb->getId());
+               echo ";Status; Hotel; Habitación; P.A.; N°Hab; Adultos; Childs; Ciudad; Fecha In; Fecha Out; Total Venta;\n";
+             foreach($objDBooking as $objdb){
+               echo ";".$objdb->getEstado().";"
+                       .$objdb->getHotel().";"
+                       .$objdb->getTipoh().";"
+                       .$objdb->getAgencia().";"
+                       .$objdb->getPa().";"
+                       .$objdb->getTot_hab().";"
+                       .$objdb->getTot_pax().";"
+                       .$objdb->getTot_child1().";"
+                       .$objdb->getCiudad().";"
+                       .$objdb->getFechaIn().";"
+                       .$objdb->getFecha_out().";"
+                       .round($objdb->getTotal_venta()).";";
+                       echo "\n";                      
+             }
+              echo "\n";
+             }   
+        }
 
 /*     * *****************************************************************************
      *                                                                              *

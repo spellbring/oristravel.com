@@ -85,12 +85,23 @@ $(function()
                                            <input type="button"  id="btnConsBooking" class="btn btn-primary" value="Buscar">
                                            <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" />
                                            </td>
+                                           <?php
+                                           if(Session::get('sess_pCR_fechaDesde')){
+                                           ?>
+                                           <td><th width="10%"></th></td>
+                                           <td> <center><img width="50" height="50" src="<?php echo $_layoutParams['ruta_img']; ?>excel.png"></center><br>
+                                               <a href="<?php echo BASE_URL ?>sistema/crearExcelDet" >Generar Excel con Detalle </a>| 
+                                                <a href="<?php echo BASE_URL ?>sistema/crearExcel">Generar Excel sin Detalle </a></td>
+                                            
+                                          <?php
+                                           }
+                                            ?>   
                                         </tr>
                                         <tr>
  	                                       <td>Fecha reserva:</td>
                                            <td><input type="radio" id="rdbReserva" name="rdbFecha" value="1" <?php echo $this->rdbRes; ?>></td>
                                            <td>Fecha viaje:</td>
-                                           <td><input type="radio" id="rdbViaje" name="rdbFecha" value="2" <?php echo $this->rdbVia; ?>></td>
+                                           <td><input type="radio" id="rdbViaje" name="rdbFecha" value="2" <?php echo $this->rdbVia; ?>></td>     
                                         </tr>
                                     </table>
                                     </form>
