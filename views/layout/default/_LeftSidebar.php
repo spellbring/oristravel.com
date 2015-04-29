@@ -649,20 +649,13 @@ $(function()
         <li <?php if($this->currentMenu==1){ ?>class="active"<?php } ?>>
             <a id="menuConsBook" href="javascript:;">
                 <i><img src="<?php echo $_layoutParams['ruta_img']; ?>right.png" width="12px" /></i>
-                <span>Consultar Booking</span>
+                <span>Booking</span>
             </a>
         </li>
         <?php } ?>
         
         
-        <?php if(Session::accesoView('Admin')){ ?>
-        <li <?php if($this->currentMenu==6){ ?>class="active"<?php } ?>>
-            <a id="menuAnulaBook" href="javascript:;">
-                <i><img src="<?php echo $_layoutParams['ruta_img']; ?>right.png" width="12px" /></i>
-                <span>Anular Booking</span>
-            </a>
-        </li>
-        <?php } ?>
+        
         
 
         <?php if(Session::accesoView('Admin')){ ?>
@@ -778,7 +771,7 @@ $('#btnBuscarHoteles').on('click',function()
             window.location.href = '<?php echo BASE_URL; ?>sistema/consultarBooking';
         },2500);
     });
-    
+    /*
     $('#menuAnulaBook').on('click',function(){
         $(document).skylo('start');
 
@@ -793,6 +786,7 @@ $('#btnBuscarHoteles').on('click',function()
             window.location.href = '<?php echo BASE_URL; ?>sistema/anularBooking';
         },2500);
     });
+    */
     
     $('#menuHoteles').on('click',function(){
         $(document).skylo('start');
@@ -916,7 +910,7 @@ $('#btnBuscarHoteles').on('click',function()
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div id="modal_dialog" class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

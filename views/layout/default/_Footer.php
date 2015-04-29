@@ -20,7 +20,8 @@
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jquery-1.10.2.min.js'></script> 
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jqueryui-1.10.3.min.js'></script> 
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>bootstrap.min.js'></script> 
-        <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>enquire.js'></script> 
+        <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>enquire.js'></script>
+        <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jquery.PrintArea.js'></script>
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jquery.cookie.js'></script> 
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>jquery.nicescroll.min.js'></script> 
         <script type='text/javascript' src='<?php echo $_layoutParams['ruta_js']; ?>prettify.js'></script> 

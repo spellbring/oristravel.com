@@ -81,7 +81,8 @@
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                             <?php if(!empty($this->EH_imgEnc)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $this->EH_imgEnc; ?>" />
+                                    	<img src="<?php echo $_layoutParams['ruta_hoteles'] . 'thumb/thumb_'.$this->EH_imgEnc; ?>" />
+                                        <?php Session::set('sessMOD_DTH_img1', $this->EH_imgEnc) ?>
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -94,7 +95,7 @@
                                       <span class="btn btn-default btn-file">
                                         <span class="fileinput-new">Seleccionar</span>
                                         <span class="fileinput-exists">Cambiar</span>
-                                        <input type="file" name="flImagen1" accept="image/*">
+                                        <input type="file"  id="flImagen1 "name="flImagen1" accept="image/*">
                                       </span>
                                       <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                                     </div>
@@ -109,7 +110,8 @@
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                             <?php if(!empty($this->EH_imgCont)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $this->EH_imgCont; ?>" />
+                                    	<img src="<?php echo $_layoutParams['ruta_hoteles'] .'thumb/thumb_'.$this->EH_imgCont; ?>" />
+                                        <?php Session::set('sessMOD_DTH_img2', $this->EH_imgCont) ?>
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -122,7 +124,7 @@
                                       <span class="btn btn-default btn-file">
                                         <span class="fileinput-new">Seleccionar</span>
                                         <span class="fileinput-exists">Cambiar</span>
-                                        <input type="file" name="flImagen2" accept="image/*">
+                                        <input type="file" id="flImagen2" name="flImagen2" accept="image/*">
                                       </span>
                                       <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                                     </div>
@@ -137,7 +139,8 @@
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                             <?php if(!empty($this->EH_imgCont2)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $this->EH_imgCont2; ?>" />
+                                    	<img src="<?php echo $_layoutParams['ruta_hoteles'] .'thumb/thumb_'.$this->EH_imgCont2; ?>" />
+                                        <?php Session::set('sessMOD_DTH_img3', $this->EH_imgCont2) ?>
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -150,7 +153,7 @@
                                       <span class="btn btn-default btn-file">
                                         <span class="fileinput-new">Seleccionar</span>
                                         <span class="fileinput-exists">Cambiar</span>
-                                        <input type="file" name="flImagen3" accept="image/*">
+                                        <input type="file" id="flImagen3" name="flImagen3" accept="image/*">
                                       </span>
                                       <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                                     </div>
@@ -168,7 +171,8 @@
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                             <?php if(!empty($this->EH_imgCont3)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $this->EH_imgCont3; ?>" />
+                                    	<img src="<?php echo $_layoutParams['ruta_hoteles'] .'thumb/thumb_'.$this->EH_imgCont3; ?>" />
+                                        <?php Session::set('sessMOD_DTH_img4', $this->EH_imgCont3) ?>
                                     </div>
                                     <center>
                                         <label style="cursor:pointer">
@@ -181,23 +185,26 @@
                                       <span class="btn btn-default btn-file">
                                         <span class="fileinput-new">Seleccionar</span>
                                         <span class="fileinput-exists">Cambiar</span>
-                                        <input type="file" name="flImagen4" accept="image/*">
+                                        <input type="file" id="flImagen4" name="flImagen4" accept="image/*">
                                       </span>
                                       <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                                     </div>
                             <?php } ?>
                             </div>
                         </div>
+                                    
                         	</td>
                         
                         	<td>
                          <div class="col-sm-9" >
                          	<center>Imagen 5</center>
                             <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <?php if(!empty($this->EH_imgCont)){?>
+                            <?php if(!empty($this->EH_imgCont4)){?>
                                     <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px; padding-top:10px;">
-                                    	<img src="<?php echo $this->EH_imgCont4; ?>" />
+                                    	<img src="<?php echo $_layoutParams['ruta_hoteles'] .'thumb/thumb_'.$this->EH_imgCont4; ?>" />
+                                        <?php Session::set('sessMOD_DTH_img5', $this->EH_imgCont4) ?>
                                     </div>
+                                
                                     <center>
                                         <label style="cursor:pointer">
                                         	<input style="margin-top:-1px; vertical-align:middle" type="checkbox" name="chkEH_flImagen5"> Eliminar
@@ -209,7 +216,7 @@
                                       <span class="btn btn-default btn-file">
                                         <span class="fileinput-new">Seleccionar</span>
                                         <span class="fileinput-exists">Cambiar</span>
-                                        <input type="file" name="flImagen5" accept="image/*">
+                                        <input type="file" id="flImagen5" name="flImagen5" accept="image/*">
                                       </span>
                                       <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
                                     </div>

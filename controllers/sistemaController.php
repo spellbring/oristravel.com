@@ -19,6 +19,7 @@ class sistemaController extends Controller {
         $this->_pais = $this->loadModel('pais');
         $this->_agencia = $this->loadModel('agencia');
         $this->_usuarios = $this->loadModel('usuario');
+        $this->_booking = $this->loadModel('booking');
     }
 
     public function index() {
@@ -404,6 +405,7 @@ class sistemaController extends Controller {
             for ($i = 1; $i <= 5; $i++) {
                 if (isset($_FILES['flImagen' . $i]['name'])) {
                     if ($_FILES['flImagen' . $i]['name']) {
+                        $this->getLibrary('upload' . DS . 'class.upload');
                         $upload = new upload($_FILES['flImagen' . $i], 'es_ES');
                         $upload->allowed = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
                         $upload->file_max_size = '524288'; // 512KB
@@ -435,20 +437,20 @@ class sistemaController extends Controller {
                 } else {
                     if ($i == 1) {
                         if ($this->getTexto('chkEH_flImagen' . $i) == 'on') {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            //Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . 'thumb' . DS .'thumb_'. Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_encabezado = "", mini_img_encabezado = "" ';
                         }
                     } else if ($i == 2) {
                         if ($this->getTexto('chkEH_flImagen' . $i) == 'on') {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            //Functions::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . 'thumb' . DS .'thumb_'. Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_contenido = "", mini_img_contenido = "" ';
                         }
                     } else {
                         if ($this->getTexto('chkEH_flImagen' . $i) == 'on') {
-                            //Functions::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
-                            Funciones::eliminaFile($rutaImg . 'thumb' . DS . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . Session::get('sessMOD_DTH_img' . $i));
+                            Funciones::eliminaFile($rutaImg . 'thumb' . DS .'thumb_'. Session::get('sessMOD_DTH_img' . $i));
                             $MH_sql.=', img_contenido' . ($i - 1) . ' = "", mini_img_contenido' . ($i - 1) . ' = "" ';
                         }
                     }
@@ -592,9 +594,9 @@ class sistemaController extends Controller {
             $this->_view->rdbVia = 'checked';
         }
 
-        $booking = $this->loadModel('booking');
+        
 
-        $this->_view->getBookings = $booking->getConsRes(
+        $this->_view->getBookings = $this->_booking->getConsRes(
                 Funciones::invertirFecha(Session::get('sess_pCR_fechaDesde'), '/', '-'), Funciones::invertirFecha(Session::get('sess_pCR_fechaHasta'), '/', '-'), Session::get('sess_pCR_tipoFecha'), Session::get('sess_id_agencia'), Session::getLevel('Admin'), Session::get('sess_usuario')
         );
 
@@ -1026,6 +1028,50 @@ $this->_view->renderizaCenterBox('logoVoucher');
             throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador');
         }
     }
+    
+    public function reservaBooking(){
+    Session::acceso('Usuario');
+    
+    $objBooking = $this->_booking->getBooking($this->getTexto('n_file'));
+    if($objBooking){
+    $this->_view->BK_Id = $objBooking[0]->getId();
+    $this->_view->BK_Agencia = $objBooking[0]->getAgencia();
+    $this->_view->BK_NomPax = $objBooking[0]->getNomPax();
+    $this->_view->BK_Fecha_Anul = $objBooking[0]->getFecha_Anul();
+    $this->_view->BK_NombreUser = $objBooking[0]->getNombreUser();
+    $this->_view->BK_ApellidoUser = $objBooking[0]->getApellidoUser();
+    $this->_view->BK_FechaIn = $objBooking[0]->getFechaIn();
+    $this->_view->BK_Total = $objBooking[0]->getTotal();
+    $this->_view->BK_Registro = $objBooking[0]->getRegistro();
+    $this->_view->BK_moneda  = $objBooking[0]->getMoneda();
+    }
+    else {
+                throw new Exception('Error al desplegar la Reserva');
+         }
+    $this->_view->ObjDbk = $this->_booking->getDbooking($this->getTexto('n_file'));
+    $this->_view->ObjPbk = $this->_booking->getPbooking($this->getTexto('n_file'));
+    
+    $objHabPbk = $this->_booking->getPbooking($this->getTexto('n_file'));
+    if($objHabPbk){
+    $this->_view->PBK_nhab = $objHabPbk[0]->getNhab();   
+        
+    }
+    else {
+                throw new Exception('Error al desplegar la Reserva');
+         }
+    
+    $this->_view->renderizaCenterBox('reservaBooking');   
+
+    
+    }
+    
+    public function verReservaBooking(){
+    
+        
+    
+    
+        
+}
 
 
 
