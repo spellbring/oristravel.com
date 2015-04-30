@@ -10,7 +10,7 @@
     <meta name="author" content="The Red Team">
 
     
-    <!-- <script src="<?php echo $_layoutParams['ruta_js']; ?>jquery-1.10.2.min.js"></script> -->
+    <script src="<?php echo $_layoutParams['ruta_js']; ?>jquery-1.10.2.min.js"></script>
     <link href="<?php echo $_layoutParams['ruta_css']; ?>styles.min.css?=121" rel="stylesheet" >
     <link href='<?php echo $_layoutParams['ruta_css']; ?>google-fonts.css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
 
@@ -30,6 +30,41 @@
     <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>jqueryui.css' /> 
     <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>prettify.css' /> 
     <link rel='stylesheet' type='text/css' href='<?php echo $_layoutParams['ruta_css']; ?>toggles.css' /> 
+    
+    
+    <script type="text/javascript">
+        var BASE_URL_JS = "<?php echo BASE_URL; ?>";
+        var CONTROLLER_JS = "<?php echo Session::get('SESS_CONTROLLER'); ?>";
+        var RUTA_IMG_JS = "<?php echo $_layoutParams['ruta_img']; ?>";
+        var segundos = <?php echo date('s')+1; ?>;
+        var minutos = <?php echo date('i'); ?>;
+        var hora = <?php echo date('H'); ?>; 
+
+        function digiClock() {
+            segundos++;
+            if (segundos === 60) {
+                segundos = 0;
+                minutos++;
+                if (minutos === 60) {
+                    minutos = 0;
+                    hora++;
+                    if (hora === 24) {
+                        hora = 0;
+                    }
+                }
+            }
+            if(segundos>9) { ceroSeg = ''; } else { ceroSeg = '0'; }
+            if(minutos>9) { ceroMin = ''; } else { ceroMin = '0'; }
+            if(hora>9) { ceroHor = ''; } else { ceroHor = '0'; }
+            $("#divClock").html(ceroHor + hora + ":" + ceroMin + minutos + ":" + ceroSeg + segundos);
+        }
+
+        $(document).ready(function()  
+        {
+           setInterval('digiClock()', 1000);  
+        });
+    </script>
+    
     
     
     <?php 
@@ -131,6 +166,34 @@
                 </li>
             </ul>
         </li>
+        
+        
+        
+        
+        
+        <li id="divTime" class="dropdown">
+            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
+                <img src="<?php echo $_layoutParams['ruta_img']; ?>fecha_hora.png" width="24" />
+            </a>
+            <ul class="dropdown-menu messages arrow" style="height: 100px">
+                <li class="dd-header">
+                    <span><?php echo Funciones::traduceDia(); ?></span>
+                    <span>&nbsp;</span>
+                </li>
+
+
+                <div class="scrollthis">
+                    <li><a href="#">
+                            <div>
+                                <span class="name"><div id="divClock"></div></span>
+                                <span class="msg"><?php echo date('d') . ' de ' . Funciones::traduceMes() . ' de ' . date('Y'); ?></span>
+                            </div>
+                    </a></li>
+                </div>
+            </ul>
+        </li>
+        
+        
         
         
         <li class="dropdown">
