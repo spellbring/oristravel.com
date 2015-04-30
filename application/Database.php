@@ -11,25 +11,17 @@ class Database
     protected $_conexion;
     
     public function __construct() {
-        $this->_conexion= mysql_connect(DB_HOST, DB_USER, DB_PASS);
+        $this->_conexion= new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         
-        if ($this->_conexion) {
-            $bd = mysql_select_db(DB_NAME, $this->_conexion);
-            if ($bd) {
-                //mysql_set_charset('ISO-8859-1',$this->_conexion);
-                return true;
-            } else {
-                throw new Exception('Base de datos no encontrada');
-            }
+        if ($this->_conexion->connect_error) {
+            throw new Exception('Error de conexion');
         } else {
-            throw new Exception('No se pudo conectar a la Base de datos');
+            return true;
         }
     }
-    
+
     public function consulta($query) {
-        //echo $query; exit;
-        $rs = mysql_query($query, $this->_conexion);
-        
+        $rs = $this->_conexion->query($query);
         if ($rs) {
             return $rs;
         } else {
@@ -37,25 +29,21 @@ class Database
         }
     }
     
+    public function numRows($consulta) {
+        return mysqli_num_rows($consulta);
+    }
+    
     public function fetchAll($consulta) {
         $arrayFetch = array();
-        while ($reg = mysql_fetch_array($consulta)) {
+        while ($reg = $consulta->fetch_array()) {
             $arrayFetch[] = $reg;
         }
 
         return $arrayFetch;
     }
-    public function fetchRow($consulta){//jrr
-        return mysql_fetch_row($consulta);
-    }
     
-
-    public function numRows($consulta) {
-        return mysql_num_rows($consulta);
-    }
-
     public function closeConex() {
-        return mysql_close($this->conexion);
+        return $this->_conexion->close();
     }
 
 }
