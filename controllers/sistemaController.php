@@ -20,6 +20,7 @@ class sistemaController extends Controller {
         $this->_agencia = $this->loadModel('agencia');
         $this->_usuarios = $this->loadModel('usuario');
         $this->_booking = $this->loadModel('booking');
+        $this->_carro = $this->loadModel('carro');
     }
 
     public function index() {
@@ -592,13 +593,17 @@ class sistemaController extends Controller {
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('imagenes');
     }
-
+########################carroController########################
     public function carro() {
         Session::acceso('Usuario');
+        
         $this->_view->currentMenu = false;
         $this->_view->titulo = 'ORISTRAVEL';
-        $this->_view->renderizaSistema('carro');
-    }
+        
+        $this->_view->objCarro = $this->_carro->getAddCarro(Session::get('sess_usuario'));
+        
+        $this->_view->renderizaSistema('carro');       
+    }              
 ########################contactoController###################################
     public function contactenos() {
         Session::acceso('Usuario');
@@ -1095,8 +1100,8 @@ $this->_view->renderizaCenterBox('logoVoucher');
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
-
-
+        
+        
         $this->_view->CR_fechaDesde = date('d/m/Y');
         if (Session::get('sess_pCR_fechaDesde')) {
             $this->_view->CR_fechaDesde = Session::get('sess_pCR_fechaDesde');
@@ -1141,7 +1146,46 @@ $this->_view->renderizaCenterBox('logoVoucher');
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('anularBooking');
     }
-
+    
+    public function generaVoucherPdf($id){
+    Session::acceso('Usuario');
+    $this->getLibrary('fpdf');
+    $pdfVou = new FPDF();
+    $pdfVou->AddPage();
+    $pdfVou->SetFont('Arial','B','11');
+    $pdfVou->Cell(40,10,'Hola');
+    $pdfVou->Output();   
+    }
+    
+    
+    public function paso3(){
+    Session::acceso('Usuario');
+    //if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
+    //$this->_view->carrAdltNombre = $this->getTexto('Carr_txtNombrePas_1_1');
+    $carrAdlNombre = array();
+    $carrAdlApellido = array();
+    
+    if(Session::get('sess_pBP_cntHab')){
+        for($i = 1; $i<=Session::get('sess_pBP_cntHab'); $i++){
+                                                        
+                                                    
+                if(Session::get('sess_BP_Adl_'.$i)){
+                       for($j = 1; $j <= Session::get('sess_BP_Adl_'.$i) ; $j++){
+                            $carrAdlNombre[] = $this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j);
+                            $carrAdlApellido[] = $this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j);   
+                       } 
+                }                 
+        }
+         $this->_view->carrAdlNombre = $carrAdlNombre;
+         $this->_view->carrAdlApellido= $carrAdlApellido;
+         
+    //}
+         $this->_view->renderizaCenterBox('paso3');
+     
+    }
+    
+   
+    } 
 /*     * *****************************************************************************
      *                                                                              *
      *                             METODOS PROCESADORES                             *
