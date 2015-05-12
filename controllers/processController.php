@@ -79,7 +79,7 @@ class processController extends Controller
 
        
 
-        Session::set('sess_sBP_serv', $this->getTexto('mL_cmbServicios_S'));   
+        Session::set('sess_sBP_serv', $this->getTexto('mL_cmbServicio_S'));   
         Session::set('sess_sBP_adultos', $this->getTexto('mL_cmbAdultos_S'));
         Session::set('sess_sBP_childs', $this->getTexto('mL_cmbChild_S'));
         
