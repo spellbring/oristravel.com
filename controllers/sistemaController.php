@@ -29,6 +29,7 @@ class sistemaController extends Controller {
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
         
         $this->_view->objServicios = $this->_servicio->getServicios();
 
@@ -480,6 +481,8 @@ class sistemaController extends Controller {
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         $this->_view->mL_expandeFiltrosHot='block';
+        
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
         
 
         
@@ -1221,8 +1224,11 @@ $this->_view->renderizaCenterBox('logoVoucher');
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
         
         $this->_view->objServicios = $this->_servicio->getServicios();
+        
+        $this->_view->mL_expandeFiltrosServ = 'block';
         
         $this->_view->currentMenu = 9;
         $this->_view->titulo = 'ORISTRAVEL';
@@ -1236,8 +1242,11 @@ $this->_view->renderizaCenterBox('logoVoucher');
        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+       $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
        
         $this->_view->objServicios = $this->_servicio->getServicios();
+        
+        $this->_view->mL_expandeFiltrosProg = 'block';
        
        $this->_view->currentMenu = 10;
        $this->_view->titulo = 'ORISTRAVEL'; 
