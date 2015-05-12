@@ -161,23 +161,35 @@ $(function()
                                 </td>     
                             </tr>
                             <tr>
-                            	<td width="30%"><span style="padding-left:10px;">Categoria:</span></td>
+                            	<td width="30%"><span style="padding-left:10px;">Categoria:</span></td><!-- mL_cmbCat_H  sess_pBP_Cagegorias  -->
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <select name="mL_cmbCat_H" class="form-control">
-                                            <option value="0">Seleccione</option>
-										<?php 
-										for($i=1; $i<=10; $i++)
-										{
-											if(Session::get('sess_pBP_Cagegorias')==$i)
-											{
-										?>
-                                            <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
-                                    <?php }else{ ?>
-                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                    <?php } 
-                                                                            } ?>
-                                    </select>
+                                        <select name="mL_cmbCat_H" id="mL_cmbCat_H" class="form-control">
+                                                    <option value="0">Todas</option>
+                                                    <?php
+                                                    if($this->objCategoriaHoteles)
+                                                    {
+                                                        foreach($this->objCategoriaHoteles as $objCatHot)
+                                                        {
+                                                            //$asdasd= $this->objCategoriaHoteles->getCategoria();
+                                                            $h_objCat = $objCatHot->getCodCat();
+                                                            //$h_cat = $this->objCategoriaHoteles->getCodCat();
+                                                            
+                                                            if(Session::get('sess_pBP_Cagegorias')==$h_objCat)
+                                                            {
+                                                            ?>
+                                                                <option value="<?php echo $objCatHot->getCodCat(); ?>" selected="selected" ><?php echo $objCatHot->getCategoria(); ?></option>
+                                                            <?php
+                                                            }
+                                                            else
+                                                            {
+                                                            ?>
+                                                                <option value="<?php echo $objCatHot->getCodCat(); ?>"><?php echo $objCatHot->getCategoria(); ?></option>
+                                                            <?php
+                                                            }
+                                                        }
+                                                    } ?>
+                                                </select>
                                 </td>
                             </tr>
 
@@ -331,7 +343,7 @@ $(function()
         
         <li <?php if($this->currentMenu==9){ ?>class="active hasChild open"<?php } ?>>  <!-- class="open active" -->
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>servicio.png" /></i> <span>Servicios</span> <span style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
-            <ul class="acc-menu" > <!--style="display: block;" -->
+            <ul class="acc-menu" style="display:<?php echo $this->mL_expandeFiltrosServ;?>"> <!--style="display: block;" -->
                 <li>
                     <form id="frmBuscarServicios" name="frmBuscarServicios" method="post" action="<?php echo BASE_URL ?>process/bsServ"><!--process/bsServ -->
                         
@@ -384,7 +396,7 @@ $(function()
                                                     { 
                                                         foreach($this->objServicios as $objSer)
                                                         {                                                            
-                                                                if(Session::get('sess_sBP_serv')==$objSer->getNombre()){
+                                                                if(Session::get('sess_sBP_serv')== $objSer->getNumero()){
                                                                 ?>
                                                                     <option value="<?php echo $objSer->getNumero();?>" selected="selected"> <?php echo $objSer->getNombre();  ?></option>
                                                                                
@@ -467,7 +479,7 @@ $(function()
         
         <li <?php if($this->currentMenu==10){ ?>class="active hasChild open"<?php } ?>>
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>programa.png" /></i> <span>Programas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
-            <ul class="acc-menu">
+            <ul class="acc-menu" style="display:<?php echo $this->mL_expandeFiltrosProg;?>">
                 <li>
                     <form id="frmBuscarProgramas" method="post" action="<?php echo BASE_URL ?>process/bsProgramas"><!-- process/bsProgramas  -->
                      	
