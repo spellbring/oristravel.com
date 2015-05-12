@@ -88,15 +88,15 @@ $(function()
 <nav id="page-leftbar" role="navigation" style="position:fixed;">
 
     <!-- BEGIN SIDEBAR MENU -->
-    <ul class="acc-menu" id="sidebar">
+    <ul class="acc-menu " id="sidebar">
         
-        <li <?php if($this->currentMenu==8){ ?>class="active"<?php } ?>>
+        <li <?php if($this->currentMenu==8){ ?>class="active hasChild open"<?php } ?>>
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>hotel.png" /></i> <span>Hoteles</span> <span style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
-            <ul class="acc-menu">
+            <ul class="acc-menu" style="display:<?php echo $this->mL_expandeFiltrosHot; ?>;">
                 <li>
-                    <form id="frmBuscarHoteles" method="post" action="<?php echo BASE_URL ?>process/bsHot">
+                    <form id="frmBuscarHoteles" method="post" action="<?php echo BASE_URL ?>process/bsHot"> <!-- -->
                         
-                        <select name="mL_cmbCiudadDestino_H" id="mL_cmbCiudadDestino_H" class="form-control" >
+                        <select name="mL_cmbCiudadDestino_H" id="mL_cmbCiudadDestino_H" name="mL_cmbCiudadDestino_H" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php 
                             if($this->objCiudadesHotel)
@@ -129,19 +129,19 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <input type="text" class="form-control" id="mL_txtFechaIn_H" name="mL_txtFechaIn_H" value="<?php if(isset($mL_ini)){ echo $mL_ini; } ?>">
+                                        <input type="text" class="form-control" id="mL_txtFechaIn_H" onchange="sumaFechas('mL_txtFechaIn_H','mL_cmbNoches_H','mL_txtFechaOut_H');" name="mL_txtFechaIn_H" value="<?php if(Session::get('sess_pBP_FechaIn')){echo Session::get('sess_pBP_FechaIn');} ?>">
                                 </td>
                             </tr>
                             <tr>
                             	<td width="30%"><span style="padding-left:10px;">Noches:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <select name="mL_cmbNoches_H" class="form-control">
+                                        <select name="mL_cmbNoches_H" class="form-control" id="mL_cmbNoches_H" onchange="sumaFechas('mL_txtFechaIn_H','mL_cmbNoches_H','mL_txtFechaOut_H');">
                                             <option value="0">Seleccione</option>
 										<?php 
 										for($i=1; $i<=10; $i++)
 										{
-											if(Session::get('sess_pBP_cntHab')==$i)
+											if(Session::get('sess_BP_noches')==$i)
 											{
 										?>
                                         	<option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -153,12 +153,13 @@ $(function()
                                 </td>
                             </tr>
                             <tr>
+                               
                             	<td><span style="padding-left:10px;">Fecha Out:</span></td>
                                 <td>
-                                        <input type="text" class="form-control" id="mL_txtFechaOut_H" name="mL_txtFechaOut_H" value="<?php if(isset($mL_out)){ echo $mL_out; } ?>">
-                                </td>
+                                        <input type="text" class="form-control" id="mL_txtFechaOut_H" name="mL_txtFechaOut_H" value="<?php if(Session::get('sess_pBP_FechaOut')){echo Session::get('sess_pBP_FechaOut');}//if(isset($mL_out)){ echo $mL_out; }?>">
+                                
+                                </td>     
                             </tr>
-                            
                             <tr>
                             	<td width="30%"><span style="padding-left:10px;">Categoria:</span></td>
                                 <td>
@@ -168,7 +169,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=10; $i++)
 										{
-											if(Session::get('sess_pBP_cntHab')==$i)
+											if(Session::get('sess_pBP_Cagegorias')==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -330,9 +331,9 @@ $(function()
         
         <li >  <!-- class="open active" -->
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>servicio.png" /></i> <span>Servicios</span> <span style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
-            <ul class="acc-menu"  > <!--style="display: block;" -->
+            <ul class="acc-menu" > <!--style="display: block;" -->
                 <li>
-                    <form id="frmBuscarServicios" method="post" action="process/procesoBuscaProgramas.php">
+                    <form id="frmBuscarServicios" name="frmBuscarServicios" method="post" action="<?php echo BASE_URL ?>process/bsServ"><!--process/bsServ -->
                         
                         <select name="mL_txtCiudadDestino_S" id="mL_txtCiudadDestino_S" class="form-control" >
                             <option value="0">Seleccione destino</option>
@@ -345,7 +346,7 @@ $(function()
                                         $mL_nombreCiu_Serv= $objCiuServ->getCiudad();
                                         $mL_nombreCiudad_Serv = $mL_nombreCiu_Serv." (".$mL_codigoCiu_Serv.")";
 
-                                        if(Session::get('sess_pCS_ciudad')==$mL_nombreCiu_Serv)
+                                        if(Session::get('sess_sCH_ciudad')==$mL_nombreCiu_Serv)
                                         {
                                         ?>
                                             <option value="<?php echo $mL_nombreCiu_Serv; ?>" selected="selected"><?php echo $mL_nombreCiudad_Serv; ?></option>
@@ -367,7 +368,7 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <input type="text" class="form-control" id="mL_txtFechaIn_S" name="mL_txtFechaIn_S" value="<?php if(isset($mL_ini)){ echo $mL_ini; } ?>">
+                                        <input type="text" class="form-control" id="mL_txtFechaIn_S" name="mL_txtFechaIn_S" value="<?php if(Session::get('sess_sBP_fechaIn')){ echo Session::get('sess_sBP_fechaIn');} ?>">
                                 </td>
                             </tr>
                             
@@ -380,7 +381,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=10; $i++)
 										{
-											if(Session::get('sess_pBP_cntHab')==$i)
+											if(Session::get('sess_sBP_serv_'.$i)==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -394,7 +395,7 @@ $(function()
                             
                             
                             <tr>
-                            	<td width="30%"><span style="padding-left:10px;">Adutlos:</span></td>
+                            	<td width="30%"><span style="padding-left:10px;">Adultos:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
                                         <select name="mL_cmbAdultos_S" class="form-control">
@@ -402,7 +403,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=10; $i++)
 										{
-											if(Session::get('sess_pBP_cntHab')==$i)
+											if(Session::get('sess_sBP_adultos_'.$i)==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -424,7 +425,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=10; $i++)
 										{
-											if(Session::get('sess_pBP_cntHab')==$i)
+											if(Session::get('sess_sBP_childs_'.$i)==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -456,7 +457,7 @@ $(function()
             <a href="javascript:;"><i><img src="<?php echo $_layoutParams['ruta_img']; ?>programa.png" /></i> <span>Programas</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span></a>
             <ul class="acc-menu">
                 <li>
-                    <form id="frmBuscarProgramas" method="post" action="process/procesoBuscaProgramas.php">
+                    <form id="frmBuscarProgramas" method="post" action="#"><!-- process/bsProgramas  -->
                      	
                         <select name="mL_txtCiudadDestino_P" id="mL_txtCiudadDestino_P" class="form-control" >
                             <option value="0">Seleccione destino</option>
@@ -504,7 +505,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=3; $i++)
 										{
-											if(Session::get('sess_pBP_cntHab')==$i)
+											if(Session::get('sess_prog_Hab_'.$i)==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -694,13 +695,13 @@ $('#btnBuscarHoteles').on('click',function()
 {
     var mL_Error=0;
     $("#btnBuscarHoteles").attr('disabled', 'disabled');
-    document.getElementById('frmBuscarHoteles').submit();
-    return false;
+    //document.getElementById('frmBuscarHoteles').submit();
+    //return false;
     
     if($('#mL_cmbCiudadDestino_H').val() != 0)
     {
         if($('#ML_cmbHab').val() != 0)
-        {
+      {
             $(document).skylo('start');
 
             setTimeout(function(){
@@ -750,13 +751,88 @@ $('#btnBuscarHoteles').on('click',function()
 
 });
 /*END: Busqueda de Hoteles*/
+
+
+
+
+$('#btnBuscarServicios').on('click',function()
+{
+    var mL_Error=0;
+    $("#btnBuscarServicios").attr('disabled', 'disabled');
+    //document.getElementById('frmBuscarHoteles').submit();
+    //return false;
     
+    if($('#mL_txtCiudadDestino_S').val() != 0)
+    {
+       
+            $(document).skylo('start');
+
+            setTimeout(function(){
+                $(document).skylo('set',50);
+            },1000);
+
+            setTimeout(function(){
+                $(document).skylo('end');
+            },1500);
+            setTimeout(function(){
+               document.getElementById('frmBuscarServicios').submit();
+            },2500);   
+       
+    }
+    else
+    {
+            mL_Error=1;
+            $('#mensajeWar').html('Debe ingresar una ciudad de destino');	
+    }
+
+
+
+
+    if( mL_Error==1 )
+    {
+        $('#divAlertWar').delay( 10 ).fadeIn( 500 );
+        $('#divAlertWar').animate({
+                'display': 'block'
+        });
+
+        $('#divAlertWar').delay( 2000 ).fadeOut( 500 );
+        $('#divAlertWar').animate({
+                                    'display': 'none'
+                                });
+
+        $("#btnBuscarHoteles").delay(2000).queue(function(dis)
+        {
+            $("#btnBuscarHoteles").removeAttr("disabled");
+            dis();
+        });	
+    }
+
+});
+function sumaFechas(fechaIni, dias, fechaOut)
+{
+        var fechaIn = $('#'+fechaIni).val().split('/');     
+        var cantidad = parseInt($('#'+dias).val());
+        var milisegundos= parseInt(cantidad*24*60*60*1000);                
+        var fecha=new Date(fechaIn[1]+'/'+fechaIn[0]+'/'+fechaIn[2]); //fechaIn[1]+'/'+fechaIn[0]+'/'+fechaIn[2]  
+        var tiempo=fecha.getTime();  
+        
+        fecha.setTime(tiempo+parseInt(milisegundos)); 
+        
+        var mes = fecha.getMonth()+1;          
+        var dia = fecha.getDate(); 
+        var anio = fecha.getFullYear();
+
+        if(dia < 10 ){dia ='0'+dia;}
+        if(mes < 10){mes = '0'+mes;}
+        
+        $('#'+fechaOut).attr("value",dia+'/'+mes+'/'+anio);
+}
     
-    
-    
-    
-    
-    
+
+
+
+
+
     $('#menuConsBook').on('click',function(){
         $(document).skylo('start');
 
@@ -766,7 +842,7 @@ $('#btnBuscarHoteles').on('click',function()
 
         setTimeout(function(){
             $(document).skylo('end');
-        },1500);
+        },1000);
 		setTimeout(function(){
             window.location.href = '<?php echo BASE_URL; ?>sistema/consultarBooking';
         },2500);
