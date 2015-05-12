@@ -29,6 +29,8 @@ class sistemaController extends Controller {
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        
+        $this->_view->objServicios = $this->_servicio->getServicios();
 
         $this->_view->setJs(array('ajax'));
 
@@ -1215,16 +1217,32 @@ $this->_view->renderizaCenterBox('logoVoucher');
         
         Session::acceso('Usuario');
         $this->_view->setJs(array('ajax'));
+        
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         
         $this->_view->objServicios = $this->_servicio->getServicios();
         
-        $this->_view->currentMenu = 8;
+        $this->_view->currentMenu = 9;
         $this->_view->titulo = 'ORISTRAVEL';
         
       $this->_view->renderizaSistema('buscarServicios');
+    }
+    
+    public function buscarProgramas(){
+       Session::acceso('Usuario');
+       $this->_view->setJs(array('ajax'));      
+       $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
+       $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+       $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+       
+        $this->_view->objServicios = $this->_servicio->getServicios();
+       
+       $this->_view->currentMenu = 10;
+       $this->_view->titulo = 'ORISTRAVEL'; 
+       $this->_view->renderizaSistema('buscarProgramas');
+       
     }
     
    

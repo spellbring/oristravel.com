@@ -1,96 +1,50 @@
 <div id="page-content">
-	<div id='wrap'>
-		<div id="page-heading">
+    <div id='wrap'>
+        <div id="page-heading">
 
-			<h1>Servicios</h1>
-			
-		</div>
-		
-        
+            <h1>Servicios</h1>
+
+        </div>
+
+
         <div class="container">
 
-			
 
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel panel-danger">
 
-<div class="panel panel-info">
-                        <div class="panel-heading">
-                            <h4>Buscar Servicio</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div class="row">
-                            
-                            	
-                                <div class="col-md-12">
-                                	
-                            
-                                    <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:none;">
-                                        <strong>Atenci&oacute;n!</strong>
-                                        Debe ingresar una <b>Ciudad</b>, <b>Nombre de hotel</b> o seleccionar una <b>Categoria</b>.
-                                        <button type="button" class="close" onClick="muestraOculta('divAlertWarHot', '2')">&times;</button>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-danger">
+
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <h4>Buscar Servicio</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+
+                                    <div class="col-md-12">
+
+
+                                        <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:none;">
+                                            <strong>Atenci&oacute;n!</strong>
+                                            Debe ingresar una <b>Ciudad</b>, <b>Nombre de hotel</b> o seleccionar una <b>Categoria</b>.
+                                            <button type="button" class="close" onClick="muestraOculta('divAlertWarHot', '2')">&times;</button>
+                                        </div>
+
+                                        
+
                                     </div>
-                                    
-                                    <form method="post" id="frmHoteles" action="<?php echo BASE_URL ?>process/admHoteles">
-                                    <table align="center" cellspacing="5" cellpadding="5">
-                                        <tr>
- 	                                       <td>Ciudad:</td>
-                                           <td>
-                                    
-                                               <!-- <input type="text" id="txtCiudad-Hot" name="txtCiudad-Hot" style="width:200px" autocomplete="off"
-                                      placeholder="Ingrese ciudad de destino" onkeyup="buscarCiudad(this.value, 'frmHoteles', 'spnCiudad-hoteles', 'txtCiudad-Hot');">
-                                                <span id="spnCiudad-hoteles" class="twitter-typeahead" style="position: relative; display: none; direction: ltr;"></span> -->
-                                                
-                                                <select name="cmbServicio_S" id="cmbServicio_S" class="form-control" >
-                                                    <option value="0">Seleccione servicio</option>
-                                                    <?php 
-                                                    if($this->objServicios)// traer datos de la tabla 'tablaser 12/05/2015'
-                                                    { 
-                                                        foreach($this->objServicios as $objCiuHot)
-                                                        {                                                            
-                                                                if(Session::get('sess_pCH_ciudad')==$objCiuHot->getCodCiudad()){
-                                                                ?>
-                                                                    <option value="<?php echo $objCiuHot->getCodCiudad();?>" selected="selected"> <?php echo $objCiuHot->getCiudad()." (". $objCiuHot->getCodCiudad().")";  ?></option>
-                                                                               
-                                                                <?php
-                                                                                                                      
-                                                                }
-                                                                else
-                                                                {
-                                                                ?>
-                                                                    <option value="<?php echo $objCiuHot->getCodCiudad(); ?>"><?php echo $objCiuHot->getCiudad() ." (". $objCiuHot->getCodCiudad().")";
-                                                                    ?></option>
-                                                                <?php
-                                                                }
-                                                        }
-                                                    }         
-                                                    ?>
-                                                </select>
-                                    
-                                           </td>
-                                           
-                                           
-                                           <td>&nbsp;&nbsp;&nbsp;
-                                           <input type="button"  id="btnHoteles" class="btn btn-primary" value="Buscar Servicios">
-                                           <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" />
-                                           </td>
-                                        </tr>
-                                    </table>
-                                    </form>
-                                    
+
                                 </div>
-                                
                             </div>
                         </div>
+
                     </div>
-                                            
-                                        </div>
-                                </div>
-                        </div>
+                </div>
+            </div>
         </div>
-        </div> 
+    </div> 
 </div>
 
-            
-                            
+

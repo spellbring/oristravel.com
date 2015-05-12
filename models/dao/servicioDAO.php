@@ -64,7 +64,7 @@ class servicioDAO extends Model
                 
             }
             
-            return $objetoServ;
+            return $objetosServ;
             
         }
         else{

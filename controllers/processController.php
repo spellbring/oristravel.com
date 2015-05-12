@@ -77,18 +77,12 @@ class processController extends Controller
         Session::set('sess_sCH_ciudad', $this->getTexto('mL_txtCiudadDestino_S'));
         Session::set('sess_sBP_fechaIn',$this->getTexto('mL_txtFechaIn_S'));
 
-        for($i=1; $i<=10; $i++){
+       
 
-        Session::set('sess_sBP_serv_'.$i, $this->getTexto('mL_cmbServicios_S_'.$i));
-        }
+        Session::set('sess_sBP_serv', $this->getTexto('mL_cmbServicios_S'));   
+        Session::set('sess_sBP_adultos', $this->getTexto('mL_cmbAdultos_S'));
+        Session::set('sess_sBP_childs', $this->getTexto('mL_cmbChild_S'));
         
-        for($i=1; $i<=10; $i++){
-        Session::set('sess_sBP_adultos_'.$i, $this->getTexto('mL_cmbAdultos_S_'.$i));
-        }
-        
-        for($i=1; $i<=10; $i++){
-        Session::set('sess_sBP_childs_'.$i, $this->getTexto('mL_cmbChild_S_'.$i));
-        }
         
         $this->redireccionar('sistema/buscarServicios');
     
@@ -100,12 +94,34 @@ class processController extends Controller
        Session::set('sess_prog_FechaIn', $this->getTexto('mL_txtFechaIn_P'));
        
        
-       for($i=1; $i<=3; $i++){
+              
+       Session::set('sess_prog_Hab', $this->getTexto('ML_cmbHab_P'));   
+       
+       
+       for($i=1; $i<=4; $i++){          
+       Session::set('sess_BP_Adl_P_'.$i, $this->getTexto('mL_cmbAdultos_P_'.$i));             
+       }
+       
+       for($i=1; $i<=12; $i++){       
+       Session::set('mL_edadChild_1_P_'.$i, $this->getTexto('sess_BP_edadChd_1_P_'.$i));              
+       }
+       
+       for($i=1; $i<=2; $i++){          
+       Session::set('sess_BP_Chd_P_'.$i,$this->getTexto('mL_child_P_'.$i));            
+       }
+      
+       for($i=1; $i<=12; $i++){
+       Session::set('mL_edadChild_2_P_'.$i, $this->getTexto('sess_BP_edadChd_2_P_'));              
+       }
+       
+       for($i=0; $i<=1; $i++){
+          
+       Session::set('sess_BP_Inf_P_'.$i,$this->getTexto('mL_inf_P_'.$i));    
            
-       Session::set('sess_prog_Hab_'.$i, $this->getTexto('ML_cmbHab_P_'.$i));
+       }
+          
        
-       
-       } 
+       $this->redireccionar('sistema/buscarProgramas');
         
     }
     
