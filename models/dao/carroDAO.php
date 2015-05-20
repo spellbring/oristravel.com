@@ -30,7 +30,7 @@ $sql = "SELECT  tipo_ser,
 //echo $sql;
 $datos= $this->_db->consulta($sql);
 
-    if($this->_db->numRows($datos)){
+    if($this->_db->numRows($datos) > 0){
         $arrayCarro = $this->_db->fetchAll($datos);
         $objetosCarro = array();
         
