@@ -53,7 +53,7 @@ class hotelDAO extends Model
             //$sql.=' AND pais="CHILE" ';
         }
 
-        //echo $sql; exit;
+        echo $sql;
 
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
