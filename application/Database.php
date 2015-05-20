@@ -21,12 +21,18 @@ class Database
     }
 
     public function consulta($query) {
+        //echo var_dump($this->_conexion);
         $rs = $this->_conexion->query($query);
+        //$this->_conexion->free();
         if ($rs) {
             return $rs;
         } else {
             return false;
         }
+    }
+    
+    public function consultaSP($query) {
+        $this->_conexion->multi_query($query);
     }
     
     public function numRows($consulta) {
@@ -40,6 +46,25 @@ class Database
         }
 
         return $arrayFetch;
+    }
+    
+    public function fetchAllSP() {
+        $arrayFetch = array();
+        do
+        {
+            if($result = $this->_conexion->store_result()) {
+                while($row = $result->fetch_array()) {
+                    $arrayFetch[] = $row;
+                }
+                $result->free();    
+            }
+            
+            $this->_conexion->more_results();
+        }
+        while($this->_conexion->next_result());
+        
+        return $arrayFetch;
+        //}
     }
     
     public function closeConex() {
