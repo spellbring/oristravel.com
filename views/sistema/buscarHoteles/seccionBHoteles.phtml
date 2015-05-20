@@ -1,0 +1,113 @@
+  <div class="container">
+            <div class="row">
+                
+                           <div class="panel panel-primary">
+                               
+                    <div class="panel-heading" >        
+                        {categoria}{hotel}
+                        <div class="options">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tarifas{pest}" data-toggle="tab">Tarifas</a>
+                                </li>
+                                <li>
+                                    <a href="#ficha{pest}" data-toggle="tab">Ficha T&eacute;cnica</a>
+                                </li>
+                                <li>
+                                    <a href="#BH_mapa{pest}" data-toggle="tab" onclick="verMapa('{BASE_URL}sistema/cargarMapas/{lat}/{lon}/{hotel}/{pest}', 'BH_mapa{pest}');">Mapa</a>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tarifas{pest}" >
+                                <div>
+                                    
+                                    <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
+                                        <tr>
+                                            <td rowspan="2" width="210" valign="top">
+                                            <img src="{fotos}" width="200" class="img-thumbnail" style="margin-right: 10px;">  
+                                            </td>
+                                            <td>
+                                                <P style="font-size:11px"><b style="color:#FF9900;">DIRECCI&Oacute;N:</b> {direccion}</P>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top">
+                                                <!-- <hr> -->
+                                                <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style="width: 65%; margin-left: 58px; margin-top: 10px; font-size:12px"> <!-- class="table table-striped table-bordered" -->
+                                                    
+                                                    <thead>
+                                                    <tr style="background-color:#34495e; color: #FFFFFF" role="row">
+                                                        <th role="columnheader" style="padding-left: 2px;">Tipo Habitaci&oacute;n</th>
+                                                        <th role="columnheader" style="padding-left: 2px;">Plan alimenticio</th>
+                                                        <th role="columnheader" style="padding-left: 2px; width: 100px;">Precio estadia</th>
+                                                        <th role="columnheader" style="padding-left: 2px; width: 100px;">Status</th>
+                                                    </tr>
+                                                    </thead>
+                                                    {DetalleHotel}
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                            
+                                    
+                                </div>
+
+                            </div>
+                            
+                            
+                            
+                            
+                            
+                            <div class="tab-pane" id="ficha{pest}">
+                                <table width="100%" style="margin-top: -15px; margin-left: -15px;">
+                                        <tr>
+                                            <td rowspan="2" width="210" valign="top">
+                                                <img src="{fotos}" width="200" class="img-thumbnail" style="margin-right: 10px;">
+                                            </td>
+                                            <td colspan="2">
+                                                <p><b style="color:#FF9900; font-size:11px">DESCRIPCI&Oacute;N:</b><br> 
+                                                 {nota}  
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p>
+                                                   <b style="color:#FF9900; font-size:11px">SERVICIOS HOTEL:</b><br>
+                                                    
+                                                    {servicios_hotel}
+
+                                                </p>
+                                            </td>
+                                            <td>
+                                                <p>
+                                                    
+                                                    <b style="color:#FF9900; font-size:11px">SERVICIOS HABITACI&Oacute;N:</b><br> 
+                                                    
+                                                    {servicios_habitacion}
+                                                  
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+                            </div>
+                                    <div class="tab-pane" id="BH_mapa{pest}" >
+                                       
+                                    </div>
+                            </div>
+                    </div>
+                </div>
+          
+                    
+                
+
+            </div>
+        </div>
+
+
+        
+
