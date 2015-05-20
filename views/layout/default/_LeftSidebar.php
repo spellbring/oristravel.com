@@ -84,7 +84,6 @@ $(function()
 <style>
 	.colorText:hover{color: #0088CC; font-size: 13px;}
 </style>
-
 <nav id="page-leftbar" role="navigation" style="position:fixed;">
 
     <!-- BEGIN SIDEBAR MENU -->
@@ -95,7 +94,7 @@ $(function()
             <ul class="acc-menu" style="display:<?php echo $this->mL_expandeFiltrosHot; ?>;">
                 <li>
                     <form id="frmBuscarHoteles" method="post" action="<?php echo BASE_URL ?>process/bsHot"> <!-- -->
-                        
+                       
                         <select name="mL_cmbCiudadDestino_H" id="mL_cmbCiudadDestino_H" name="mL_cmbCiudadDestino_H" class="form-control" >
                             <option value="0">Seleccione destino</option>
                             <?php 
@@ -107,16 +106,16 @@ $(function()
                                         $mL_nombreCiuHot= $objCiuHot->getCiudad();
                                         $mL_nombreCiudadHot = $mL_nombreCiuHot." (".$mL_codigoCiuHot.")";
 
-                                        if(Session::get('sess_pCH_ciudad')==$mL_nombreCiuHot)
+                                        if(Session::get('sess_pCH_ciudad')==$mL_codigoCiuHot)
                                         {
                                         ?>
-                                            <option value="<?php echo $mL_nombreCiuHot; ?>" selected="selected"><?php echo $mL_nombreCiudadHot; ?></option>
+                                            <option value="<?php echo $mL_codigoCiuHot; ?>" selected="selected"><?php echo $mL_nombreCiudadHot; ?></option>
                                         <?php
                                         }
                                         else
                                         {
                                         ?>
-                                            <option value="<?php echo $mL_nombreCiuHot; ?>"><?php echo $mL_nombreCiudadHot; ?></option>
+                                            <option value="<?php echo $mL_codigoCiuHot; ?>"><?php echo $mL_nombreCiudadHot; ?></option>
                                         <?php
                                         }
                                 }
@@ -129,7 +128,7 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <input type="text" class="form-control" id="mL_txtFechaIn_H" onchange="sumaFechas('mL_txtFechaIn_H','mL_cmbNoches_H','mL_txtFechaOut_H');" name="mL_txtFechaIn_H" value="<?php if(Session::get('sess_pBP_FechaIn')){echo Session::get('sess_pBP_FechaIn');} ?>">
+                                        <input type="text" class="form-control" id="mL_txtFechaIn_H" onchange="sumaFechas('mL_txtFechaIn_H','mL_cmbNoches_H','mL_txtFechaOut_H');" name="mL_txtFechaIn_H" value="<?php if(Session::get('sess_pBP_FechaIn')){echo Session::get('sess_pBP_FechaIn');}else{ echo Session::get('sess_fecha_lsb');} ?>">
                                 </td>
                             </tr>
                             <tr>
@@ -218,10 +217,22 @@ $(function()
                             <tr>
                             	<td colspan="2">
                                     
-                                    <?php for($i=1; $i<=3; $i++)
+                                    <?php 
+                                    for($i=1; $i<=3; $i++)
                                     {
+                                        
                                         $display='display:none;';
-                                        if(Session::get('sess_BP_cntHab')>=$i){ $display= 'display:block;'; }?>
+                                        if($this->currentMenu==8){
+                                                 if(Session::get('sess_pBP_cntHab') >= $i){
+                                             $display='display:block;';
+                                             
+                                              }
+                                             }
+                                        if(Session::get('sess_pBP_cntHab')>=$i){ $display= 'display:block;'; }
+                                        
+                                             
+                                            ?>
+                                      
                                     <div id="ML_tblHab_H_<?php echo $i; ?>" style="<?php echo $display; ?>">
                                         <table width="100%" border="0" cellspacing="0" cellpadding="5">
                                             <tr>
@@ -319,7 +330,8 @@ $(function()
 
                                         </table>
                                         <li class="divider"></li>
-                                    </div>      
+                                    </div> 
+                                    
                                     <?php } ?>
                                     
                                 </td>
@@ -380,7 +392,7 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <input type="text" class="form-control" id="mL_txtFechaIn_S" name="mL_txtFechaIn_S" value="<?php if(Session::get('sess_sBP_fechaIn')){ echo Session::get('sess_sBP_fechaIn');} ?>">
+                                        <input type="text" class="form-control" id="mL_txtFechaIn_S" name="mL_txtFechaIn_S" value="<?php if(Session::get('sess_sBP_fechaIn')){ echo Session::get('sess_sBP_fechaIn');} else{ echo Session::get('sess_fecha_lsb');} ?>">
                                 </td>
                             </tr>
                             
@@ -422,8 +434,8 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Adultos:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <select name="mL_cmbAdultos_S" class="form-control">
-                                            <option value="0">Seleccione</option>
+                                        <select name="mL_cmbAdultos_S" id="mL_cmbAdultos_S" class="form-control">
+                                            <!--<option value="0">Seleccione</option>-->
 										<?php 
 										for($i=1; $i<=4; $i++)
 										{
@@ -516,7 +528,7 @@ $(function()
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
-                                        <input type="text" class="form-control" id="mL_txtFechaIn_P" name="mL_txtFechaIn_P" value="<?php if(Session::get('sess_prog_FechaIn')){ echo Session::get('sess_prog_FechaIn');} ?>">
+                                        <input type="text" class="form-control" id="mL_txtFechaIn_P" name="mL_txtFechaIn_P" value="<?php if(Session::get('sess_prog_FechaIn')){ echo Session::get('sess_prog_FechaIn');}else{ echo Session::get('sess_fecha_lsb');} ?>">
                                 </td>
                             </tr>
                             
@@ -724,25 +736,37 @@ $('#btnBuscarHoteles').on('click',function()
     
     if($('#mL_cmbCiudadDestino_H').val() != 0)
     {
-        if($('#ML_cmbHab').val() != 0)
-      {
-            $(document).skylo('start');
+        if($('#mL_txtFechaIn_H').val() != "" && $('#mL_cmbNoches_H').val() != 0 && $('#mL_txtFechaOut_H').val() != "")
+        {
+            
+                if($('#ML_cmbHab').val() != 0)
+                    {
+                         $(document).skylo('start');
 
-            setTimeout(function(){
-                $(document).skylo('set',50);
-            },1000);
+                         setTimeout(function(){
+                             $(document).skylo('set',50);
+                         },1000);
 
-            setTimeout(function(){
-                $(document).skylo('end');
-            },1500);
-            setTimeout(function(){
-               document.getElementById('frmBuscarHoteles').submit();
-            },2500);
+                         setTimeout(function(){
+                             $(document).skylo('end');
+                         },1500);
+                         setTimeout(function(){
+                            document.getElementById('frmBuscarHoteles').submit();
+                         },2500);
+                     }
+                else
+                {
+                    mL_Error=1;
+                    $('#mensajeWar').html('Debe seleccionar la cantidad de habitaciones');
+                }
+            
+            
         }
         else
         {
             mL_Error=1;
-            $('#mensajeWar').html('Debe seleccionar la cantidad de habitaciones');
+                    $('#mensajeWar').html('Los campos FechaIn, Noches y FechaOut, no deben ir vacíos.');
+
         }
     }
     else
@@ -788,20 +812,39 @@ $('#btnBuscarServicios').on('click',function()
     
     if($('#mL_txtCiudadDestino_S').val() != 0)
     {
+        if($('#mL_txtFechaIn_S').val() != "")
+        {
+            if($('#mL_cmbServicio_S').val() != 0)
+            {
        
-            $(document).skylo('start');
+                    $(document).skylo('start');
 
-            setTimeout(function(){
-                $(document).skylo('set',50);
-            },1000);
+                    setTimeout(function(){
+                        $(document).skylo('set',50);
+                    },1000);
 
-            setTimeout(function(){
-                $(document).skylo('end');
-            },1500);
-            setTimeout(function(){
-               document.getElementById('frmBuscarServicios').submit();
-            },2500);   
-       
+                    setTimeout(function(){
+                        $(document).skylo('end');
+                    },1500);
+                    setTimeout(function(){
+                       document.getElementById('frmBuscarServicios').submit();
+                    },2500); 
+            
+            }
+            else
+            {
+             
+             mL_Error=1;
+            $('#mensajeWar').html('Debe seleccionar un servicio.');
+            
+            }
+        }
+        else
+        {
+            mL_Error=1;
+            $('#mensajeWar').html('Debe seleccionar una fecha.');
+            
+        }
     }
     else
     {
@@ -844,25 +887,42 @@ $('#btnBuscarProgramas').on('click',function()
     
     if($('#mL_txtCiudadDestino_P').val() != 0)
     {
+        if($('#mL_txtFechaIn_P').val() != "")
+        {
+            if($('#ML_cmbHab_P').val() !=0){
        
-            $(document).skylo('start');
+                    $(document).skylo('start');
 
-            setTimeout(function(){
-                $(document).skylo('set',50);
-            },1000);
+                    setTimeout(function(){
+                        $(document).skylo('set',50);
+                    },1000);
 
-            setTimeout(function(){
-                $(document).skylo('end');
-            },1500);
-            setTimeout(function(){
-               document.getElementById('frmBuscarProgramas').submit();
-            },2500);   
-       
+                    setTimeout(function(){
+                        $(document).skylo('end');
+                    },1500);
+                    setTimeout(function(){
+                       document.getElementById('frmBuscarProgramas').submit();
+                    },2500);   
+            }
+            else
+            {
+                mL_Error=1;
+            $('#mensajeWar').html('Debe seleccionar la cantidad de habitaciones');
+                
+            }
+        }
+        else
+        {
+           
+            mL_Error=1;
+            $('#mensajeWar').html('Debe seleccionar una fecha.');
+        }
     }
     else
     {
-            mL_Error=1;
-            $('#mensajeWar').html('Debe ingresar una ciudad de destino');	
+        mL_Error=1;
+        $('#mensajeWar').html('Debe ingresar una ciudad de destino');
+
     }
 
 
