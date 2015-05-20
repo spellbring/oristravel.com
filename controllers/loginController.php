@@ -54,6 +54,12 @@ class loginController extends Controller
                         Session::set('sess_tipo_usuario', $objUsuarios[0]->getTipoUsuario());
                         Session::set('sess_usuario', $LC_user);
                         
+                        $fecha = date('d-m-Y');
+                        $nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
+                        $nuevafecha = date ( 'd-m-Y' , $nuevafecha);
+    
+                        Session::set('sess_fecha_lsb', str_replace('-', '/', $nuevafecha));
+                        
                         Session::set('sess_pass', $LC_pass);
                         Session::set('sess_nombre', $objUsuarios[0]->getNombre());
                         Session::set('sess_apellido', $objUsuarios[0]->getApellido());
@@ -63,7 +69,7 @@ class loginController extends Controller
                         
                         Session::set('sess_comag', $objUsuarios[0]->getComag());
                         Session::set('sess_agencia', $objUsuarios[0]->getAgencia());
-                            Session::set('sess_correo', $objUsuarios[0]->getCorreo());
+                        Session::set('sess_correo', $objUsuarios[0]->getCorreo());
                         Session::set('sess_correo_admin', $objUsuarios[0]->getCorreoAdmin());
                         Session::set('sess_correo_ejecutivo', $objUsuarios[0]->getCorreoEjecutivo());
                         Session::set('sess_grupo', $objUsuarios[0]->getGrupo());
