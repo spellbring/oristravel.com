@@ -29,7 +29,7 @@
                             
                                     <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:none;">
                                         <strong>Atenci&oacute;n!</strong>
-                                        Debe ingresar una <b>Ciudad</b>, <b>Nombre de hotel</b> o seleccionar una <b>Categoria</b>.
+                                        Debe ingresar una <b>Ciudad</b> o <b>Nombre de hotel</b>.
                                         <button type="button" class="close" onClick="muestraOculta('divAlertWarHot', '2')">&times;</button>
                                     </div>
                                     
@@ -50,9 +50,9 @@
                                                     { 
                                                         foreach($this->objCiudadesHotel as $objCiuHot)
                                                         {                                                            
-                                                                if(Session::get('sess_pCH_ciudad')==$objCiuHot->getCodCiudad()){
+                                                                if(Session::get('sess_pAdm_ciudad')==$objCiuHot->getCiudad()){
                                                                 ?>
-                                                                    <option value="<?php echo $objCiuHot->getCodCiudad();?>" selected="selected"> <?php echo $objCiuHot->getCiudad()." (". $objCiuHot->getCodCiudad().")";  ?></option>
+                                                                    <option value="<?php echo $objCiuHot->getCiudad();?>" selected="selected"> <?php echo $objCiuHot->getCiudad()." (". $objCiuHot->getCodCiudad().")";  ?></option>
                                                                                
                                                                 <?php
                                                                                                                       
@@ -60,7 +60,7 @@
                                                                 else
                                                                 {
                                                                 ?>
-                                                                    <option value="<?php echo $objCiuHot->getCodCiudad(); ?>"><?php echo $objCiuHot->getCiudad() ." (". $objCiuHot->getCodCiudad().")";
+                                                                    <option value="<?php echo $objCiuHot->getCiudad(); ?>"><?php echo $objCiuHot->getCiudad() ." (". $objCiuHot->getCodCiudad().")";
                                                                     ?></option>
                                                                 <?php
                                                                 }
@@ -72,7 +72,7 @@
                                            </td>
                                            <td>Nombre:</td>
                                            <td>
-                                               <input type="text" id="txtNombre_H" name="txtNombre_H" style="width:200px" value="<?php echo Session::get('sess_pCH_nombre'); ?>" placeholder="Ingrese nombre hotel">
+                                               <input type="text" id="txtNombre_H" name="txtNombre_H" style="width:200px" value="<?php echo Session::get('sess_pAdm_nombre'); ?>" placeholder="Ingrese nombre hotel">
                                            </td>
                                            <td>Categoria:</td>
                                            <td>
@@ -87,7 +87,7 @@
                                                             $h_objCat = $objCatHot->getCodCat();
                                                             //$h_cat = $this->objCategoriaHoteles->getCodCat();
                                                             
-                                                            if(Session::get('sess_pCH_cat')==$h_objCat)
+                                                            if(Session::get('sess_pAdm_cat')==$h_objCat)
                                                             {
                                                             ?>
                                                                 <option value="<?php echo $objCatHot->getCodCat(); ?>" selected="selected" ><?php echo $objCatHot->getCategoria(); ?></option>
@@ -125,7 +125,7 @@
                     
                     
                     <?php
-                    if(Session::get('sess_pCH_ciudad') || Session::get('sess_pCH_nombre') || Session::get('sess_pCH_cat'))
+                    if(Session::get('sess_pAdm_ciudad') || Session::get('sess_pAdm_nombre') || Session::get('sess_pAdm_cat'))
                     {
                     ?>
                     <script>
@@ -218,7 +218,7 @@
 $('#btnHoteles').on('click',function()
 {
     $("#btnHoteles").attr('disabled', 'disabled');
-    if($('#cmbCiudadDestino_H').val()==0 && $('#txtNombre_H').val()=='' && $('#cmbCategoria_H').val()==0)
+    /*if($('#cmbCiudadDestino_H').val()==0 || $('#txtNombre_H').val()=='')
     {
         $('#divAlertWarHot').fadeIn( 1500 );
         $('#divAlertWarHot').animate({
@@ -230,9 +230,9 @@ $('#btnHoteles').on('click',function()
             $("#btnHoteles").removeAttr("disabled");
             dis();
         });
-    }
-    else
-    {
+    }*/
+    //else
+    //{
         $(document).skylo('start');
 
         setTimeout(function(){
@@ -251,7 +251,7 @@ $('#btnHoteles').on('click',function()
             $("#btnHoteles").removeAttr("disabled");
             dis();
         });
-    }
+    //}
     
 });
 
