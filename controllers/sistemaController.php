@@ -21,6 +21,7 @@ class sistemaController extends Controller {
         $this->_usuarios = $this->loadModel('usuario');
         $this->_booking = $this->loadModel('booking');
         $this->_carro = $this->loadModel('carro');
+        $this->_buscarHoteles = $this->loadModel('buscarHoteles');
     }
 
     public function index() {
@@ -98,7 +99,7 @@ class sistemaController extends Controller {
 
 
         $this->_view->getHoteles = $this->_hotel->getAdmHoteles(
-                Session::get('sess_pCH_ciudad'), Session::get('sess_pCH_nombre'), Session::get('sess_pCH_cat')
+                Session::get('sess_pAdm_ciudad'), Session::get('sess_pAdm_nombre'), Session::get('sess_pAdm_cat')
         );
 
         $this->_view->currentMenu = 2;
@@ -482,6 +483,10 @@ class sistemaController extends Controller {
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         $this->_view->mL_expandeFiltrosHot='block';
         
+       
+       
+        
+        
         $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
         
 
@@ -494,8 +499,58 @@ class sistemaController extends Controller {
         /* $this->_view->getHoteles=$paginador->paginar($hoteles->getHoteles(), $pagina); */
         //$this->_view->paginacion = $paginador->getView('prueba', 'sistema/buscarHoteles');
         /* END: Paginador; */
-
-
+        
+        $adult1_h=0;
+        $adult2_h=0;
+        $adult3_h=0;
+        $adult4_h=0;
+        
+        for ($i = 1; $i <= Session::get('sess_pBP_cntHab'); $i++) {
+         
+                if(Session::get('sess_BP_Adl_' . $i)==1){
+                    //$adult1_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult1_h++;
+                }
+                if(Session::get('sess_BP_Adl_' . $i)==2){
+                    //$adult2_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult2_h++;
+                }
+                if(Session::get('sess_BP_Adl_' . $i)==3){
+                    //$adult3_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult3_h++;
+                }
+                if(Session::get('sess_BP_Adl_' . $i)==4){
+                    //$adult4_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult4_h++;
+                }
+        
+        }
+        
+        
+        $objGetHoteles = $this->_buscarHoteles->getHoteles(Session::get('sess_id_usuario'),
+                                                                      Session::get('sess_pCH_ciudad'),
+                                                                      Funciones::invertirFecha(Session::get('sess_pBP_FechaIn'),'/','-'),
+                                                                      Funciones::invertirFecha(Session::get('sess_pBP_FechaOut'),'/','-'),
+                                                                      Session::get('sess_grupo'),
+                                                                      Session::get('sess_pBP_cntHab'),
+                                                                      $adult1_h,
+                                                                      $adult2_h,
+                                                                      $adult3_h,
+                                                                      $adult4_h,
+                                                                      Session::get('sess_total_child'));
+                $adult1_h=0;
+                $adult2_h=0;
+                $adult3_h=0;
+                $adult4_h=0;
+    
+        
+        $this->_view->objGetHoteles = $objGetHoteles;
+        //$objHotel = $this->_buscarHoteles->getHotel();
+        
+        //if
+        
+        
+        
         $this->_view->currentMenu = 8;
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('buscarHoteles');
@@ -870,6 +925,7 @@ $objEditUsuario = $this->_agencia->getAgencias($id_Agen);
     {
     throw new Exception('Error al tratar de desplegar las imagenes');
     }
+   
 $this->_view->renderizaCenterBox('logoVoucher');
 }
 
@@ -1251,17 +1307,43 @@ $this->_view->renderizaCenterBox('logoVoucher');
        $this->_view->currentMenu = 10;
        $this->_view->titulo = 'ORISTRAVEL'; 
        $this->_view->renderizaSistema('buscarProgramas');
+    
        
     }
     
+   public function cargarMapas($lat, $lon, $nombre, $div){
+       Session::acceso('Usuario');
+       $this->_view->objLatitud = $lat;
+       $this->_view->objLongitud = $lon;
+       $this->_view->objDivMH = $div;
+       $this->_view->objNombre = $nombre;
+       //echo 'HOLA';
+       $this->_view->renderizaCenterBox('mapaHotel');
+       
+   }
+    
+  
+   
+    
    
      
-/*     * *****************************************************************************
-     *                                                                              *
-     *                             METODOS PROCESADORES                             *
-     *                                                                              *
-     * ***************************************************************************** */
+    /*******************************************************************************
+    *                                                                              *
+    *                             METODOS PROCESADORES                             *
+    *                                                                              *
+    *******************************************************************************/
 
+    /**
+     * Metodo procesador: Calcula el valor total a pagar antes de reservar un programa.
+     * <PRE>
+     * -.Creado: 19/05/2015
+     * -.Modificado: 20/05/2015 (Jaime Reyes)
+     * -.Modificado: 21/05/2015 (Segio Orellana)
+     * </PRE>
+     * @param $hab Cantidad de habitaciones
+     * @return int valor total de la habitacion
+     * @author: Jonathan Estay
+     */
     public function salir() {
         Session::destroy();
         header('Location: ' . BASE_URL . 'login?ex');
