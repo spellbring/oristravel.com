@@ -35,18 +35,23 @@ class processController extends Controller
         //Session::set('sess_pCR_tipoFecha', $this->getTexto('rdbFecha'));
         Session::set('sess_pCH_ciudad',$this->getTexto('mL_cmbCiudadDestino_H'));
         
-        
+        Session::set('sess_pBP_cntHab',$this->getTexto('ML_cmbHab'));
+        for ($i = 1; $i <= 3; $i++) {
+            if($i <= Session::get('sess_pBP_cntHab')) {
+                Session::set('sess_BP_Adl_' . $i, $this->getTexto('mL_cmbAdultos_' . $i));
+            } else {
+                Session::set('sess_BP_Adl_' . $i, 0);
+            }
+                   
+        }     
+        $totalChild = 0;
         for ($i = 1; $i <= 3; $i++) {
             
-            Session::set('sess_BP_Adl_' . $i, $this->getTexto('mL_cmbAdultos_' . $i));
-                   
-        }
-        
-        for ($i = 1; $i <= 2; $i++) {
-            
-            Session::set('sess_BP_Chd_' . $i, $this->getTexto('mL_child_' . $i));
+           Session::set('sess_BP_Chd_' . $i, $this->getTexto('mL_child_' . $i));
+           $totalChild+=$this->getTexto('mL_child_' . $i);
                   
         }
+        Session::set('sess_total_child', $totalChild);
 
         for($i=1; $i <= 12; $i++){
             
@@ -64,7 +69,7 @@ class processController extends Controller
                     
         }     
         Session::set('sess_BP_noches', $this->getTexto('mL_cmbNoches_H'));
-        Session::set('sess_pBP_cntHab',$this->getTexto('ML_cmbHab'));
+        
         Session::set('sess_pBP_FechaIn',$this->getTexto('mL_txtFechaIn_H'));
         Session::set('sess_pBP_FechaOut',$this->getTexto('mL_txtFechaOut_H'));
         Session::set('sess_pBP_Cagegorias', $this->getTexto('mL_cmbCat_H'));
@@ -129,9 +134,9 @@ class processController extends Controller
     {
         Session::acceso('Usuario');
 
-        Session::set('sess_pCH_ciudad', $this->getTexto('cmbCiudadDestino_H'));
-        Session::set('sess_pCH_nombre', $this->getTexto('txtNombre_H'));
-        Session::set('sess_pCH_cat', $this->getTexto('cmbCategoria_H'));
+        Session::set('sess_pAdm_ciudad', $this->getTexto('cmbCiudadDestino_H'));
+        Session::set('sess_pAdm_nombre', $this->getTexto('txtNombre_H'));
+        Session::set('sess_pAdm_cat', $this->getTexto('cmbCategoria_H'));
         
         $this->redireccionar('sistema/hoteles');
     }
