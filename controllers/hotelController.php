@@ -29,7 +29,90 @@ public function __construct() {
      * @author: Jonathan Estay
      */
 public function index() {
-  Session::acceso('Usuario');
+    Session::acceso('Usuario');
+        $this->_view->setJs(array('ajax'));
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        $this->_view->mL_expandeFiltrosHot='block';
+        
+       
+       
+        
+        
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        
+
+        
+        /* BEIGN: Paginador; */
+        $pagina = 0;
+        $pagina = $this->filtrarInt($pagina);
+        $this->getLibrary('paginador');
+        $paginador = new Paginador();
+        /* $this->_view->getHoteles=$paginador->paginar($hoteles->getHoteles(), $pagina); */
+        //$this->_view->paginacion = $paginador->getView('prueba', 'sistema/buscarHoteles');
+        /* END: Paginador; */
+        
+        $adult1_h=0;
+        $adult2_h=0;
+        $adult3_h=0;
+        $adult4_h=0;
+        
+        for ($i = 1; $i <= Session::get('sess_pBP_cntHab'); $i++) {
+         
+                if(Session::get('sess_BP_Adl_' . $i)==1){
+                    //$adult1_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult1_h++;
+                }
+                if(Session::get('sess_BP_Adl_' . $i)==2){
+                    //$adult2_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult2_h++;
+                }
+                if(Session::get('sess_BP_Adl_' . $i)==3){
+                    //$adult3_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult3_h++;
+                }
+                if(Session::get('sess_BP_Adl_' . $i)==4){
+                    //$adult4_h+=Session::get('sess_BP_Adl_' . $i);
+                    $adult4_h++;
+                }
+        
+        }
+        
+        
+        $objGetHoteles = $this->_buscarHoteles->getHoteles(Session::get('sess_id_usuario'),
+                                                                      Session::get('sess_pCH_ciudad'),
+                                                                      Funciones::invertirFecha(Session::get('sess_pBP_FechaIn'),'/','-'),
+                                                                      Funciones::invertirFecha(Session::get('sess_pBP_FechaOut'),'/','-'),
+                                                                      Session::get('sess_grupo'),
+                                                                      Session::get('sess_pBP_cntHab'),
+                                                                      $adult1_h,
+                                                                      $adult2_h,
+                                                                      $adult3_h,
+                                                                      $adult4_h,
+                                                                      Session::get('sess_total_child'));
+                $adult1_h=0;
+                $adult2_h=0;
+                $adult3_h=0;
+                $adult4_h=0;
+    
+        
+        $this->_view->objGetHoteles = $objGetHoteles;
+        //$objHotel = $this->_buscarHoteles->getHotel();
+        
+        //if
+        
+        
+        
+        $this->_view->currentMenu = 8;
+        $this->_view->titulo = 'ORISTRAVEL';
+        $this->_view->renderizaSistema('buscarHoteles');
+  
+}
+##########hotelControler#####################
+    
+    public function hoteles() {
+         Session::acceso('Usuario');
         //$hotel= $this->loadModel('hotel');
 
 
@@ -49,11 +132,7 @@ public function index() {
 
         $this->_view->currentMenu = 2;
         $this->_view->titulo = 'ORISTRAVEL';
-        $this->_view->renderizaSistema('hoteles');  
-}
-##########hotelControler#####################
-    
-    public function hoteles() {
+        $this->_view->renderizaSistema('hoteles'); 
         
     }
     
@@ -459,84 +538,7 @@ public function index() {
      */
 
      public function buscarHoteles() {
-        Session::acceso('Usuario');
-        $this->_view->setJs(array('ajax'));
-        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
-        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
-        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
-        $this->_view->mL_expandeFiltrosHot='block';
         
-       
-       
-        
-        
-        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
-        
-
-        
-        /* BEIGN: Paginador; */
-        $pagina = 0;
-        $pagina = $this->filtrarInt($pagina);
-        $this->getLibrary('paginador');
-        $paginador = new Paginador();
-        /* $this->_view->getHoteles=$paginador->paginar($hoteles->getHoteles(), $pagina); */
-        //$this->_view->paginacion = $paginador->getView('prueba', 'sistema/buscarHoteles');
-        /* END: Paginador; */
-        
-        $adult1_h=0;
-        $adult2_h=0;
-        $adult3_h=0;
-        $adult4_h=0;
-        
-        for ($i = 1; $i <= Session::get('sess_pBP_cntHab'); $i++) {
-         
-                if(Session::get('sess_BP_Adl_' . $i)==1){
-                    //$adult1_h+=Session::get('sess_BP_Adl_' . $i);
-                    $adult1_h++;
-                }
-                if(Session::get('sess_BP_Adl_' . $i)==2){
-                    //$adult2_h+=Session::get('sess_BP_Adl_' . $i);
-                    $adult2_h++;
-                }
-                if(Session::get('sess_BP_Adl_' . $i)==3){
-                    //$adult3_h+=Session::get('sess_BP_Adl_' . $i);
-                    $adult3_h++;
-                }
-                if(Session::get('sess_BP_Adl_' . $i)==4){
-                    //$adult4_h+=Session::get('sess_BP_Adl_' . $i);
-                    $adult4_h++;
-                }
-        
-        }
-        
-        
-        $objGetHoteles = $this->_buscarHoteles->getHoteles(Session::get('sess_id_usuario'),
-                                                                      Session::get('sess_pCH_ciudad'),
-                                                                      Funciones::invertirFecha(Session::get('sess_pBP_FechaIn'),'/','-'),
-                                                                      Funciones::invertirFecha(Session::get('sess_pBP_FechaOut'),'/','-'),
-                                                                      Session::get('sess_grupo'),
-                                                                      Session::get('sess_pBP_cntHab'),
-                                                                      $adult1_h,
-                                                                      $adult2_h,
-                                                                      $adult3_h,
-                                                                      $adult4_h,
-                                                                      Session::get('sess_total_child'));
-                $adult1_h=0;
-                $adult2_h=0;
-                $adult3_h=0;
-                $adult4_h=0;
-    
-        
-        $this->_view->objGetHoteles = $objGetHoteles;
-        //$objHotel = $this->_buscarHoteles->getHotel();
-        
-        //if
-        
-        
-        
-        $this->_view->currentMenu = 8;
-        $this->_view->titulo = 'ORISTRAVEL';
-        $this->_view->renderizaSistema('buscarHoteles');
     }
       /**
      * Metodo procesador: Renderiza mapasHotel.phtml
