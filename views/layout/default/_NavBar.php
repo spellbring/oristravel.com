@@ -228,7 +228,7 @@
                         </a>
                     </li>
                 </div>
-                <li class="dd-footer"><a href="<?php echo BASE_URL . 'sistema/carro' ?>">Ir al carro de compras</a></li>
+                <li class="dd-footer"><a href="<?php echo BASE_URL . 'carro/carroCompra' ?>">Ir al carro de compras</a></li>
             </ul>
         </li>
         

@@ -67,7 +67,7 @@ function initialize(lat, lon, nombre, id) {
                 //if($objHoteles->getCat() == Session::get('sess_pBP_Cagegorias')){
                  if($tempCodHTL != $objHoteles->getCodigoHtl()){
                      
-                 $html = file_get_contents(ROOT . 'views' . DS . 'sistema' . DS . 'buscarHoteles' . DS . 'seccionBHoteles.phtml');     
+                 $html = file_get_contents(ROOT . 'views' . DS . 'hotel' . DS . 'buscarHoteles' . DS . 'seccionBHoteles.phtml');     
                  $HotelDet=false;                  
                  $contPest++;              
                     foreach($objHoteles->getHotel() as $objHot ){
@@ -231,16 +231,7 @@ function initialize(lat, lon, nombre, id) {
 </div>
 
 <script>
-function verMapa(url, mapa){
 
-    $.post(url, 
-    {
-        post_open: 'on' 
-    }, function(data)
-    {
-        $("#"+mapa).html(data);
-    });
-}    
 
 </script>
 

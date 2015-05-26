@@ -22,7 +22,7 @@
                         <div class="panel-body" >
                             <p>NOTA: Este correo ser&aacute; enviado a su ejecutivo personal.</p>
                             <div>
-                                <form enctype="multipart/form-data" action="<?php echo BASE_URL ?>sistema/enviarContacto" method="post" class="frmContacto" id="frmContacto">
+                                <form enctype="multipart/form-data" method="post" class="frmContacto" id="frmContacto">
                                 <table class="table table-bordered " style="width: 600px;" >
                                    
                                     <tbody>
@@ -41,7 +41,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2" align="center"> <input type="button" class="finish btn-primary btn" id="btnEnviar" onclick="click2('btnEnviar')" value="Enviar" />
+                                            <td colspan="2" align="center"> <input type="button" class="finish btn-primary btn" id="btnEnviar" onclick="Contacto.prototype.procesoEnviaForm('frmContacto', '<?php echo BASE_URL ?>contacto/enviarContacto', 'btnEnviar','')" value="Enviar" />
                                                                             <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" /></td>
                                         </tr>
                                     </tbody>
@@ -57,53 +57,7 @@
      
 
             <script>                  
-    function click2()
-    {
-               
-        initLoad();
-        var cliente= $("#Cntac_txtCliente").val();
-        var usuario = $("#Cntac_txtUsuario").val();
-        var area= $("#Cntac_areaNota").val();
-        var boton= $('#btnEnviar').val;
-        $('#btnEnviar').attr("disabled","disabled");
-        
-   
-                $.post("<?php echo BASE_URL . 'sistema/enviarContacto' ?>",
-                {
-                    //en el controlador el metodod para pasar mensajes(getTexto) se debe pasar por el nombre que se define aca.
-                    area:area,
-                    cliente:cliente,
-                    usuario:usuario,
-                    boton:boton
-                }, function (data) 
-                                 {                                       
-                                    if(data=='OK')
-                                    {                                                      
-                                                        $("#btnEnviar").delay(2000).queue(function(dis)
-                                                        {
-                                                                  $("#btnEnviar").removeAttr("disabled");
-                                                                  dis();
-                                                        });
-                                                        exito();
-                                                        $("#Cntac_areaNota").val('');
-                                                        
-                                                        
-                                    }
-                                     else
-                                     {     
-                                                        
-                                                        
-                                                        $("#msjWar").html(data);//añadir elemento a una etiqueta.
-                                                        $("#btnEnviar").delay(2000).queue(function(dis)
-                                                        {
-                                                                  $("#btnEnviar").removeAttr("disabled");
-                                                                  dis();
-                                                        });
-                                                        noExito();
-                                      }   
-                                    });
-                                  
-    }           
+              
                 </script>             
         </div> <!-- container -->
     </div> <!--wrap -->

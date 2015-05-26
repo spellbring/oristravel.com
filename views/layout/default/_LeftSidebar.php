@@ -985,7 +985,7 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1000);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/consultarBooking';
+            window.location.href = '<?php echo BASE_URL; ?>booking/consultarBooking';
         },2500);
     });
     /*
@@ -1016,7 +1016,7 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/hoteles';
+            window.location.href = '<?php echo BASE_URL; ?>hotel/hoteles';
         },2500);
     });
     
@@ -1031,7 +1031,7 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/adminProgramas';
+            window.location.href = '<?php echo BASE_URL; ?>programa/adminProgramas';
         },2500);
     });
     
@@ -1046,7 +1046,7 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/imagenes';
+            window.location.href = '<?php echo BASE_URL; ?>imagen/imagenes';
         },2500);
     });
     
@@ -1061,7 +1061,7 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/usuarios';
+            window.location.href = '<?php echo BASE_URL; ?>usuario/usuarios';
         },2500);
     });
     
@@ -1079,7 +1079,7 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/contactenos';
+            window.location.href = '<?php echo BASE_URL; ?>contacto/contactenos';
         },2500);
     });
     

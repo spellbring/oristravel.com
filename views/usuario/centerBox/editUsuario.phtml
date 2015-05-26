@@ -104,13 +104,13 @@
                                             </tr>
                                             <tr>
                                                 
-                                                <td colspan="4" align="center"> <input type="button" class="finish btn-primary btn" id="btnEditUsuario" value="Modificar Usuario" onclick="procesoEnviaFormEdit('frmEditUsuario','<?php echo BASE_URL?>sistema/modificarUsuario', 'btnEditUsuario')"/> 
+                                                <td colspan="4" align="center"> <input type="button" class="finish btn-primary btn" id="btnEditUsuario" value="Modificar Usuario" onclick="Usuarios.prototype.procesoEnviaForm('frmEditUsuario','<?php echo BASE_URL?>usuario/modificarUsuario', 'btnEditUsuario','<?php echo BASE_URL?>usuario/usuarios')"/> 
                                                 <?php
                                                
                                                 if($this->EU_login != Session::get('sess_usuario'))
                                                 {
                                                 ?>
-                                                    <input type="button" class="finish btn-primary btn" style='background-color:#f29797;' id="btnBorrarUsuario" value="Eliminar Usuario" onclick="abreEliminarUser('<?php echo BASE_URL; ?>sistema/borrarUsuariosPopUp', 'Eliminar Usuario','123123')"/></td>
+                                                    <input type="button" class="finish btn-primary btn" style='background-color:#f29797;' id="btnBorrarUsuario" value="Eliminar Usuario" onclick="Usuarios.prototype.abrePopupCenter('<?php echo BASE_URL; ?>usuario/borrarUsuariosPopUp', 'Eliminar Usuario','<?php echo $this->EU_Id; ?>')"/></td>
                                                 <?php
                                                 }
                                                 ?>
@@ -165,7 +165,7 @@
                  else{
                                  
                           $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="<?php echo $_layoutParams['ruta_img'];?>ok.png" width="32" border="0" />  Proceso realizado con &eacute;xito. </div>'); 
-                           setTimeout("location.href = '<?php echo BASE_URL;?>sistema/usuarios'", 2500); 
+                           setTimeout("location.href = '<?php echo BASE_URL;?>usuario/usuarios'", 2500); 
                          
                       }
                  

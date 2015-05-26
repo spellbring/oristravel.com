@@ -1,0 +1,18 @@
+<div class="panel panel-info" id="divEditPDF">
+        <div class="panel-heading">
+            <center><h3>¿Desea eliminar al usuario: <?php echo Session::get('sess_nom_us')?>?</h3></center> 
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                   
+     
+                    <center><input type="button" class="finish btn-primary btn" id="btnBorrarUsuario" style='background-color:#f29797;' o value="Eliminar Usuario" onclick="Usuarios.prototype.abreEliminarUser('<?php echo BASE_URL; ?>usuario/borrarUsuarios', 'Eliminar Usuario', '<?php echo Session::get('sess_EU_codUs') ?>', '<?php echo BASE_URL; ?>usuario/usuarios')"/></center>
+    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+</script>

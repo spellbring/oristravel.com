@@ -234,7 +234,7 @@ $('#btnSig_P2').on('click',function(){
          var formData = new FormData($(".frm_paso2")[0]);
         $.ajax({
              type:"POST", 
-             url:'<?php echo BASE_URL?>sistema/paso3',
+             url:'<?php echo BASE_URL?>carro/paso3',
              data:formData,
              cache: false,
              contentType: false,

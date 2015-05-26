@@ -90,8 +90,8 @@ $(function()
                                            ?>
                                            <td><th width="10%"></th></td>
                                            <td> <center><img width="40" height="40" src="<?php echo $_layoutParams['ruta_img']; ?>excel.png"></center><br>
-                                               <a href="<?php echo BASE_URL ?>sistema/crearExcelDet" >Generar Excel con Detalle </a>| 
-                                                <a href="<?php echo BASE_URL ?>sistema/crearExcel">Generar Excel sin Detalle </a></td>
+                                               <a href="<?php echo BASE_URL ?>booking/crearExcelDet" >Generar Excel con Detalle </a>| 
+                                                <a href="<?php echo BASE_URL ?>booking/crearExcel">Generar Excel sin Detalle </a></td>
                                             
                                           <?php
                                            }
@@ -212,7 +212,7 @@ $(function()
                                                         
                                                         if($cR_voucher=='S')
                                                         {
-                                                            $voucherStatus='<a href="' . BASE_URL . 'sistema/generaVoucherPdf/'.$cR_booking.'" target="_blank">
+                                                            $voucherStatus='<a href="' . BASE_URL . 'booking/generaVoucherPdf/'.$cR_booking.'" target="_blank">
                                                             <img src="'.$_layoutParams['ruta_img'].'pdf.png" alt="edit" width="24" border="0" />
                                                             </a>';
                                                         }
@@ -235,7 +235,7 @@ $(function()
                                         <td style="color: #FF0000; font-weight: bold;" align="right"><?php echo $cR_moneda.' '.$cR_valorTotal; ?></td>
                                         <td align="center"><?php echo $voucherStatus; ?></td>
                                         <td align="center">
-                                        	<a data-toggle="modal" href="#myModal" onClick="abreCartaConfirm('<?php echo $cR_nFile; ?>', '<?php //echo $cR_codProg; ?>', '<?php //echo $cR_codBloq; ?>','<?php echo BASE_URL ?>sistema/reservaBooking');"><img src="<?php echo $_layoutParams['ruta_img']; ?>search.png" width="24" border="0" /></a>
+                                        	<a data-toggle="modal" href="#myModal" onClick="Booking.prototype.abreCartaConfirm('<?php echo $cR_nFile; ?>', '<?php //echo $cR_codProg; ?>', '<?php //echo $cR_codBloq; ?>','<?php echo BASE_URL ?>booking/reservaBooking');"><img src="<?php echo $_layoutParams['ruta_img']; ?>search.png" width="24" border="0" /></a>
                                         </td>
                                     </tr>
                                   	<?php }
@@ -305,19 +305,5 @@ $('#btnConsBooking').on('click',function(){
 });
 
 
-function abreCartaConfirm(nFile, codProg, codBloq, php)
-{
-        $("#ML_divPopup").html('');
-        $("#ML_tituloForm").html('Reserva');
-	$.post(php, 
-	{
-		n_file: nFile,
-		cod_prog: codProg,
-		cod_bloq: codBloq
-	}, function(data)
-	{   
-		$("#modal_dialog").css({"width":"80%"});
-                $("#ML_divPopup").html(data);
-	});
-}
+
 </script>

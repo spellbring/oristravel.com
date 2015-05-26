@@ -169,7 +169,7 @@
                                            ?>
                     
                                            <td align="center">
-                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/subirPdf', 'Eliminar Archivo', '<?php echo $aP_codigoProg; ?>');">
+                                           <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/subirPdf', 'Eliminar Archivo', '<?php echo $aP_codigoProg; ?>');">
                                            <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
                                            </a></td>
                                            <?php
@@ -178,7 +178,7 @@
                                            {
                                            ?>
                                            <td align="center">
-                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/subirPdf', 'Subir Archivo', '<?php echo $aP_codigoProg; ?>');">
+                                           <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/subirPdf', 'Subir Archivo', '<?php echo $aP_codigoProg; ?>');">
                                            <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
                                            </a></td>    
                                            <?php    
@@ -190,7 +190,7 @@
                                            ?>
                                            
                                            <td align="center">
-                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupPrograma('<?php echo BASE_URL ?>sistema/verPDF', 'Ver Pdf', '<?php echo $aP_codigoProg; ?>');">
+                                           <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/verPDF', 'Ver Pdf', '<?php echo $aP_codigoProg; ?>');">
                                            <img src="<?php echo $_layoutParams['ruta_img']; ?>pdf.png" width="24" border="0" />
                                            </a></td>
                                            <?php
@@ -293,17 +293,5 @@ $('#btnAdmProg').on('click',function()
 });
 
 
-function abrePopupPrograma(docPHP, titulo, codProg)
-{
-    $("#ML_divPopup").html('');
-    $("#ML_tituloForm").html(titulo);
-    $.post(docPHP, 
-    {
-        post_open: 'on',
-        post_codProg: codProg
-    }, function(data)
-    {
-        $("#ML_divPopup").html(data);
-    });
-}
+
 </script>

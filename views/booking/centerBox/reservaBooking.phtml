@@ -200,30 +200,13 @@
     </div>
     <center>
                     <input type="button"  id="btnSubeVoucherAgen" class="btn btn btn-danger" value="Anular Reserva" 
-                                           onclick="procesoEnviaForm('frmEditaHotel','<?php echo BASE_URL ?>sistema/modificarHotel', 'btnSubeVoucherAgen')">
-                    <input type="button" id="btnImprimeBooking" class="btn btn btn-primary" value="Imprimir Reserva" onclick="printReserva('<?php echo 'Reserva_'.Funciones::add_ceros($this->BK_Id,6);?>')">  
+                                           onclick="Booking.prototype.procesoEnviaForm('frmEditaHotel','<?php echo BASE_URL ?>booking/modificarHotel', 'btnSubeVoucherAgen')">
+                    <input type="button" id="btnImprimeBooking" class="btn btn btn-primary" value="Imprimir Reserva" onclick="Booking.prototype.printReserva('<?php echo 'Reserva_'.Funciones::add_ceros($this->BK_Id,6);?>','btnImprimeBooking','BK_div')">  
                                            
                 
                                     
  
     </center> 
-<script> 
-function printReserva(id){
-    $('#btnImprimeBooking').attr("disabled","disabled");
-    document.title=id;
-    $('#BK_div').printArea();
-    $('#btnImprimeBooking').delay(1500).queue(function(dis)
-                                                        {
-                                                                  $("#btnImprimeBooking").removeAttr("disabled");
-                                                                  dis();
-                                                                  document.title='ORISTRAVEL';
-                                                        });           
-     
- }
-
- 
-       
-</script>
 </form>
 
 

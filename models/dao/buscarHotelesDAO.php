@@ -11,7 +11,7 @@ class buscarHotelesDAO extends Model
     public function getHoteles($idUs, $ciudad, $fechain, $fechaout, $grupo, $cantHab, $cantS, $cantD, $cantT, $cantC, $cantChild)
     {
         $sql= "CALL get_hoteles(".$idUs.",'".$ciudad."','".$fechain."','".$fechaout."','".$grupo."',".$cantHab.",".$cantS.",".$cantD.",".$cantT.",".$cantC.",".$cantChild.")";
-        echo $sql;
+        //echo $sql;
         
         $this->_db->consultaSP($sql);
 

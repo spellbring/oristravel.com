@@ -1,5 +1,5 @@
 // JavaScript Document
-function enviarMensajeCorreo(classFrm, php, btn, div)
+function enviaPost(classFrm, php, btn)
 {
     $("#" + btn).attr('disabled', 'disabled');
 
@@ -26,9 +26,9 @@ function enviarMensajeCorreo(classFrm, php, btn, div)
             endLoad();
             if (data == 'OK')
             {
-                $("#" + div).delay(1500).queue(function (n)
+                $("#ML_divPopup").delay(1500).queue(function (n)
                 {
-                    $("#" + div).html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="iconos/ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>');
+                    $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/><img src="iconos/ok.png" width="32" border="0" /> Proceso realizado con &eacute;xito.</div>');
                     //n();
                 });
             }
@@ -70,8 +70,54 @@ function enviarMensajeCorreo(classFrm, php, btn, div)
         }
     });
 }
-
-
+   function procesoEnviaForm(classFrm,url,btn,urlCarga){
+      
+      $("#" + btn).attr('disabled', 'disabled');
+        initLoad();
+      var formData = new FormData($("." + classFrm)[0]);
+     
+        $.ajax({
+             type:"POST", 
+             url:url,
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             {    
+                 endLoad();
+                 
+                 if(data !== 'OK'){
+                    //$("#msjWar").html(data);
+                    noExito(data);
+                    $("#" + btn).delay(2000).queue(function (m)
+                            {
+                                $("#" + btn).removeAttr("disabled");
+                                m();
+                            });
+                 }  
+                 else{
+                               
+                            $("#" + btn).delay(2000).queue(function (m)
+                            {
+                                $("#" + btn).removeAttr("disabled");
+                                m();
+                            });
+                            
+                            if(urlCarga !== ''){
+                                $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/> Proceso realizado con &eacute;xito.</div>');
+                                setTimeout("location.href = '"+urlCarga+"'", 2000);
+                            }
+                            else{
+                               exito(); 
+                            }
+                 }                 
+             }
+         });
+         return false;  
+    }
 function procesoConServ(classFrm, php, btn)
 {
     $("#" + btn).attr('disabled', 'disabled');
@@ -392,7 +438,7 @@ function checkServ(idChk, nConf, fPPago)
 }
 
 
-function abrePopup(div, docPHP, idTitulo, titulo, val)
+function abrePopup1(div, docPHP, idTitulo, titulo, val)
 {
     initLoad();
     $("#" + div).html('');
@@ -433,6 +479,20 @@ function noExito(data) {
     $('#divAlertWar').delay(500).fadeOut(500);
     $('#divAlertWar').animate({
         'display': 'none'
+    });
+}
+
+function abrePopupCenter(docPHP, titulo, cod)
+{
+    $("#ML_divPopup").html('');
+    $("#ML_tituloForm").html(titulo);
+    $.post(docPHP, 
+    {
+        post_open: 'on',
+        post_cod: cod
+    }, function(data)
+    {
+        $("#ML_divPopup").html(data);
     });
 }
 

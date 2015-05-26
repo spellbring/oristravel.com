@@ -28,7 +28,7 @@
                                 <label style="cursor:pointer; display:none;">
                                     <input style="margin-top:-1px; vertical-align:middle;" type="checkbox" name="chk_flImagenVouAgen" checked="checked"> Eliminar
                                 </label>
-                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Eliminar" onclick="procesoEnviaForm('frmLogoVouAgen', '<?php echo BASE_URL; ?>sistema/modificarLogoVoucher', 'btnSubeVoucherAgen')">
+                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Eliminar" onclick="procesoEnviaForm('frmLogoVouAgen', '<?php echo BASE_URL; ?>imagen/modificarLogoVoucher', 'btnSubeVoucherAgen')">
                             </center>
                         	<?php }else{ ?>   
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -42,7 +42,7 @@
                                 </span>
                                 
                                 <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remover</a>
-                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Subir imagen" onclick="procesoEnviaForm('frmLogoVouAgen', '<?php echo BASE_URL; ?>sistema/modificarLogoVoucher', 'btnSubeVoucherAgen')">
+                                <input type="button"  id="btnSubeVoucherAgen" class="btn btn-primary" value="Subir imagen" onclick="procesoEnviaForm('frmLogoVouAgen', '<?php echo BASE_URL; ?>imagen/modificarLogoVoucher', 'btnSubeVoucherAgen')">
                             </div>
                            <div>
                             
@@ -62,7 +62,8 @@
     </div>
 </div>
 <script>
-function procesoEnviaForm(classFrm,url,btn){
+/*
+    function procesoEnviaForm(classFrm,url,btn){
              
         initLoad();
       var formData = new FormData($("." + classFrm)[0]);
@@ -115,5 +116,6 @@ function procesoEnviaForm(classFrm,url,btn){
      
         
         
-    }    
+    } 
+    */
 </script>

@@ -24,7 +24,7 @@ class processController extends Controller
         Session::set('sess_pCR_fechaHasta', $this->getTexto('txtFechaHasta-ConsRes'));
         Session::set('sess_pCR_tipoFecha', $this->getTexto('rdbFecha'));
 
-        $this->redireccionar('sistema/consultarBooking');
+        $this->redireccionar('booking/consultarBooking');
     }
     
     public function bsHot()
@@ -75,7 +75,7 @@ class processController extends Controller
         Session::set('sess_pBP_Cagegorias', $this->getTexto('mL_cmbCat_H'));
  
 
-        $this->redireccionar('sistema/buscarHoteles');
+        $this->redireccionar('hotel');
     }
     
     public function bsServ(){
@@ -89,7 +89,7 @@ class processController extends Controller
         Session::set('sess_sBP_childs', $this->getTexto('mL_cmbChild_S'));
         
         
-        $this->redireccionar('sistema/buscarServicios');
+        $this->redireccionar('buscarServicio');
     
     }
     
@@ -126,7 +126,7 @@ class processController extends Controller
        }
           
        
-       $this->redireccionar('sistema/buscarProgramas');
+       $this->redireccionar('programa');
         
     }
     
@@ -138,7 +138,7 @@ class processController extends Controller
         Session::set('sess_pAdm_nombre', $this->getTexto('txtNombre_H'));
         Session::set('sess_pAdm_cat', $this->getTexto('cmbCategoria_H'));
         
-        $this->redireccionar('sistema/hoteles');
+        $this->redireccionar('hotel/hoteles');
     }
     
     public function admProgramas()
@@ -149,7 +149,7 @@ class processController extends Controller
         Session::set('sess_pC_aP_Pais',$this->getTexto('aP_txtPaisDestino_P'));
         
         
-        $this->redireccionar('sistema/adminProgramas');
+        $this->redireccionar('programa/adminProgramas');
         
     }
     

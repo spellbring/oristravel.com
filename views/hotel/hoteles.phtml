@@ -177,7 +177,7 @@
                                            <td><?php echo $h_ciudadH; ?></td>
                                            <td><?php echo $h_catH; ?></td>
                                              <td align="center">
-                                           <a data-toggle="modal" href="#myModal" onClick="abrePopupHotel('<?php echo BASE_URL ?>sistema/editHotel', 'Editar Hotel', '<?php echo $h_codigoHotel; ?>');">
+                                           <a data-toggle="modal" href="#myModal" onClick="Hoteles.prototype.abrePopupCenter('<?php echo BASE_URL ?>hotel/editHotel', 'Editar Hotel', '<?php echo $h_codigoHotel; ?>');">
                                            <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
                                            </a></td>
                                           
@@ -254,21 +254,6 @@ $('#btnHoteles').on('click',function()
     //}
     
 });
-
-
-function abrePopupHotel(docPHP, titulo, codHotel)
-{
-    $("#ML_divPopup").html('');
-    $("#ML_tituloForm").html(titulo);
-    $.post(docPHP, 
-    {
-        post_open: 'on',
-        post_codHotel: codHotel
-    }, function(data)
-    {
-        $("#ML_divPopup").html(data);
-    });
-}
 </script>
 		</div> <!-- container -->
 	</div> <!--wrap -->

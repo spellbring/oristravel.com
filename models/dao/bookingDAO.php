@@ -12,6 +12,20 @@ class bookingDAO extends Model
     public function __construct() {
         parent::__construct();
     }
+    /**
+     * Metodo bookingDAO: Devuelve las reservas desde la BBDD.
+     * <PRE> 
+     * -.Creado: 28/04/2015  (Jaime Reye)
+     * </PRE>
+     * @param $desde Fecha Desde 
+     * @param $hasta Fecha Hasta
+     * @param $tipoFecha fecha de reserva o viaje, 
+     * @param $idAgencia id de la agencia traida desde la base de datos 
+     * @param $tipoUser se refiere al tipo de usuario 
+     * @param $usuario nombre del usuario
+     * @return ArrayObjetos Devuelve todos los datos consultados 
+     * @author: Jaime Reyes
+     */
     
     public function getConsRes($desde, $hasta, $tipoFecha, $idAgencia, $tipoUser, $usuario) {
         $sql = "SELECT booking.id_booking,
@@ -38,7 +52,7 @@ class bookingDAO extends Model
         } else if ($tipoUser == 2) {
             $sql.=" AND booking.id_agencia=" . $idAgencia . " ";
         }
-
+      
 
         if ($tipoFecha == 1) {
             $sql.=" AND fecha BETWEEN '" . $desde . "' AND '" . $hasta . "' ";
@@ -88,7 +102,15 @@ class bookingDAO extends Model
             return false;
         }
     }
-    
+   /**
+     * Metodo bookingDAO: Devuelve las reservas desde la BBDD a partir de solo del id.
+     * <PRE> 
+     * -.Creado: 28/04/2015  (Jaime Reye)
+     * </PRE>
+     * @param $cod id del booking
+     * @return ArrayObjetos Devuelve todos los datos consultados 
+     * @author: Jaime Reyes
+     */
     public function getBooking($cod){// booking.total,
     
     $BK_sql='SELECT booking.id_booking,
@@ -143,6 +165,15 @@ class bookingDAO extends Model
         
         
     }
+    /**
+     * Metodo bookingDAO: Devuelve los detalles de las reservas  desde otra tabla de la BBDD.
+     * <PRE> 
+     * -.Creado: 28/04/2015  (Jaime Reye)
+     * </PRE>
+     * @param $cod id
+
+     * @author: Jaime Reyes
+     */
     
     public function getDbooking($cod){
     $DBK_sql='SELECT    dbooking.st, 
@@ -171,17 +202,17 @@ class bookingDAO extends Model
            foreach($bookArray as $bookdb){
                $bookObj = new bookingDTO();
                
-               $bookObj->setEstado($bookdb['st']);
-               $bookObj->setHotel($bookdb['hotel']);
-               $bookObj->setTipoh($bookdb['tipoh']);
-               $bookObj->setPa($bookdb['pa']);
-               $bookObj->setTot_hab($bookdb['tot_hab']);
-               $bookObj->setTot_pax($bookdb['tot_pax']);
-               $bookObj->setTot_child1($bookdb['tot_child_1']);
-               $bookObj->setCiudad($bookdb['ciudad']);
-               $bookObj->setFechaIn($bookdb['fecha_in']);
-               $bookObj->setFecha_out($bookdb['fecha_out']);
-               $bookObj->setTotal_venta($bookdb['total_venta']);
+               $bookObj->setEstado(trim($bookdb['st']));
+               $bookObj->setHotel(trim($bookdb['hotel']));
+               $bookObj->setTipoh(trim($bookdb['tipoh']));
+               $bookObj->setPa(trim($bookdb['pa']));
+               $bookObj->setTot_hab(trim($bookdb['tot_hab']));
+               $bookObj->setTot_pax(trim($bookdb['tot_pax']));
+               $bookObj->setTot_child1(trim($bookdb['tot_child_1']));
+               $bookObj->setCiudad(trim($bookdb['ciudad']));
+               $bookObj->setFechaIn(trim($bookdb['fecha_in']));
+               $bookObj->setFecha_out(trim($bookdb['fecha_out']));
+               $bookObj->setTotal_venta(trim($bookdb['total_venta']));
                $objetosBook[] = $bookObj; 
               
            }
@@ -194,6 +225,15 @@ class bookingDAO extends Model
         return false;   
       }
       }
+      /**
+     * Metodo bookingDAO: Devuelve las personas de las reservas  desde otra tabla de la BBDD.
+     * <PRE> 
+     * -.Creado: 28/04/2015  (Jaime Reye)
+     * </PRE>
+     * @param $cod id
+
+     * @author: Jaime Reyes
+     */
    public function getPbooking($cod){
      $PBK_sql = 'SELECT  nombre, 
                          apellido, 
@@ -212,10 +252,10 @@ class bookingDAO extends Model
            foreach($bookArray as $bookdb){
               $bookObj = new bookingDTO();
               
-              $bookObj->setNomPax($bookdb['nombre']);
-              $bookObj->setApellido_pax($bookdb['apellido']);
-              $bookObj->setHab($bookdb['hab']);
-              $bookObj->setNhab($bookdb['nhab']);
+              $bookObj->setNomPax(trim($bookdb['nombre']));
+              $bookObj->setApellido_pax(trim($bookdb['apellido']));
+              $bookObj->setHab(trim($bookdb['hab']));
+              $bookObj->setNhab(trim($bookdb['nhab']));
               
               $objetosBook[] = $bookObj; 
                

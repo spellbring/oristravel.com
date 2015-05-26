@@ -60,11 +60,7 @@ class View /*extends Smarty*/
             throw new Exception('Error de vista: '.$rutaView);
         }
     }
-    
-    
-    
-    
-    
+         
     public function renderizaSistema($vista, $item=false)
     {
         $js = array();
