@@ -8,10 +8,14 @@
 
 class buscarHotelesDAO extends Model
 {
-    public function getHoteles($idUs, $ciudad, $fechain, $fechaout, $grupo, $cantHab, $cantS, $cantD, $cantT, $cantC, $cantChild)
+    public function getHoteles($idUs =0, $ciudad=0, $fechain=0, $fechaout=0, $grupo=0, $cantHab=0, $cantS=0, $cantD=0, $cantT=0, $cantC=0, $cantChild=0)
     {
         $sql= "CALL get_hoteles(".$idUs.",'".$ciudad."','".$fechain."','".$fechaout."','".$grupo."',".$cantHab.",".$cantS.",".$cantD.",".$cantT.",".$cantC.",".$cantChild.")";
-        //echo $sql;
+        Session::set('sess_getHotelesSP',$sql);
+        
+        if($idUs == 0){
+        $sql = Session::get('sess_getHotelesSP');    
+        }
         
         $this->_db->consultaSP($sql);
 
