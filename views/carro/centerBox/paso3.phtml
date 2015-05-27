@@ -99,7 +99,7 @@
                                                                                 <td class="text-muted"><?php if($objCar->getFecha_out()=='0000-00-00'){echo "";} else {echo Funciones::invertirFecha($objCar->getFecha_out(),'-','/');} ?></td>
                                                                                 <td><?php echo $objCar->getVuelo() ?></td>
                                                                                 <td style="color: #DF5F00; font-weight: bold;"><?php echo $objCar->getTotal() ?></td>                                                                               
-                                                                                
+                                                                                <?php $totalCompras+=$objCar->getTotal()?>
                                                                             </tr>
                                                                             
                                                                 
@@ -108,7 +108,7 @@
                                                                    ?>
                                                                             <tr>
                                                                                 <td colspan="12" align="right">Total</td>
-                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras+=$objCar->getTotal()?></td>
+                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras ?></td>
                                                                                 
                                                                             </tr>
                                                                         </tbody>
