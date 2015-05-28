@@ -136,7 +136,7 @@ $(function()
                                 <td>
                                 	<!-- style="background:#d2d3d6;" -->
                                         <select name="mL_cmbNoches_H" class="form-control" id="mL_cmbNoches_H" onchange="sumaFechas('mL_txtFechaIn_H','mL_cmbNoches_H','mL_txtFechaOut_H');">
-                                            <option value="0">Seleccione</option>
+                                            
 										<?php 
 										for($i=1; $i<=10; $i++)
 										{
@@ -948,7 +948,9 @@ $('#btnBuscarProgramas').on('click',function()
     }
 
 });
-
+$(document).on('ready',function(){
+sumaFechas('mL_txtFechaIn_H','mL_cmbNoches_H','mL_txtFechaOut_H');
+});
 function sumaFechas(fechaIni, dias, fechaOut)
 {
         var fechaIn = $('#'+fechaIni).val().split('/');     
