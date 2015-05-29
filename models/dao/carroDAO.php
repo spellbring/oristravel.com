@@ -10,7 +10,8 @@ class carroDAO extends Model{
 
 public function getAddCarro($user){
 
-$sql = "SELECT  tipo_ser,
+$sql = "SELECT  id,
+                tipo_ser,
                 status,
 		tipoh, 
                 pa, 
@@ -37,6 +38,7 @@ $datos= $this->_db->consulta($sql);
         foreach($arrayCarro as $objCar){
             
             $objCarro = new carroDTO();
+            $objCarro->setId($objCar['id']);
             $objCarro->setStatus($objCar['status']);
             $objCarro->setServicio($objCar['tipo_ser']);
             $objCarro->setHabitacion($objCar['tipoh']);

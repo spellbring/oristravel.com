@@ -7,6 +7,7 @@
  */
 
 class carroDTO{
+    private $_id;    
     private $_servicio;
     private $_habitacion;
     private $_pa;
@@ -23,7 +24,16 @@ class carroDTO{
     private $_nombre;//
     private $_apellido;//
     
+    function getId() {
+        return $this->_id;
+    }
 
+    function setId($id) {
+        $this->_id = $id;
+        return $this;
+    }
+
+    
         
     function getNombre() {
         return $this->_nombre;
