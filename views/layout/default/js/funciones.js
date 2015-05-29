@@ -469,7 +469,7 @@ function exito() {//
 }
 function noExito(data) {
     endLoad();
-    $('#divAlertWar').delay(500).fadeIn(500);
+    $('#divAlertWar').delay(1000).fadeIn(500);
     $('#divAlertWar').animate({
     
         'display': 'block'

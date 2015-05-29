@@ -560,8 +560,7 @@ public function index() {
        $this->_view->renderizaCenterBox('mapaHotel');
        
    }
-    
-    
-    
+   
+        
 }
 

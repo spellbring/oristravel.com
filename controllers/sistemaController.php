@@ -56,7 +56,7 @@ class sistemaController extends Controller {
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('index');
     }
-
+   
     public function pagina2() {
         Session::acceso('Especial');
         //$servicios= $this->loadModel('servicios');
