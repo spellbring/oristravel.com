@@ -8,27 +8,29 @@
 
 class buscarHotelesDAO extends Model
 {
-    public function getHoteles($idUs =0, $ciudad=0, $fechain=0, $fechaout=0, $grupo=0, $cantHab=0, $cantS=0, $cantD=0, $cantT=0, $cantC=0, $cantChild=0)
-    {
-        $sql= "CALL get_hoteles(".$idUs.",'".$ciudad."','".$fechain."','".$fechaout."','".$grupo."',".$cantHab.",".$cantS.",".$cantD.",".$cantT.",".$cantC.",".$cantChild.")";
-        Session::set('sess_getHotelesSP',$sql);
+    public function getHoteles($idUs =0, $ciudad=0, $fechain=0, $fechaout=0, $grupo=0, $cantHab=0, $cantS=0, $cantD=0, $cantT=0, $cantC=0, $cantChild=0){
+        
+        
         
         if($idUs == 0){
-        $sql = Session::get('sess_getHotelesSP');    
+            $sql = Session::get('sess_getHotelesSP');    
+        } else {
+            $sql= "CALL get_hoteles(".$idUs.",'".$ciudad."','".$fechain."','".$fechaout."','".$grupo."',".$cantHab.",".$cantS.",".$cantD.",".$cantT.",".$cantC.",".$cantChild.")";
+            Session::set('sess_getHotelesSP', $sql);
         }
         
         $this->_db->consultaSP($sql);
 
         /*if($this->_db->numRows($datos)>0)
         {*/
+        
             $arrayHoteles = $this->_db->fetchAllSP();
             $objetosHoteles = array();
 
-            foreach($arrayHoteles as $objarrHot)
-            {
+            foreach($arrayHoteles as $objarrHot){
                 $objHoteles = new buscarHotelesDTO();
 
-                $objHoteles->setUsuario($objarrHot['usuario']);
+                $objHoteles->setUsuario($objarrHot['usuario']);               
                 $objHoteles->setNota($objarrHot['nota']);
                 $objHoteles->setTipoh($objarrHot['tipoh']);
                 $objHoteles->setCat($objarrHot['cat']);
@@ -63,22 +65,8 @@ class buscarHotelesDAO extends Model
             }
          
           return $objetosHoteles;                    
-        /*}
-        else 
-        {        
-           return false;            
-        }*/
-
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+        }
+        
     public function _llenarHotel($cod) {
         $sql = 'SELECT * FROM hotel WHERE codigo = ' . $cod;
         //echo $sql;
@@ -89,6 +77,7 @@ class buscarHotelesDAO extends Model
             foreach($arrayHotel as $dbHotel) {
                 $objHotel = new hotelDTO();
                 $objHotel->setNombre(trim($dbHotel['hotel']));
+                $objHotel->setPais($dbHotel['pais']);     
                 $objHotel->setCiudad(trim($dbHotel['ciudad']));
                 $objHotel->setCat(trim($dbHotel['cat']));
                 $objHotel->setImgEnc(trim($dbHotel['img_encabezado']));
@@ -142,6 +131,10 @@ class buscarHotelesDAO extends Model
         } else {
             return false;
         }
+    }
+     public function exeSQL($sql)
+    {
+        $this->_db->consulta($sql);
     }
     
 }
