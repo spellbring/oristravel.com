@@ -58,13 +58,15 @@
                                                                         <th>Fecha Out</th>
                                                                         <th>Vuelo</th>
                                                                         <th>Total</th>
-                                                                        <th></th>
+                                                                        <th>Eliminar</th>
                                                                     </tr>
                                                                 </thead>
                                                                   <?php
                                                                    $totalCompras=0;
+                                                                   $contProductos = 0;
                                                                    foreach($this->objCarro as $objCar )
                                                                    {
+                                                                       $contProductos++;
                                                                ?>   
                                                                 
                                                                         <tbody>
@@ -82,7 +84,13 @@
                                                                                 <td class="text-muted"><?php if($objCar->getFecha_out()=='0000-00-00'){echo "";} else {echo Funciones::invertirFecha($objCar->getFecha_out(),'-','/');} ?></td>
                                                                                 <td><?php echo $objCar->getVuelo() ?></td>
                                                                                 <td style="color: #DF5F00; font-weight: bold;"><?php echo $objCar->getTotal() ?></td>                                                                               
-                                                                                <td></td>
+                                                                                <td>
+                                                                                    <a data-toggle="modal" href="#myModal" onClick="Carro.prototype.abrePopupCenter('<?php echo BASE_URL ?>carro/mostrarPopUpCarro', 'Eliminar Producto del Carro', '<?php echo $objCar->getId(); ?>', '<?php echo $contProductos ?>');">
+                                                                                        <img src="<?php echo $_layoutParams['ruta_img']; ?>delete.png" width="24" border="0" />
+                                                                                    </a>
+                                                                                    <?php echo $contProductos ?>
+                                                                                </td>
+                                                                                <?php $totalCompras+=$objCar->getTotal()?>
                                                                             </tr>
                                                                             
                                                                 
@@ -91,7 +99,7 @@
                                                                    ?>
                                                                             <tr>
                                                                                 <td colspan="12" align="right">Total</td>
-                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras+=$objCar->getTotal()?></td>
+                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras ?></td>
                                                                                 <td></td>
                                                                             </tr>
                                                                         </tbody>
