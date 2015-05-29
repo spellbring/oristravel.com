@@ -79,6 +79,19 @@ class loginController extends Controller
                         Session::set('sess_intentos', 0);
                         Session::set('sess_ipcfg', $_SERVER["REMOTE_ADDR"]);
                         
+                        $carroHotel= array(array(0 => ''));
+                        Session::set('sess_CarroHotel',$carroHotel);
+                        
+                        
+                        
+                        /*$_SESSION[0][0]='10:30';
+                        $_SESSION[0][1]='10:40';
+                        $_SESSION[0][2]='10:50';*/
+                        
+                        //Session::set($clave, $valor)
+                        /*Session::set('sess_CarroServicio',[0][0]);
+                        Session::set('sess_CarroPrograma',[0][0]);*/
+                        
                         
                         ######################################################################################
                         //Session::set('sess_sp_acceso', $this->_login->sp_perfilClave($LC_user, 'ADMWEB'));
