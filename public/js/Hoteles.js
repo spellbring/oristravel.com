@@ -71,7 +71,7 @@ Hoteles.prototype.abrePopupCenter = function(docPHP, titulo, cod){
     });
 }
 
-Hoteles.prototype. verMapa = function(url, mapa){
+Hoteles.prototype.verMapa = function(url, mapa){
 
     $.post(url, 
     {
@@ -80,7 +80,53 @@ Hoteles.prototype. verMapa = function(url, mapa){
     {
         $("#"+mapa).html(data);
     });
-}  
+}
+
+function procesoAddCarro(classFrm,url,btn){
+$("#" + btn).attr('disabled', 'disabled');
+        initLoad();
+      var formData = new FormData($("." + classFrm)[0]);
+     
+        $.ajax({
+             type:"POST", 
+             url:url,
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             {    
+                 endLoad();
+                 
+                 if(!data){
+                    //$("#msjWar").html(data);
+                    noExito(data);
+                    $("#" + btn).delay(2000).queue(function (m)
+                            {
+                                $("#" + btn).removeAttr("disabled");
+                                m();
+                            });
+                 }  
+                 else{
+                               
+                            $("#" + btn).delay(2000).queue(function (m)
+                            {
+                                $("#" + btn).removeAttr("disabled");
+                                m();
+                            });
+                            
+                                exito();
+                                //$("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Agregado al Carro</strong><br/> Proceso realizado con &eacute;xito.</div>');
+                                $('.badge').html(data);
+                                
+                            
+                 }                 
+             }
+         });
+         return false;      
+}
 
 
 
