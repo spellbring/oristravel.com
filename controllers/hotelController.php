@@ -35,11 +35,7 @@ public function index() {
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         $this->_view->mL_expandeFiltrosHot='block';
-        
-       
-       
-        
-        
+        $this->_view->objServicios = $this->_servicio->getServicios();    
         $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
         
 

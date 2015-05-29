@@ -12,6 +12,11 @@ class usuarioController extends Controller{
         $this->_view->setJs(array('Usuarios'));
         $this->_usuarios = $this->loadModel('usuario');
         $this->_agencia = $this->loadModel('agencia');
+        $this->_hotel = $this->loadModel('hotel');
+        $this->_categorias = $this->loadModel('categoria');
+        $this->_servicio = $this->loadModel('servicio');
+        $this->_programa = $this->loadModel('programa');
+        
     }
      /**
      * Metodo procesador: Renderiza la vista de administración de usuarios
@@ -23,23 +28,29 @@ class usuarioController extends Controller{
      * @author: Jaime Reyes
      */  
     public function index(){
-      Session::acceso('Usuario');
+      
+    }
+    ###############################usuarioController################################
+    
+    public function usuarios() {
+         Session::acceso('Usuario');
 
         $this->_view->objAgencia = $this->_agencia->getAgencias(0);
         $this->_view->setJs(array('ajax'));
 
         $this->_view->objEditUs = $this->_usuarios->getUsuariosEdit(0);
-
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        
+        $this->_view->objServicios = $this->_servicio->getServicios();
 
 
 
         $this->_view->currentMenu = 4;
         $this->_view->titulo = 'ORISTRAVEL';
-        $this->_view->renderizaSistema('usuarios');  
-    }
-    ###############################usuarioController################################
-    
-    public function usuarios() {
+        $this->_view->renderizaSistema('usuarios'); 
         
     }
  /**

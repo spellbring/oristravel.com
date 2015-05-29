@@ -54,7 +54,7 @@ class programaController extends Controller{
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG(); //Session::get('sess_combo_pais')
-
+        $this->_view->objServicios = $this->_servicio->getServicios();
         $this->_view->objPais = $this->_pais->getPaises();
 
         $this->_view->objProgramas = $this->_programa->getAdmProgramas();

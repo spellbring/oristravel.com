@@ -35,6 +35,9 @@ class imagenController extends Controller{
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        
+        $this->_view->objServicios = $this->_servicio->getServicios();
         $this->_view->objAgenciaImagenes= $this->_agencia->getAgencias(0);
 
         $this->_view->currentMenu = 5;

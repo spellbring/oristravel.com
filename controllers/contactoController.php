@@ -11,6 +11,11 @@ class contactoController extends Controller
     public function __construct() {
         parent::__construct();
         $this->_view->setJs(array('Contacto'));
+        $this->_hotel = $this->loadModel('hotel');
+        $this->_servicio = $this->loadModel('servicio');
+        $this->_programa = $this->loadModel('programa');
+        
+        $this->_view->objServicios = $this->_servicio->getServicios();
     }
        /**
      * Metodo procesador: Renderiza la vista contáctenos 
@@ -37,6 +42,12 @@ class contactoController extends Controller
      */
     public function contactenos() {
         Session::acceso('Usuario');
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        
+        $this->_view->objServicios = $this->_servicio->getServicios();
         $this->_view->currentMenu = 7;
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('contactenos');
