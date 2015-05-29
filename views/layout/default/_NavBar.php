@@ -197,38 +197,26 @@
         
         
         <li class="dropdown">
-            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown'>
+            <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown' onclick="postCarro('<?php echo BASE_URL ?>carro/seccionCarro', 'carroDrop', 'carroFoot')">
+                <?php 
+                
+                $tmp = Session::get('sess_CarroHotel');
+                $cantTmp = (count($tmp[0])-1);
+                //echo var_dump($tmp[0]);
+                ?>
                 <img src="<?php echo $_layoutParams['ruta_img']; ?>carro_blanco.png" width="24" />
-                <span class="badge">3</span>
+                <span class="badge"><?php if($cantTmp > 0){ echo $cantTmp; } ?></span>
             </a>
             <ul class="dropdown-menu notifications arrow">
                 <li class="dd-header">
-                    <span>Tiene (3) elementos en el carro</span>
+                    <span id="carroFoot">Tiene <?php echo $cantTmp ?> elementos en el carro</span>
                 </li>
-                <div class="scrollthis">
-                    <li>
-                        <a href="#" class="notification-warning">
-                            <span class="time">2 hrs</span>
-                            <i>S&nbsp;</i> 
-                            <span class="msg">Servicio. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="notification-order">
-                            <span class="time">10 hrs</span>
-                            <i>P&nbsp;</i> 
-                            <span class="msg">Programa. </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="notification-failure">
-                            <span class="time">12 hrs</span>
-                            <i>H&nbsp;</i>
-                            <span class="msg">Hotel. </span>
-                        </a>
-                    </li>
+               
+                <div class="scrollthis" id="carroDrop">
+
                 </div>
-                <li class="dd-footer"><a href="<?php echo BASE_URL . 'carro/carroCompra' ?>">Ir al carro de compras</a></li>
+                
+                <li class="dd-footer" ><a href="<?php echo BASE_URL . 'carro/carroCompra' ?>">Ir al carro de compras</a></li>
             </ul>
         </li>
         
@@ -237,3 +225,25 @@
 </header>
     
     <div id="page-container" style="min-height: 600px; min-width: 950px;">
+
+        <script>
+        
+function postCarro(docPHP, div, div2){
+    $.post(docPHP, 
+    {
+        post_open: 'on'
+        //post_cod: cod
+    }, function(data)
+    {
+ 
+        $('#'+div).html(data);
+        
+       
+        
+    });
+}   
+        
+        </script>
+        
+      
+        
