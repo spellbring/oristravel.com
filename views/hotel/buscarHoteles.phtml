@@ -52,8 +52,8 @@ function initialize(lat, lon, nombre, id) {
 <div id="page-content">
     <div id='wrap'>
         <div id="page-heading">
-            <h2 style="margin: 10px;">Hoteles en SANTIAGO/CHILE</h2>
-    
+            <h2 style="margin: 10px;">Hoteles en <?php echo Session::get('sess_pCH_ciudad'); ?>/CHILE</h2>         
+          
         </div> 
                 <?php 
                 
@@ -64,14 +64,18 @@ function initialize(lat, lon, nombre, id) {
                 $detalleHoteles='';
                 $html='';
                     
-                foreach($this->objGetHoteles as $objHoteles){
-                //if($objHoteles->getCat() == Session::get('sess_pBP_Cagegorias')){
+                foreach($this->objGetHoteles as $objHoteles){    
                  if($tempCodHTL != $objHoteles->getCodigoHtl()){
+                     
                      
                  $html = file_get_contents(ROOT . 'views' . DS . 'hotel' . DS . 'buscarHoteles' . DS . 'seccionBHoteles.phtml');     
                  $HotelDet=false;                  
                  $contPest++;              
                     foreach($objHoteles->getHotel() as $objHot ){
+                        if($objHoteles->getCat() == Session::get('sess_pBP_Cagegorias') || Session::get('sess_pBP_Cagegorias') == ''){
+                           if($objHot->getNombre() == Session::get('sess_pBP_nombreHotel') || Session::get('sess_pBP_nombreHotel')==''){ 
+                            
+                        
                       
                         $catHotel = substr( $objHoteles->getCat(), 0,1);
 
@@ -189,8 +193,9 @@ function initialize(lat, lon, nombre, id) {
                               echo $html;
                               ?>  
                  <?php
-                                                     
-                    }     
+                           }                                
+                    }
+                    }
                  }
                  $tempCodHTL = $objHoteles->getCodigoHtl();
                 //}
@@ -213,8 +218,8 @@ function initialize(lat, lon, nombre, id) {
 
                 ?> 
         
-        
-       <?php if(isset($this->paginacion)){ echo $this->paginacion; }else{ ?>
+       <!-- 
+       <?php //if(isset($this->paginacion)){ echo $this->paginacion; }else{ ?>
                <center>
                 <div class="tab-pane active" id="dompaginate">
                     <ul class="pagination">
@@ -230,8 +235,8 @@ function initialize(lat, lon, nombre, id) {
                     </ul>
                 </div>
                 </center>  
-                <?php } ?>
-        
+                <?php //} ?>
+        -->
        
         
     </div> <!--wrap -->
