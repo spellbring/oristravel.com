@@ -73,6 +73,7 @@ class processController extends Controller
         Session::set('sess_pBP_FechaIn',$this->getTexto('mL_txtFechaIn_H'));
         Session::set('sess_pBP_FechaOut',$this->getTexto('mL_txtFechaOut_H'));
         Session::set('sess_pBP_Cagegorias', $this->getTexto('mL_cmbCat_H'));
+        Session::set('sess_pBP_nombreHotel', $this->getTexto('mL_txtNombreHotel'));
  
 
         $this->redireccionar('hotel');
