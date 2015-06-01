@@ -1,48 +1,118 @@
 <div id="page-content">
     <div id='wrap'>
         <div id="page-heading">
-
-            <h1>Programas</h1>
+            <ol class="breadcrumb">
+                <li><a href="<?php echo BASE_URL . 'sistema'; ?>">Inicio</a></li>
+                <li class="active">Busqueda de programas</li>
+            </ol>
+                
+            <h1>PROGRAMAS EN <b style="color:#FF9900;"><?php echo @$this->objCiudadBs[0]->getNombre(); ?></b></h1><!--Variable oculta    -->
 
         </div>
-
-
         <div class="container">
+            
+            
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" id="btnCerrar1PRG" data-dismiss="modal" aria-hidden="true" style="display:block">&times;</button>
+                            <h4 class="modal-title">Reservar programa</h4>
+                        </div>
 
+                        <div class="modal-body" id="divPopupPRG"></div>
 
-
+                        <div class="modal-footer">
+                            <center>
+                                
+                                <a class="btn btn-primary"n href="<?php echo BASE_URL; ?>system/programas" id="btnAceptarPRG" style="display:none">Volver a reservar</a>
+                            </center>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+            
+            
+            
             <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-danger">
+                
+                <?php
+                $cntProg=0;
+                if($this->objProgramas) { 
+                    
+                    //foreach($this->objProgramas as $columPRG)
+                    foreach($this->objProgramas as $objProg) { 
+                        
+                        $cntProg++;
+                        ?>
+                
+                <form class="frmPrograma_<?php echo $cntProg; ?>">
+                    <div class="col-md-6">
+                
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" >
 
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h4>Buscar Programas</h4>
+                                <?php echo $objProg->getTitulo(); ?>
+
                             </div>
                             <div class="panel-body">
-                                <div class="row">
+                                <div class="tab-content">
 
+                                    <div>
 
-                                    <div class="col-md-12">
+                                        <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
+                                                <tr>
+                                                    <td width="210" valign="top">
+                                                        <img src="<?php echo $_layoutParams['ruta_programas']; ?>1.jpg" width="200" class="img-thumbnail" style="margin-right: 10px;">
+                                                    </td>
+                                                    <td>
+                                                        <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" style=" margin-left: 10px;">
+                                                            <tr>
+                                                                <td style="font-size: 12px;">
+                                                                    <?php if($objProg->getAereo()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Aereo <?php } ?>
+                                                                    <?php if($objProg->getHotel()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;"> Hotel <?php } ?>
+                                                                    <?php if($objProg->getTraslado()) { ?><img src="<?php echo $_layoutParams['ruta_img']; ?>ok.png" width="16" style="margin-left:5px;" > Traslado <?php } ?>
+                                                                </td>
+                                                            </tr>
 
-
-                                        <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:none;">
-                                            <strong>Atenci&oacute;n!</strong>
-                                            Debe ingresar una <b>Ciudad</b>, <b>Nombre de hotel</b> o seleccionar una <b>Categoria</b>.
-                                            <button type="button" class="close" onClick="muestraOculta('divAlertWarHot', '2')">&times;</button>
-                                        </div>
-
-                                        
+                                                            <tr>
+                                                                <td style="padding: 2px; vertical-align: middle;" align="center">
+                                                                    <label style="color: #DF5F00; font-weight: bold; font-size:30px;"><?php echo Functions::formatoValor($objProg->getMoneda(), $objProg->getValorDesde()); ?></label><br>
+                                                                    <a data-toggle="modal" href="#myModal" class="btn btn-success btn-sm" style="width: 88px;" onclick="procesoDetalleProg('frmPrograma_<?php echo $cntProg; ?>');">RESERVAR</a>
+                                                                    <br>
+                                                                    <label style="font-size: 10px;">Valores desde por persona en base a habitaci&oacute;n doble</label>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" align="center">
+                                                        <b style="color:#FF9900;">Estadia:</b> <?php echo $objProg->getNoches()+1; ?> d&iacute;as / <?php echo $objProg->getNoches(); ?> noches
+                                                    </td>
+                                                </tr>
+                                            </table>
 
                                     </div>
 
                                 </div>
                             </div>
                         </div>
-
+                    
                     </div>
-                </div>
+                    <input type="hidden" name="__SP_id__" value="<?php echo $objProg->getId(); ?>" >
+                </form>
+                <?php } 
+                
+                } else { ?>
+                    <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:block;">
+                        No se encontraron registros para esta busqueda.
+                    </div>
+                <?php } ?>
+                
             </div>
-        </div>
-    </div> 
-</div>
+
+
+        </div> <!-- container -->
+    </div> <!--wrap -->
+</div> <!-- page-content -->
