@@ -104,7 +104,7 @@ $(function()
                                 {
                                         $mL_codigoCiuHot= $objCiuHot->getCodCiudad();
                                         $mL_nombreCiuHot= $objCiuHot->getCiudad();
-                                        $mL_nombreCiudadHot = $mL_nombreCiuHot." (".$mL_codigoCiuHot.")";
+                                        $mL_nombreCiudadHot = $mL_nombreCiuHot."(".$mL_codigoCiuHot.")";
 
                                         if(Session::get('sess_pCH_ciudad')==$mL_codigoCiuHot)
                                         {
@@ -124,6 +124,13 @@ $(function()
                         </select>
                         
                      	<table width="100%" style="display:<?php echo $this->mL_expandeFiltros; ?>; margin-top:5px;">
+                            <tr>
+                                <td> <span style="padding-left:10px;">Hotel</span></td>                                   
+                                
+                                <td>
+                                    <input type="text" class="form-control" id="mL_txtNombreHotel" name="mL_txtNombreHotel" value="<?php if(Session::get('sess_pBP_nombreHotel')){echo Session::get('sess_pBP_nombreHotel');} ?>">
+                                </td>
+                            </tr>
                             <tr>
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
@@ -368,7 +375,7 @@ $(function()
                                 {
                                         $mL_codigoCiu_Serv= $objCiuServ->getCodCiudad();
                                         $mL_nombreCiu_Serv= $objCiuServ->getCiudad();
-                                        $mL_nombreCiudad_Serv = $mL_nombreCiu_Serv." (".$mL_codigoCiu_Serv.")";
+                                        $mL_nombreCiudad_Serv = $mL_nombreCiu_Serv."(".$mL_codigoCiu_Serv.")";
 
                                         if(Session::get('sess_sCH_ciudad')==$mL_nombreCiu_Serv)
                                         {
@@ -504,7 +511,7 @@ $(function()
                                 {
                                         $mL_codigoCiuPRG= $objCiuPRG->getCodCiudad();
                                         $mL_nombreCiuPRG= $objCiuPRG->getCiudad();
-                                        $mL_nombreCiudadPRG = $mL_nombreCiuPRG." (".$mL_codigoCiuPRG.")";
+                                        $mL_nombreCiudadPRG = $mL_nombreCiuPRG."(".$mL_codigoCiuPRG.")";
 
                                         if(Session::get('sess_prog_Ciudad')==$mL_nombreCiuPRG)
                                         {
@@ -524,6 +531,7 @@ $(function()
                         </select>
                         
                      	<table width="100%" id="tblFormBusqueda" style="display:<?php echo $this->mL_expandeFiltros; ?>; margin-top:5px;">
+                            
                             <tr>
                             	<td width="30%"><span style="padding-left:10px;">Fecha In:</span></td>
                                 <td>
