@@ -174,7 +174,7 @@ function initialize(lat, lon, nombre, id) {
                                     . '<input type="hidden" name="BH_tipoh"'.$contPest.'" value="'.$objTipoH->getTipoh().'">'
                                     . '<input type="hidden" name="BH_palimt"'.$contPest.'" value="'.$objTipoH->getPalimt().'">'
                                     . '<input type="hidden" name="BH_precioFinal"'.$contPest.'" value="'.$objTipoH->getPrecioFinal().'">'  
-                                    . '<a href="#" id="btnCarroEnvio'.$contPestDet.'" onclick=procesoAddCarro(\'formSecHot'.$contPest.'\',\''.BASE_URL.'carro/insertHotel\',\'btnCarroEnvio'.$contPestDet.'\',\'\') class="btn btn-success btn-sm" style="width: 88px;">'.$objTipoH->getStatus().'</a>'
+                                    . '<a href="#" id="btnCarroEnvio'.$contPestDet.'" onclick=Hoteles.prototype.procesoAddCarro(\'formSecHot'.$contPest.'\',\''.BASE_URL.'carro/insertHotel\',\'btnCarroEnvio'.$contPestDet.'\',\'\') class="btn btn-success btn-sm" style="width: 88px;">'.$objTipoH->getStatus().'</a>'
                                     . '</td>'
                                     . '</tr>';
                                    

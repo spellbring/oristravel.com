@@ -176,8 +176,9 @@ class programaController extends Controller{
      * @return _view 
      * @author: Jaime Reyes
      */
-    public function buscarProgramas(){
-       
+    public function detallePrograma(){
+    
+        
     
        
     }

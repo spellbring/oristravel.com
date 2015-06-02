@@ -82,7 +82,7 @@ Hoteles.prototype.verMapa = function(url, mapa){
     });
 }
 
-function procesoAddCarro(classFrm,url,btn){
+Hoteles.prototype.procesoAddCarro = function(classFrm,url,btn){
 $("#" + btn).attr('disabled', 'disabled');
         initLoad();
       var formData = new FormData($("." + classFrm)[0]);

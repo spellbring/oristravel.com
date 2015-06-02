@@ -200,16 +200,20 @@
             <a href="#" class="hasnotifications dropdown-toggle" data-toggle='dropdown' onclick="postCarro('<?php echo BASE_URL ?>carro/seccionCarro', 'carroDrop', 'carroFoot')">
                 <?php 
                 
-                $tmp = Session::get('sess_CarroHotel');
-                $cantTmp = (count($tmp[0])-1);
+                $tmpH = Session::get('sess_CarroHotel');
+                $tmpP = Session::get('sess_CarroPrograma');
+                $tmpS = Session::get('sess_CarroServicio');
+                
+                $cantTmpH = (count($tmpH[0])-1)+(count($tmpP[0])-1)+(count($tmpS[0])-1);
+                
                 //echo var_dump($tmp[0]);
                 ?>
                 <img src="<?php echo $_layoutParams['ruta_img']; ?>carro_blanco.png" width="24" />
-                <span class="badge"><?php if($cantTmp > 0){ echo $cantTmp; } ?></span>
+                <span class="badge"><?php if($cantTmpH > 0){ echo $cantTmpH; } ?></span>
             </a>
             <ul class="dropdown-menu notifications arrow">
                 <li class="dd-header">
-                    <span id="carroFoot">Tiene <?php echo $cantTmp ?> elementos en el carro</span>
+                    <span id="carroFoot"><?php if($cantTmpH > 0){ echo 'Tiene '.$cantTmpH.' elementos en el carro'; } ?></span>
                 </li>
                
                 <div class="scrollthis" id="carroDrop">
@@ -232,14 +236,12 @@ function postCarro(docPHP, div, div2){
     $.post(docPHP, 
     {
         post_open: 'on'
-        //post_cod: cod
+        //post_cod: cod   
     }, function(data)
     {
- 
         $('#'+div).html(data);
-        
-       
-        
+        $('#'+div2).html('<?php if($cantTmpH > 0){ echo 'Tiene '.$cantTmpH.' elementos en el carro'; } ?>');
+    
     });
 }   
         

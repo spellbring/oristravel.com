@@ -8,6 +8,7 @@
 class buscarServicioController extends Controller{
    public function __construct() {
        parent::__construct();
+       $this->_view->setJs(array('Servicios'));
        $this->_hotel = $this->loadModel('hotel');
         $this->_servicio = $this->loadModel('servicio');
         $this->_programa = $this->loadModel('programa');

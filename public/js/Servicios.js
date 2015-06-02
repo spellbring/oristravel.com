@@ -3,12 +3,13 @@
  * Autor    : Tsyacom Ltda.
  * Fecha    : Lunes, 28 de julio de 2014
  */
-function Programas(){
+
+function Servicios(){
     
-    
+        
 }
 
-Programas.prototype.procesoEnviaForm = function(classFrm,url,btn,urlCarga){
+Servicios.prototype.procesoEnviaForm = function(classFrm,url,btn,urlCarga){
 $("#" + btn).attr('disabled', 'disabled');
         initLoad();
       var formData = new FormData($("." + classFrm)[0]);
@@ -57,7 +58,7 @@ $("#" + btn).attr('disabled', 'disabled');
      }   
 
 
-Programas.prototype.abrePopupCenter = function(docPHP, titulo, cod){
+Servicios.prototype.abrePopupCenter = function(docPHP, titulo, cod){
     $("#ML_divPopup").html('');
     $("#ML_tituloForm").html(titulo);
     $.post(docPHP, 
@@ -70,7 +71,7 @@ Programas.prototype.abrePopupCenter = function(docPHP, titulo, cod){
     });
 }
 
-Programas.prototype.procesoAddCarro = function(classFrm,url,btn){
+Servicios.prototype.procesoAddCarro = function(classFrm,url,btn){
 $("#" + btn).attr('disabled', 'disabled');
         initLoad();
       var formData = new FormData($("." + classFrm)[0]);
@@ -115,8 +116,5 @@ $("#" + btn).attr('disabled', 'disabled');
          });
          return false;      
 }
-
-
-
 
 

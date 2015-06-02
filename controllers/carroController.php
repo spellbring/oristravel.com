@@ -58,21 +58,37 @@ class carroController extends Controller{
         echo $suma;
     }
     
-    public function insertOlVentas(){
+    public function insertServicio(){
+    $tmp = Session::get('sess_CarroServicio');
+    $tmp1 = Session::get('sess_CarroPrograma');
+    $tmp2 = Session::get('sess_CarroHotel');
+    $tmp[0][] = date('H:i:s');
+    Session::set('sess_CarroServicio',$tmp);
+    echo (count($tmp[0])-1)+(count($tmp1[0])-1)+(count($tmp2[0])-1);
+    }
+     
+    public function insertPrograma(){
+ 
+        
+     $tmp = Session::get('sess_CarroPrograma');
+     $tmp1 = Session::get('sess_CarroHotel');
+     $tmp2 = Session::get('sess_CarroServicio');
+     
+              $tmp[0][] = date('H:i:s');
+              Session::set('sess_CarroPrograma',$tmp);
+              echo (count($tmp[0])-1)+(count($tmp1[0])-1)+(count($tmp2[0])-1);   
+    }
+    public function insertHotel(){
         $id=$this->getTexto('BH_codHotel');
         $tipoh=$this->getTexto('BH_tipoh');
         $palimt= $this->getTexto('BH_palimt');
         $precioF=$this->getTexto('BH_precioFinal');
-        
-        
-      
         $objGetHoteles = $this->_buscarHoteles->getHoteles();
         if($objGetHoteles){
         foreach($objGetHoteles as $objChoteles){
             foreach($objChoteles->getHotel() as $objHotel ){
             if($id==$objChoteles->getCodigoHtl() && $tipoh==$objChoteles->getTipoh() && $palimt==$objChoteles->getPalimt()  && $precioF==$objChoteles->getPrecioFinal()){
-            $Key_=array(rand(10,99),rand(10,99),rand(10,99),rand(10,99),rand(10,99));
-                        $randomNumber = $Key_[0].$Key_[1].$Key_[2].$Key_[3].$Key_[4];
+            
               $sql = "INSERT INTO ol_venta(usuario, "
                                         . "key_, "
                                         . "tipo_ser, "
@@ -122,7 +138,7 @@ class carroController extends Controller{
                                         . "fecha_proceso)"
                       
                 . "VALUES('".Session::get('sess_usuario')."',"
-                                        . "'".$randomNumber."',"
+                                        . "'".Session::get('sess_key_')."',"
                                         . "'HTL',"
                                         . "'".$objChoteles->getNumDias()."',"
                                         . "'".$objHotel->getNombre()."',"
@@ -173,9 +189,11 @@ class carroController extends Controller{
               
               $this->_buscarHoteles->exeSQL($sql);
               $tmp = Session::get('sess_CarroHotel');
+              $tmp1 = Session::get('sess_CarroPrograma');
+              $tmp2 = Session::get('sess_CarroServicio');
               $tmp[0][] = date('H:i:s');
               Session::set('sess_CarroHotel',$tmp);
-              echo (count($tmp[0])-1);
+              echo (count($tmp[0])-1)+(count($tmp1[0])-1)+(count($tmp2[0])-1);
             }       
             
             }
@@ -249,15 +267,26 @@ class carroController extends Controller{
     }
     
     public function seccionCarro(){
-        $tmp = Session::get('sess_CarroHotel');
-        $cantTmp = (count($tmp[0])-1);
-        $listaA = '';
-        if($cantTmp>0) {
-           foreach($tmp[0] as $objCarroHot =>$hora){
+        $tmpH = Session::get('sess_CarroHotel');
+        $cantTmpH = (count($tmpH[0])-1);
+        
+        $tmpP = Session::get('sess_CarroPrograma');
+        $cantTmpP = (count($tmpP[0])-1);
+        
+        $tmpS = Session::get('sess_CarroServicio');
+        $cantTmpS = (count($tmpS[0])-1);
+        $contCarro=0;
+        $listaH = '';
+        $listaP = '';
+        $listaS = '';
+        
+        if($cantTmpH > 0) {
+           foreach($tmpH[0] as $objCarroHot =>$hora){
                if($hora) {
-                    $listaA .= "<li>"
+                   //$contCarro++;
+                    $listaH .= "<li>"
                                  ."<a href='#' class='notification-failure'>"
-                                 ."<span class='time'>".$hora.' '.$objCarroHot."</span>"
+                                 ."<span class='time'>".$hora."</span>"
                                      ."<i>H&nbsp;</i>" 
                                  ."<span class='msg'>Hotel</span>"
                                  ."</a>"
@@ -265,11 +294,46 @@ class carroController extends Controller{
                }
                
            }
-         
         }
-
-        echo $listaA;  
+        if($cantTmpP > 0){
+           foreach($tmpP[0] as $objCarroProg =>$hora){
+               if($hora) {
+                   //$contCarro++;
+                    $listaP .= "<li>"
+                                 ."<a href='#' class='notification-order'>"
+                                 ."<span class='time'>".$hora."</span>"
+                                     ."<i>P&nbsp;</i>" 
+                                 ."<span class='msg'>Programa</span>"
+                                 ."</a>"
+                             ."</li>";
+               }
+               
+           }
+        }
+           if($cantTmpS > 0){
+           foreach($tmpS[0] as $objCarroServ =>$hora){
+               if($hora) {
+                   //$contCarro++;
+                    $listaS .= "<li>"
+                                 ."<a href='#' class='notification-warning'>"
+                                 ."<span class='time'>".$hora."</span>"
+                                     ."<i>S&nbsp;</i>" 
+                                 ."<span class='msg'>Servicio</span>"
+                                 ."</a>"
+                             ."</li>";
+               }
+               
+           }
+         
+         
+          
     }
+    echo $listaH.$listaP.$listaS;
+    }
+    
+    
+    
+
     
     public function mostrarPopUpCarro(){
      $this->_view->objCodCarro = $this->getTexto('post_cod');
@@ -277,8 +341,14 @@ class carroController extends Controller{
      $this->_view->renderizaCenterBox('borraProducto');   
     }
     
-    public function borrarProductoCarro($cod, $cont){
-        $sql = 'DELETE FROM ol_venta WHERE id ='.$cod;
+    public function borrarProductoCarro($cod, $cont, $cod_programa){
+                if($cod_programa){
+                    $sql="DELETE FROM ol_venta WHERE usuario='".$_SESSION['sess_usuario']."' AND key_='".$_SESSION['sess_key_']."' AND cod_programa='".$cod_programa."'  ";
+                }
+                else{    
+                    $sql="DELETE FROM ol_venta WHERE usuario='".$_SESSION['sess_usuario']."' AND key_='".$_SESSION['sess_key_']."' AND id=".$cod;
+                }
+        //$sql = 'DELETE FROM ol_venta WHERE id ='.$cod;
         $tmp = Session::get('sess_CarroHotel');
                 unset($tmp[0][$cont]);   
 

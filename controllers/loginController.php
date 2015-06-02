@@ -82,6 +82,11 @@ class loginController extends Controller
                         $carroHotel= array(array(0 => ''));
                         Session::set('sess_CarroHotel',$carroHotel);
                         
+                        $carroPrograma = array(array(0=>''));
+                        Session::set('sess_CarroPrograma',$carroPrograma);
+                        
+                        $carroServicio = array(array(0=>''));
+                        Session::set('sess_CarroServicio',$carroServicio);
                         
                         
                         /*$_SESSION[0][0]='10:30';
