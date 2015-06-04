@@ -23,7 +23,8 @@ $sql = "SELECT  id,
                 (tot_pax_1+tot_pax_2+tot_pax_3) as tot_pax_ad, 
 	        (tot_child_1+tot_child_2+tot_child_3) as tot_child,
 	        total_venta,
-		vuelo
+		vuelo,
+                cod_programa
 
         FROM    ol_venta 
 
@@ -52,7 +53,7 @@ $datos= $this->_db->consulta($sql);
             $objCarro->setC($objCar['tot_child']);
             $objCarro->setTotal($objCar['total_venta']);
             $objCarro->setVuelo($objCar['vuelo']);
-            
+            $objCarro->setPrograma($objCar['cod_programa']);
             $objetosCarro[] = $objCarro;
             
         }

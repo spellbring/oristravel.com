@@ -23,7 +23,18 @@ class carroDTO{
     private $_status;
     private $_nombre;//
     private $_apellido;//
+    private $_programa;
     
+    function getPrograma() {
+        return $this->_programa;
+    }
+
+    function setPrograma($programa) {
+        $this->_programa = $programa;
+        return $this;
+    }
+
+        
     function getId() {
         return $this->_id;
     }
