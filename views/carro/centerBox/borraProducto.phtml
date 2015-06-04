@@ -1,13 +1,13 @@
 <div class="panel panel-info" id="divEditPDF">
         <div class="panel-heading">
-            <center><h3>¿Desea eliminar al Producto <?php echo Session::get('sess_nom_us')?>?</h3></center> 
+            <center><h3>¿Desea eliminar al Producto <?php echo Session::get('sess_nom_us');?>?</h3></center> 
         </div>
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
                    
      
-                    <center><input type="button" class="finish btn-primary btn" id="btnBorrarUsuario" style='background-color:#f29797;' o value="Eliminar Usuario" onclick="Carro.prototype.abreEliminaCarro('<?php echo BASE_URL; ?>carro/borrarProductoCarro/<?php echo $this->objCodCarro; ?>/<?php echo $this->objContCarro; ?>/', 'Eliminar Carro', '<?php echo $this->objCodCarro ?>', '<?php echo BASE_URL; ?>carro/carroCompra')"/></center>
+                    <center><input type="button" class="finish btn-primary btn" id="btnBorrarUsuario" style='background-color:#f29797;' o value="Eliminar Producto" onclick="Carro.prototype.abreEliminaCarro('<?php echo BASE_URL; ?>carro/borrarProductoCarro/<?php echo $this->objCodCarro; ?>/<?php echo $this->objContCarro; ?>', 'Eliminar Carro', '<?php echo $this->objCodCarro ?>', '<?php echo BASE_URL; ?>carro/carroCompra')"/></center>
     
                     
                 </div>

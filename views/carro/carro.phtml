@@ -36,12 +36,12 @@
                                                 
                                                         <div class="table-responsive">
 
-
+                                                            <form class="frm_paso1"> 
                                                             <table class="table table-bordered table-striped"  style="font-size: 11px;" id="carroTable">
                                                                 
                                                                <?php 
-                                                               if($this->objCarro)
-                                                               {
+                                                               if($this->objCarro){
+                                                               
                                                                    ?>
                                                                    <thead>
                                                                     <tr>
@@ -52,7 +52,6 @@
                                                                         <th>N&deg; hab.</th>
                                                                         <th>A.</th>
                                                                         <th>C.</th>
-                                                                        <th>Pais</th>
                                                                         <th>Ciudad</th>
                                                                         <th>Fecha In</th>
                                                                         <th>Fecha Out</th>
@@ -62,33 +61,77 @@
                                                                     </tr>
                                                                 </thead>
                                                                   <?php
-                                                                   $totalCompras=0;
+                                                                   $totalCompras = 0;
                                                                    $contProductos = 0;
+                                                                   $contServ = 0;
+                                                                   $contProg = 0;
+                                                                   $contHot = 0;
                                                                    foreach($this->objCarro as $objCar )
                                                                    {
                                                                        $contProductos++;
+                                                                       if($objCar->getServicio()=='HTL' && $objCar->getPrograma() == ''){ $contHot++;  }
+                                                                       if($objCar->getServicio()=='PRG'){ $contProg++;   }
+                                                                       if($objCar->getServicio()!='HTL' && $objCar->getServicio()!='PRG' && $objCar->getPrograma() == ''){$contServ++;   }
+                                                                       
+                                                                     
                                                                ?>   
                                                                 
                                                                         <tbody>
                                                                             <tr>
-                                                                                <th><span class="label label-success"><?php echo $objCar->getStatus(); ?></span></th>
+                                                                                <?php //echo $objCar->getPrograma().'   ';  ?>
+                                                                                <th><span class="<?php if($objCar->getStatus() == 'AVAILABLE'){echo 'label label-success';} else{echo 'label label-warning';} ?>"><?php if($objCar->getPrograma() != '' && $objCar->getServicio()== 'HTL'){echo '';} else{ echo $objCar->getStatus(); }?></span></th>
                                                                                 <td><?php echo $objCar->getServicio(); ?></td>
                                                                                 <td class="text-muted"><?php echo $objCar->getHabitacion() ?></td>
                                                                                 <td><?php echo $objCar->getPa() ?></td>
                                                                                 <td><?php echo $objCar->getNhab() ?></td>
                                                                                 <td><?php echo $objCar->getA() ?></td>
                                                                                 <td class="text-muted"><?php echo $objCar->getC() ?></td>
-                                                                                <td><?php  echo $objCar->getPais() ?></td>
                                                                                 <td><?php echo $objCar->getCiudad() ?></td>
-                                                                                <td><?php echo Funciones::invertirFecha($objCar->getFecha_in(), '-', '/') ?></td>
-                                                                                <td class="text-muted"><?php if($objCar->getFecha_out()=='0000-00-00'){echo "";} else {echo Funciones::invertirFecha($objCar->getFecha_out(),'-','/');} ?></td>
-                                                                                <td><?php echo $objCar->getVuelo() ?></td>
-                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $objCar->getTotal() ?></td>                                                                               
                                                                                 <td>
-                                                                                    <a data-toggle="modal" href="#myModal" onClick="Carro.prototype.abrePopupCenter('<?php echo BASE_URL ?>carro/mostrarPopUpCarro', 'Eliminar Producto del Carro', '<?php echo $objCar->getId(); ?>', '<?php echo $contProductos ?>');">
+                                                                                    <?php if($objCar->getFecha_In()=='0000-00-00') { ?>
+                                                                                    
+                                                                                        <input type='text' id="txtFechasCarro_<?php echo $contProductos; ?>" name="txtFechasCarro_<?php echo $contProductos; ?>" > 
+                                                                                        <script>
+                                                                                            $(function()
+                                                                                            {
+                                                                                            $( "#txtFechasCarro_<?php echo $contProductos; ?>" ).datepicker({
+                                                                                                minDate: +1,
+                                                                                                defaultDate: "+1w",
+                                                                                                changeMonth: true,
+                                                                                                numberOfMonths: 1,
+                                                                                                monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                                                                                                'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                                                                                                monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+                                                                                                'Jul','Ago','Sep','Oct','Nov','Dic'],
+                                                                                                dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+                                                                                                dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+                                                                                                dateFormat: 'dd/mm/yy',
+                                                                                                firstDay: 1
+                                                                                        });});</script>
+                                                                                    <?php
+                                                                                    
+                                                                                    } else { echo Funciones::invertirFecha($objCar->getFecha_in(), '-', '/');} ?><!--  -->
+                                                                                
+                                                                                </td>
+                                                                                <td class="text-muted">
+                                                                                    <?php if($objCar->getFecha_out()=='0000-00-00'){echo "";} else {echo Funciones::invertirFecha($objCar->getFecha_out(),'-','/');} ?></td>
+                                                                                <td><?php if($objCar->getServicio() == 'TRF'){echo '<input type="text" id="txtCarroVuelo_'.$contProductos.'" name="txtCarroVuelo_'.$contProductos.'">'; }else{echo $objCar->getVuelo();}?></td>
+                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php if($objCar->getPrograma() != '' && $objCar->getTotal()== 0){echo '';} else{ echo $objCar->getTotal(); }?></td>                                                                               
+                                                                                <td>
+                                                                                    <?php
+                                                                                    if($objCar->getTotal()!= 0){
+                                                                                    ?>
+                                                                                    <a data-toggle="modal" href="#myModal" onClick="Carro.prototype.abrePopupCenter('<?php echo BASE_URL ?>carro/mostrarPopUpCarro'
+                                                                                                                                                                    , 'Eliminar Producto del Carro', '<?php echo $objCar->getId(); ?>'
+                                                                                                                                                                    , '<?php if($objCar->getServicio()=='HTL' && $objCar->getPrograma() == '')
+                                                                                                                                                                             { echo $contHot;  } 
+                                                                                                                                                                             if($objCar->getServicio()=='PRG'){ echo $contProg;}
+                                                                                                                                                                             if($objCar->getServicio()!='HTL' && $objCar->getServicio()!='PRG' && $objCar->getPrograma() == '')
+                                                                                                                                                                             { echo $contServ;   } ?>'
+                                                                                                                                                                    ,'<?php echo $objCar->getPrograma();?>'
+                                                                                                                                                                    , '<?php echo $objCar->getServicio();?>');">
                                                                                         <img src="<?php echo $_layoutParams['ruta_img']; ?>delete.png" width="24" border="0" />
                                                                                     </a>
-                                                                                    <?php echo $contProductos ?>
                                                                                 </td>
                                                                                 <?php $totalCompras+=$objCar->getTotal()?>
                                                                             </tr>
@@ -96,7 +139,9 @@
                                                                 
                                                                 <?php
                                                                    }
+                                                                   
                                                                    ?>
+                                                                            <input type="hidden" id="cantProd" name="cantProd" value="<?php echo $contProductos;?>">
                                                                             <tr>
                                                                                 <td colspan="12" align="right">Total</td>
                                                                                 <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras ?></td>
@@ -107,12 +152,9 @@
                                                                              <span class="pull-right">
                                                                                 <input type="button" class="finish btn-primary btn" id="btnSig_P1" value="Siguiente" />
                                                                             </span>
-                                                             <br> 
+                                                             <br>             
                                                                  <?php
-                                                                 ?>
-                                                            
-                                                                             
-                                                                 <?php
+                                                               }
                                                                }
                                                                else{
                                                                 ?>  
@@ -121,12 +163,14 @@
                                                                         <center><strong>No se encontraron reservas.</strong></center>
                                                                             </td>
                                                                         </tr>                                                             
-                                                            </table>
                                                                 <?php   
                                                                }
                            
                                                                 ?>
-                                                               
+                                                                                                                         </table>
+                                                            </table>
+                                                            </form>
+  
                                                         </div>
                                             
                                         </fieldset>
@@ -218,11 +262,42 @@
 
 <script type="text/javascript">
 $('#btnSig_P1').on('click',function(){
-        $('#basicwizard-head-0').removeClass('stepy-active');
-        $('#basicwizard-step-0').css('display', 'none');
+    
+    var formData = new FormData($(".frm_paso1")[0]);
+        $.ajax({
+             type:"POST", 
+             url:'<?php echo BASE_URL?>carro/paso2',
+             data:formData,
+             cache: false,
+             contentType: false,
+             processData: false,
+             beforeSend: function () {
+             },
+             success:function(data)
+             {
+                 //alert(data);
+                 if(data =="Error"){
+                  $('#btnSig_P1').attr("disabled","disabled");
+                  $("#btnSig_P1").delay(2000).queue(function(dis)
+                 {
+                        $("#btnSig_P1").removeAttr("disabled");
+                           dis();
+                 });   
+                  noExito("Ingrese todos los datos"); 
+                 }
+                 else{
+                     
+                        //$("#div_paso3").html(data);
+                 
+                    $('#basicwizard-head-0').removeClass('stepy-active');
+                    $('#basicwizard-step-0').css('display', 'none');
+
+                    $('#basicwizard-head-1').addClass('stepy-active');
+                    $('#basicwizard-step-1').css('display', 'block');
+                 }
+             }
+         }); 
         
-        $('#basicwizard-head-1').addClass('stepy-active');
-        $('#basicwizard-step-1').css('display', 'block');
 });
 
 
@@ -237,8 +312,7 @@ $('#btnAtr_P2').on('click',function(){
         
 });
 $('#btnSig_P2').on('click',function(){
-    
-         
+          
          var formData = new FormData($(".frm_paso2")[0]);
         $.ajax({
              type:"POST", 

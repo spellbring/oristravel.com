@@ -80,13 +80,18 @@
                                                                 </thead>
                                                                   <?php
                                                                    $totalCompras=0;
+                                                                   $contProductosP3=0;
+                                                                   $arrayFechas = Session::get('sess_arrayFechasCarro');
+                                                                   $arrayVuelos = Session::get('sess_arrayVuelosCarro');
                                                                    foreach($this->objCarro as $objCar )
                                                                    {
+                                                                       $contProductosP3++;
                                                                ?>   
                                                                 
                                                                         <tbody>
                                                                             <tr>
-                                                                                <th><span class="label label-success"><?php echo $objCar->getStatus(); ?></span></th>
+                                                                                
+                                                                                <th><span class="<?php if($objCar->getStatus() == 'AVAILABLE'){echo 'label label-success';} else{echo 'label label-warning';} ?>"><?php if($objCar->getPrograma() != '' && $objCar->getServicio()== 'HTL'){echo '';} else{ echo $objCar->getStatus(); } ?></span></th>
                                                                                 <td><?php echo $objCar->getServicio(); ?></td>
                                                                                 <td class="text-muted"><?php echo $objCar->getHabitacion() ?></td>
                                                                                 <td><?php echo $objCar->getPa() ?></td>
@@ -95,9 +100,9 @@
                                                                                 <td class="text-muted"><?php echo $objCar->getC() ?></td>
                                                                                 <td><?php  echo $objCar->getPais() ?></td>
                                                                                 <td><?php echo $objCar->getCiudad() ?></td>
-                                                                                <td><?php echo Funciones::invertirFecha($objCar->getFecha_in(), '-', '/') ?></td>
+                                                                                <td><?php if($arrayFechas[$contProductosP3] != null){echo $arrayFechas[$contProductosP3];} //echo Funciones::invertirFecha($objCar->getFecha_in(), '-', '/') ?></td>
                                                                                 <td class="text-muted"><?php if($objCar->getFecha_out()=='0000-00-00'){echo "";} else {echo Funciones::invertirFecha($objCar->getFecha_out(),'-','/');} ?></td>
-                                                                                <td><?php echo $objCar->getVuelo() ?></td>
+                                                                                <td><?php if($arrayVuelos[$contProductosP3]!= null){echo $arrayVuelos[$contProductosP3];} ?></td>
                                                                                 <td style="color: #DF5F00; font-weight: bold;"><?php echo $objCar->getTotal() ?></td>                                                                               
                                                                                 <?php $totalCompras+=$objCar->getTotal()?>
                                                                             </tr>
@@ -155,10 +160,8 @@
                                                                     <tr>
                                                                         <th width="100">Habitaci&oacute;n <?php echo $objCarro->getHabitacion() ?></th>
                                                                         <th>Nombres</th>
-                                                                        <th></th>
                                                                         <th>Apellidos</th>
-                                                                        <th></th>
-                                                                        <th></th>
+                                                                       
                                                                     </tr>                   
                                                                <?php                                                             
                                                                 $contAd=0;
@@ -177,10 +180,10 @@
                                                                     
                                                                     <tr>
                                                                       <td>Adulto <?php echo $contAd+1; ?></td>
-                                                                      <td>Nombre</td>                             
+                                                                                                 
                                                                       <td><?php echo $objCarro->getNombre(); ?></td> 
                                                                    
-                                                                      <td>Apellido</td> 
+                                                                      
                                                                       <td><?php echo $objCarro->getApellido();?></td> 
                                                                       <td></td> 
                                                                     </tr> 
