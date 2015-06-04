@@ -13,6 +13,7 @@ class buscarServicioController extends Controller{
         $this->_servicio = $this->loadModel('servicio');
         $this->_programa = $this->loadModel('programa');
         $this->_categoria = $this->loadModel('categoria');
+        $this->_ciudad = $this->loadModel('ciudad');
    }
    /**
      * Metodo procesador: Renderiza buscarServicios y sus respectivos comoboBox y tablas, dependiendo del filtro del leftSideBar
@@ -35,6 +36,8 @@ class buscarServicioController extends Controller{
         
         
         $this->_view->objServicios = $this->_servicio->getServicios();
+        
+        
         
         $this->_view->mL_expandeFiltrosServ = 'block';
         

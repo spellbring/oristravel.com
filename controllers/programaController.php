@@ -15,6 +15,7 @@ class programaController extends Controller{
         $this->_programa = $this->loadModel('programa');
         $this->_categoria = $this->loadModel('categoria');
         $this->_pais = $this->loadModel('pais');
+        $this->_ciudad = $this->loadModel('ciudad');
         //$this->_view->setJs(array('ajax'));
     }
     
