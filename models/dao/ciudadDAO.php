@@ -12,10 +12,15 @@ class ciudadDAO extends Model
         parent::__construct();
     }
     
-    public function getCiudades() {
+    public function getCiudades($cod) {
         $sql = 'SELECT nombre AS nombre_ciudad, codigo AS codigo_ciudad '
-                . 'FROM ciudad '
-                . 'ORDER BY nombre ASC';
+                . 'FROM ciudad ';
+        if($cod != '' ){
+         $sql.= 'where codigo_ciudad ='.$cod;   
+            
+        }
+
+            $sql .= 'ORDER BY nombre ASC';
 
         $ciudades = $this->_db->consulta($sql);
         if ($this->_db->numRows($ciudades) > 0) {
