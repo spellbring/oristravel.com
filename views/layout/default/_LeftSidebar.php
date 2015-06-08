@@ -549,7 +549,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=3; $i++)
 										{
-											if(Session::get('sess_prog_Hab')==$i)
+											if(Session::get('sess_pBP_cntHab_P')==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -568,7 +568,7 @@ $(function()
                                     <?php for($i=1; $i<=3; $i++)
                                     {
                                         $display='display:none;';
-                                        if(Session::get('sess_BP_cntHab_P')>=$i){ $display= 'display:block;'; }?>
+                                        if(Session::get('sess_pBP_cntHab_P')>=$i){ $display= 'display:block;'; }?>
                                     <div id="ML_tblHab_P_<?php echo $i; ?>" style="<?php echo $display; ?>">
                                         <table width="100%" border="0" cellspacing="0" cellpadding="5">
                                             <tr>
@@ -578,9 +578,9 @@ $(function()
                                                       <?php
                                                           for($x=1; $x<=4; $x++)
                                                           { 
-                                                              if(Session::get('sess_BP_Adl_P_' . $i) == $x)
+                                                              if(Session::get('sess_BP_Adl_' . $i) == $x)
                                                               { ?>
-                                                              <option selected="selected" value="<?php echo Session::get('sess_BP_Adl_P_' . $i); ?>"><?php echo Session::get('sess_BP_Adl_P_' . $i); ?></option>
+                                                              <option selected="selected" value="<?php echo Session::get('sess_BP_Adl_' . $i); ?>"><?php echo Session::get('sess_BP_Adl_' . $i); ?></option>
                                                               <?php 
                                                             }
                                                             else
@@ -592,13 +592,13 @@ $(function()
                                                 </td>
                                                 <td>Edad C1</td>
                                                 <td>
-                                                    <select id="mL_edadChild_1_P_<?php echo $i; ?>" name="mL_edadChild_1_P_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_P_' . $i)>=1){}else{ echo "disabled='disabled'"; }?> >
+                                                    <select id="mL_edadChild_1_P_<?php echo $i; ?>" name="mL_edadChild_1_P_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)>=1){}else{ echo "disabled='disabled'"; }?> >
                                                     <?php
                                                     for($x=2;$x<=12;$x++)
                                                     {
-                                                        if(Session::get('sess_BP_edadChd_1_P_' . $i) == $x)
+                                                        if(Session::get('sess_BP_edadChd_1_' . $i) == $x)
                                                         {?>
-                                                    <option selected="selected" value="<?php echo Session::get('sess_BP_edadChd_1_P_' . $i); ?>"><?php echo Session::get('sess_BP_edadChd_1_P_' . $i); ?></option>
+                                                    <option selected="selected" value="<?php echo Session::get('sess_BP_edadChd_1_' . $i); ?>"><?php echo Session::get('sess_BP_edadChd_1_' . $i); ?></option>
                                                     <?php
                                                         }
                                                         else
@@ -618,7 +618,7 @@ $(function()
                                                     <?php 
                                                         for($x=0; $x<=2; $x++)
                                                         {
-                                                            if(Session::get('sess_BP_Chd_P_' . $i) == $x)
+                                                            if(Session::get('sess_BP_Chd_' . $i) == $x)
                                                             {?>
                                                         <option selected="selected" value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                         <?php }else{ ?>                          
@@ -630,13 +630,13 @@ $(function()
 
                                                 <td>Edad C2</td>
                                                 <td>
-                                                    <select id="mL_edadChild_2_<?php echo $i; ?>" name="mL_edadChild_2_P_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_P_' . $i)==2){}else{ echo "disabled='disabled'"; }?> >
+                                                    <select id="mL_edadChild_2_<?php echo $i; ?>" name="mL_edadChild_2_P_<?php echo $i; ?>" <?php if(Session::get('sess_BP_Chd_' . $i)==2){}else{ echo "disabled='disabled'"; }?> >
                                                         <?php
                                                         for($x=2; $x<=12; $x++)
                                                         {
-                                                            if(Session::get('sess_BP_edadChd_2_P_' . $i) == $x)
+                                                            if(Session::get('sess_BP_edadChd_2_' . $i) == $x)
                                                             { ?>
-                                                        <option selected="selected" value="<?php echo Session::get('sess_BP_edadChd_2_P_' . $i); ?>"><?php echo Session::get('sess_BP_edadChd_2_P_' . $i); ?></option>
+                                                        <option selected="selected" value="<?php echo Session::get('sess_BP_edadChd_2_' . $i); ?>"><?php echo Session::get('sess_BP_edadChd_2_' . $i); ?></option>
                                                         <?php }else{ ?>                          
                                                         <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                         <?php }
@@ -653,7 +653,7 @@ $(function()
                                                       <?php
                                                         for($x=0; $x<=1; $x++)
                                                         {
-                                                            if(Session::get('sess_BP_Inf_P_' . $i) == $x)
+                                                            if(Session::get('sess_BP_Inf_' . $i) == $x)
                                                             {?>
                                                         <option selected="selected" value="<?php echo $x; ?>"><?php echo $x; ?></option>
                                                         <?php }else{ ?>                          

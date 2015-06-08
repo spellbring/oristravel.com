@@ -62,19 +62,19 @@
                                                                    ?>
                                                                    <thead>
                                                                     <tr>
-                                                                        <th width="70">Status</th>
-                                                                        <th>Servicio</th>
-                                                                        <th>Habitaci&oacute;n</th>
-                                                                        <th>P.A.</th>
-                                                                        <th>N&deg; hab.</th>
-                                                                        <th>A.</th>
-                                                                        <th>C.</th>
-                                                                        <th>Pais</th>
-                                                                        <th>Ciudad</th>
-                                                                        <th>Fecha In</th>
-                                                                        <th>Fecha Out</th>
-                                                                        <th>Vuelo</th>
-                                                                        <th>Total</th>
+                                                                        <th width="3%">Status</th>
+                                                                        <th width="25%">Servicio</th>
+                                                                        <th width="5%">Habitaci&oacute;n</th>
+                                                                        <th width="3%">P.A.</th>
+                                                                        <th width="5%">N&deg; hab.</th>
+                                                                        <th width="3%">A.</th>
+                                                                        <th width="3%">C.</th>
+                                                                        <th width="8%">Ciudad</th>
+                                                                        <th width="5%">Fecha In</th>
+                                                                        <th width="5%">Fecha Out</th>
+                                                                        <th width="5%">Vuelo</th>
+                                                                        <th width="5%">Total</th>
+                                                                        <th width="3%"></th>
                                                                         
                                                                     </tr>
                                                                 </thead>
@@ -107,16 +107,18 @@
                                                                                 <?php $totalCompras+=$objCar->getTotal()?>
                                                                             </tr>
                                                                             
-                                                                
+                                                                </tbody>
                                                                 <?php
                                                                    }
                                                                    ?>
+                                                                        
                                                                             <tr>
-                                                                                <td colspan="12" align="right">Total</td>
-                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras ?></td>
+                                                                                
+                                                                                <td colspan="11" align="right"><h5>Total</h5></td>
+                                                                                <td  colspan="2" style="color: #DF5F00; font-weight: bold;"><h5><?php echo $totalCompras ?></h5></td>
                                                                                 
                                                                             </tr>
-                                                                        </tbody>
+                                                                        
                                                                         
           
                                                                  <?php
@@ -165,12 +167,13 @@
                                                                     </tr>                   
                                                                <?php                                                             
                                                                 $contAd=0;
+                                                                $contCh=0;
                                                                 $contHab++;
                                                               }
                                                              
                                                               else{
                                                               $contAd++;
-                                                                
+                                                              $contCh++;  
                                                               }
                                                              
                                                               
@@ -187,8 +190,26 @@
                                                                       <td><?php echo $objCarro->getApellido();?></td> 
                                                                       <td></td> 
                                                                     </tr> 
-                                                                        <?php   
+                                                                        <?php 
+                                                                        if($contCh <= Session::get('sess_BP_Chd_'.$objCarro->getHabitacion())){
+                                                                            if($objCarro->getNombreCh() &&  $objCarro->getApellidoCh()){
+                                                                   ?> 
+                                                                    
+                                                                    <tr>
+                                                                      <td>Children <?php echo $contCh+1; ?></td>
+                                                                                                 
+                                                                      <td><?php echo $objCarro->getNombreCh(); ?></td> 
+                                                                   
+                                                                      
+                                                                      <td><?php echo $objCarro->getApellidoCh();?></td> 
+                                                                      <td></td> 
+                                                                    </tr> 
+                                                                        <?php
+                                                                            } 
                                                                }
+                                                               }
+                                                               
+                                                               
                                                               
                                                                
                                                                

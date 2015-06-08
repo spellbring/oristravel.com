@@ -265,8 +265,9 @@ class carroController extends Controller{
     
     //$this->_view->carrAdltNombre = $this->getTexto('Carr_txtNombrePas_1_1');
     $objCarrPax = array();
-            if(Session::get('sess_pBP_cntHab')){
-                for($i = 1; $i<=Session::get('sess_pBP_cntHab'); $i++){
+    $arraySesiones = max(array(Session::get('sess_pBP_cntHab'), Session::get('sess_sBP_Hab'), Session::get('sess_pBP_cntHab_P')));
+            if($arraySesiones){
+                for($i = 1; $i<=$arraySesiones; $i++){
 
 
                         if(Session::get('sess_BP_Adl_'.$i)){
@@ -277,7 +278,17 @@ class carroController extends Controller{
                                     if($this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j)!="" & $this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j)!=""){
                                     $objCarroPax->setNombre($this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j)); //$this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j);                              
                                     $objCarroPax->setApellido($this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j)); //$this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j);   
-                                     
+                                      if(Session::get('sess_BP_Chd_'.$i)){
+                                       for($k = 1; $k <= Session::get('sess_BP_Chd_'.$i); $k++){
+                                           if($this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k)!="" & $this->getTexto('Carr_txtApellidoCh_'.$i.'_'.$k)!=""){
+                                            $objCarroPax->setNombreCh($this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k));
+                                            $objCarroPax->setApellidoCh($this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k));
+                                           }
+                                           else{
+                                             throw new Exception("Error") ;  
+                                           }
+                                       }
+                                      }
                                     $objCarrPax[] = $objCarroPax;
                                    }
                                    else{

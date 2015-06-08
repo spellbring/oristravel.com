@@ -23,6 +23,8 @@ class carroDTO{
     private $_status;
     private $_nombre;//
     private $_apellido;//
+    private $_nombreCh;
+    private $_apellidoCh;
     private $_programa;
     
     function getPrograma() {
@@ -43,7 +45,26 @@ class carroDTO{
         $this->_id = $id;
         return $this;
     }
+    
+    function getNombreCh() {
+        return $this->_nombreCh;
+    }
 
+    function getApellidoCh() {
+        return $this->_apellidoCh;
+    }
+
+    function setNombreCh($nombreCh) {
+        $this->_nombreCh = $nombreCh;
+        return $this;
+    }
+
+    function setApellidoCh($apellidoCh) {
+        $this->_apellidoCh = $apellidoCh;
+        return $this;
+    }
+
+    
     
         
     function getNombre() {

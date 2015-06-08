@@ -16,6 +16,7 @@ public function __construct() {
     $this->_servicio = $this->loadModel('servicio');
     $this->_programa = $this->loadModel('programa');
     $this->_buscarHoteles = $this->loadModel('buscarHoteles');
+    $this->_ciudad = $this->loadModel('ciudad');
 }
 /**
      * Metodo procesador: Carga todos los ComboBox para el proceso de administracion de hoteles

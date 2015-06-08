@@ -45,19 +45,19 @@
                                                                    ?>
                                                                    <thead>
                                                                     <tr>
-                                                                        <th width="70">Status</th>
-                                                                        <th>Servicio</th>
-                                                                        <th>Habitaci&oacute;n</th>
-                                                                        <th>P.A.</th>
-                                                                        <th>N&deg; hab.</th>
-                                                                        <th>A.</th>
-                                                                        <th>C.</th>
-                                                                        <th>Ciudad</th>
-                                                                        <th>Fecha In</th>
-                                                                        <th>Fecha Out</th>
-                                                                        <th>Vuelo</th>
-                                                                        <th>Total</th>
-                                                                        <th>Eliminar</th>
+                                                                        <th width="5%">Status</th>
+                                                                        <th width="25%">Servicio</th>
+                                                                        <th width="5%">Habitaci&oacute;n</th>
+                                                                        <th width="3%">P.A.</th>
+                                                                        <th width="5%">N&deg; hab.</th>
+                                                                        <th width="3%">A.</th>
+                                                                        <th width="3%">C.</th>
+                                                                        <th width="8%">Ciudad</th>
+                                                                        <th width="5%">Fecha In</th>
+                                                                        <th width="5%">Fecha Out</th>
+                                                                        <th width="5%">Vuelo</th>
+                                                                        <th width="5%">Total</th>
+                                                                        <th width="3%"></th>
                                                                     </tr>
                                                                 </thead>
                                                                   <?php
@@ -66,8 +66,7 @@
                                                                    $contServ = 0;
                                                                    $contProg = 0;
                                                                    $contHot = 0;
-                                                                   foreach($this->objCarro as $objCar )
-                                                                   {
+                                                                   foreach($this->objCarro as $objCar ){
                                                                        $contProductos++;
                                                                        if($objCar->getServicio()=='HTL' && $objCar->getPrograma() == ''){ $contHot++;  }
                                                                        if($objCar->getServicio()=='PRG'){ $contProg++;   }
@@ -125,36 +124,39 @@
                                                                                                                                                                     , 'Eliminar Producto del Carro', '<?php echo $objCar->getId(); ?>'
                                                                                                                                                                     , '<?php if($objCar->getServicio()=='HTL' && $objCar->getPrograma() == '')
                                                                                                                                                                              { echo $contHot;  } 
-                                                                                                                                                                             if($objCar->getServicio()=='PRG'){ echo $contProg;}
+                                                                                                                                                                             if($objCar->getServicio()=='PRG'){ echo $contProg;   
+                                                                                                                                                                               }
                                                                                                                                                                              if($objCar->getServicio()!='HTL' && $objCar->getServicio()!='PRG' && $objCar->getPrograma() == '')
                                                                                                                                                                              { echo $contServ;   } ?>'
-                                                                                                                                                                    ,'<?php echo $objCar->getPrograma();?>'
-                                                                                                                                                                    , '<?php echo $objCar->getServicio();?>');">
+                                                                                                                                                                              ,'<?php echo $objCar->getPrograma();?>'
+                                                                                                                                                                              , '<?php echo $objCar->getServicio();?>');">
                                                                                         <img src="<?php echo $_layoutParams['ruta_img']; ?>delete.png" width="24" border="0" />
                                                                                     </a>
                                                                                 </td>
                                                                                 <?php $totalCompras+=$objCar->getTotal()?>
                                                                             </tr>
                                                                             
-                                                                
+                                                                </tbody>
                                                                 <?php
                                                                    }
+                                                                    }
                                                                    
                                                                    ?>
                                                                             <input type="hidden" id="cantProd" name="cantProd" value="<?php echo $contProductos;?>">
                                                                             <tr>
-                                                                                <td colspan="12" align="right">Total</td>
-                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php echo $totalCompras ?></td>
-                                                                                <td></td>
-                                                                            </tr>
-                                                                        </tbody>
+                                                                                
+                                                                                <td colspan="11" align="right"><h5>Total</h5></td>
+                                                                                <td colspan="2" style="color: #DF5F00; font-weight: bold;"><h5><?php echo $totalCompras ?></h5></td>
+                                                                                
+                                                                            </tr>   
                                                                         </table>
                                                                              <span class="pull-right">
                                                                                 <input type="button" class="finish btn-primary btn" id="btnSig_P1" value="Siguiente" />
                                                                             </span>
-                                                             <br>             
+                                                             <br> 
+            
                                                                  <?php
-                                                               }
+                                                                  
                                                                }
                                                                else{
                                                                 ?>  
@@ -164,10 +166,11 @@
                                                                             </td>
                                                                         </tr>                                                             
                                                                 <?php   
+                                                               
                                                                }
                            
                                                                 ?>
-                                                                                                                         </table>
+                                                                                                                       
                                                             </table>
                                                             </form>
   
@@ -185,9 +188,12 @@
                                                 <table class="table table-bordered table-striped" style="font-size: 11px; width: 600px;" align="center">
                                                     <tbody> 
                                                     <?php
-                                                    if(Session::get('sess_pBP_cntHab')){
-                                                    for($i = 1; $i<=Session::get('sess_pBP_cntHab'); $i++){  
+                                                    $arraySesiones = max(array(Session::get('sess_pBP_cntHab'),  Session::get('sess_sBP_Hab'), Session::get('sess_pBP_cntHab_P'))); 
+                                                    
+                                                    if($arraySesiones){
+                                                    for($i = 1; $i<=$arraySesiones; $i++){  
                                                     ?>
+                                                        
                                                         <thead>
                                                         <tr>
                                                             <th width="100">Habitaci&oacute;n <?php echo $i ?></th>
@@ -196,6 +202,7 @@
                                                         </tr>
                                                        </thead>
                                                        <?php
+                                                       
                                                        if(Session::get('sess_BP_Adl_'.$i)){
                                                        for($j = 1; $j <=Session::get('sess_BP_Adl_'.$i) ; $j++){                                          
                                                        ?>
@@ -203,9 +210,29 @@
                                                             <th>Adulto <?php echo $j;?></th>
                                                             <td><input type="text" class="form-control" id="Carr_txtNombrePas_<?php echo $i.'_'.$j?>" name="Carr_txtNombrePas_<?php echo $i.'_'.$j?>" value=""></td> <?php //if(isset($mL_ini)){ echo $mL_ini; } ?>
                                                             <td><input type="text" class="form-control" id="Carr_txtApellidoPas_<?php echo $i.'_'.$j?>" name="Carr_txtApellidoPas_<?php echo $i.'_'.$j?>" value=""></td><?php //if(isset($mL_ini)){ echo $mL_ini; } ?>
+                                                            <?php  
+                                                            
+                                                            
+                                                                
+                                                            }
+                                                            
+                                                            ?>
+                                                            
+                                                        
                                                         </tr>
                                                        <?php
                                                            }
+                                                           
+                                                           if(Session::get('sess_BP_Chd_'.$i)){
+                                                             for($k = 1; $k <=Session::get('sess_BP_Chd_'.$i) ; $k++){
+                                                                 ?>
+                                                                 <th>Child <?php echo $k;?></th>
+                                                            <td><input type="text" class="form-control" id="Carr_txtNombreCh_<?php echo $i.'_'.$k?>" name="Carr_txtNombreCh_<?php echo $i.'_'.$k?>" value=""></td> <?php //if(isset($mL_ini)){ echo $mL_ini; } ?>
+                                                            <td><input type="text" class="form-control" id="Carr_txtApellidoCh_<?php echo $i.'_'.$k?>" name="Carr_txtApellidoCh_<?php echo $i.'_'.$k?>" value=""></td><?php //if(isset($mL_ini)){ echo $mL_ini; } ?>
+                                                            
+                                                                 <?php
+                                                                 
+                                                             }
                                                        }
                                                     }
                                                     ?>
