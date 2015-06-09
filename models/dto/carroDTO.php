@@ -26,7 +26,29 @@ class carroDTO{
     private $_nombreCh;
     private $_apellidoCh;
     private $_programa;
+    private $_habitacionCh;
+    private $_habitacionPax;
     
+    function getHabitacionPax() {
+        return $this->_habitacionPax;
+    }
+
+    function setHabitacionPax($habitacionPax) {
+        $this->_habitacionPax = $habitacionPax;
+        return $this;
+    }
+
+        
+    function getHabitacionCh() {
+        return $this->_habitacionCh;
+    }
+
+    function setHabitacionCh($habitacionCh) {
+        $this->_habitacionCh = $habitacionCh;
+        return $this;
+    }
+
+        
     function getPrograma() {
         return $this->_programa;
     }

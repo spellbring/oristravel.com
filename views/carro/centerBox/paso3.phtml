@@ -39,7 +39,7 @@
                                         <tr>
 
                                             <th>Pasajero:</th>
-                                            <td><?php if($this->objNombrePax & $this->objApellidoPax){ echo $this->objNombrePax.' '.$this->objApellidoPax;}?></td>
+                                            <td><?php echo $this->objNombrePax; ?></td>
                                             <th width="5%"></th>
                                             <th>Fecha In:</th>
                                             <td><?php echo date('d/m/Y'); ?></td>
@@ -148,79 +148,10 @@
                                     
 
                                      </div>
-                                                        <?php
-                                                        if($this->objPaxCarro){
-                                                            $contHab=1;
-                                                            $contHabAnt=0;
-                                                            $contAd=0;
-                                                           foreach($this->objPaxCarro as $objCarro){                                                       
-                                                            //echo Session::get('sess_BP_Adl_'.$objCarro->getHabitacion());
-                                                               $contHabAnt = $objCarro->getHabitacion();
-                                                              if($contHab == $contHabAnt){
-                                                                  
-                                                               ?>
-                                                                    <tr>
-                                                                        <th width="100">Habitaci&oacute;n <?php echo $objCarro->getHabitacion() ?></th>
-                                                                        <th>Nombres</th>
-                                                                        <th>Apellidos</th>
-                                                                       
-                                                                    </tr>                   
-                                                               <?php                                                             
-                                                                $contAd=0;
-                                                                $contCh=0;
-                                                                $contHab++;
-                                                              }
-                                                             
-                                                              else{
-                                                              $contAd++;
-                                                              $contCh++;  
-                                                              }
-                                                             
-                                                              
-                                                               if($contAd <= Session::get('sess_BP_Adl_'.$objCarro->getHabitacion())){                                                                                   
-                                                                   
-                                                                   ?> 
-                                                                    
-                                                                    <tr>
-                                                                      <td>Adulto <?php echo $contAd+1; ?></td>
-                                                                                                 
-                                                                      <td><?php echo $objCarro->getNombre(); ?></td> 
-                                                                   
-                                                                      
-                                                                      <td><?php echo $objCarro->getApellido();?></td> 
-                                                                      <td></td> 
-                                                                    </tr> 
-                                                                        <?php 
-                                                                        if($contCh <= Session::get('sess_BP_Chd_'.$objCarro->getHabitacion())){
-                                                                            if($objCarro->getNombreCh() &&  $objCarro->getApellidoCh()){
-                                                                   ?> 
-                                                                    
-                                                                    <tr>
-                                                                      <td>Children <?php echo $contCh+1; ?></td>
-                                                                                                 
-                                                                      <td><?php echo $objCarro->getNombreCh(); ?></td> 
-                                                                   
-                                                                      
-                                                                      <td><?php echo $objCarro->getApellidoCh();?></td> 
-                                                                      <td></td> 
-                                                                    </tr> 
-                                                                        <?php
-                                                                            } 
-                                                               }
-                                                               }
-                                                               
-                                                               
-                                                              
-                                                               
-                                                               
-                                                        }
-                                                        
-
-                                               ?>
-                                                                    
-                                                                    <div>
-                                                                        
-                                                                    </div>
+                                                         
+                                              <div>
+                                                <?php echo  $this->objPaxCarro; ?>                        
+                                              </div>
              
                                 </table>
                                 
@@ -235,7 +166,7 @@
                                               <td><?php echo $this->objTextoArea; ?> </td>
                                          </tr>            
                                                         <?php
-                                                        }
+                                                        
                                                         ?>
                                 </table>
                                 
@@ -256,6 +187,7 @@
  
  ?>
     <script>
+        //alert('<?php echo Session::get('sess_BP_Chd_3'); ?>');
      $('#btnAtr_P3').on('click',function(){
         $('#basicwizard-head-2').removeClass('stepy-active');
         $('#basicwizard-step-2').css('display', 'none');

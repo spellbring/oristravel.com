@@ -46,9 +46,12 @@ class processController extends Controller
         }     
         $totalChild = 0;
         for ($i = 1; $i <= 3; $i++) {
-            
+           if($i <= Session::get('sess_pBP_cntHab')){ 
            Session::set('sess_BP_Chd_' . $i, $this->getTexto('mL_child_' . $i));
            $totalChild+=$this->getTexto('mL_child_' . $i);
+           }else{
+               Session::set('sess_BP_Chd_' . $i,0);
+           }
                   
         }
         Session::set('sess_total_child', $totalChild);
@@ -122,7 +125,7 @@ class processController extends Controller
        Session::set('sess_BP_edadChd_1_'.$i, $this->getTexto('mL_edadChild_1_P_'.$i));              
        }
        
-       for($i=1; $i<=2; $i++){          
+       for($i=1; $i<=3; $i++){          
        Session::set('sess_BP_Chd_'.$i,$this->getTexto('mL_child_P_'.$i));            
        }
       

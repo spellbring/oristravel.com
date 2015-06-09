@@ -261,60 +261,64 @@ class carroController extends Controller{
      */
     public function paso3(){
     Session::acceso('Usuario');
-    //if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
+    if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {
     
     //$this->_view->carrAdltNombre = $this->getTexto('Carr_txtNombrePas_1_1');
-    $objCarrPax = array();
+    $objHeader ='';
+    $objChild = '';
+    
     $arraySesiones = max(array(Session::get('sess_pBP_cntHab'), Session::get('sess_sBP_Hab'), Session::get('sess_pBP_cntHab_P')));
-            if($arraySesiones){
-                for($i = 1; $i<=$arraySesiones; $i++){
+          for($i = 1; $i<=$arraySesiones; $i++){
+              $objHeader.='<tr>
+                            <th width="100">Habitaci&oacute;n '.$i.'</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
 
-
-                        if(Session::get('sess_BP_Adl_'.$i)){
-                               for($j = 1; $j <= Session::get('sess_BP_Adl_'.$i); $j++){
-                                    $objCarroPax = new carroDTO();
-                                    
-                                    $objCarroPax->setHabitacion($i);
-                                    if($this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j)!="" & $this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j)!=""){
-                                    $objCarroPax->setNombre($this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j)); //$this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j);                              
-                                    $objCarroPax->setApellido($this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j)); //$this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j);   
-                                      if(Session::get('sess_BP_Chd_'.$i)){
-                                       for($k = 1; $k <= Session::get('sess_BP_Chd_'.$i); $k++){
-                                           if($this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k)!="" & $this->getTexto('Carr_txtApellidoCh_'.$i.'_'.$k)!=""){
-                                            $objCarroPax->setNombreCh($this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k));
-                                            $objCarroPax->setApellidoCh($this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k));
-                                           }
-                                           else{
-                                             throw new Exception("Error") ;  
-                                           }
-                                       }
-                                      }
-                                    $objCarrPax[] = $objCarroPax;
-                                   }
-                                   else{
- 
-                                       throw new Exception("Error") ;          
-                                      
-                                   }
-                                    
-                                }
-                                 
-                        }
-                }
+                        </tr>';
+              
+              for($j = 1; $j<= Session::get('sess_BP_Adl_'.$i); $j++){
+                 $objHeader.='<tr>
+                                    <td>Adulto '.$j.'</td>
+                                    <td>'.$this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j).'</td> 
+                                    <td>'.$this->getTexto('Carr_txtApellidoPas_'.$i.'_'.$j).'</td> 
+                                                                       
+                              </tr>'; 
+                 $this->_view->objNombrePax = $this->getTexto('Carr_txtNombrePas_1_1').' '.$this->getTexto('Carr_txtApellidoPas_1_1');
+                      
+                 
+                  
+              }
+              
+              for($k = 1; $k<= Session::get('sess_BP_Chd_'.$i); $k++){
+                  
+                  $objHeader .= '<tr>
+                                    <td>Children '.$k.'</td>
+                                    <td>'.$this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k).'</td> 
+                                    <td>'.$this->getTexto('Carr_txtApellidoCh_'.$i.'_'.$k).'</td> 
+                                                                       
+                              </tr>';    
+                  
+                  }
+     
                 
                
                 $this->_view->objTextoArea = $this->getTexto('Carr_textAreaNota');
-                $this->_view->objPaxCarro = $objCarrPax;
-               
-                $this->_view->objNombrePax  =  $objCarrPax[0]->getNombre();
-                $this->_view->objApellidoPax  =  $objCarrPax[0]->getApellido();
+                $this->_view->objPaxCarro = $objHeader;
+                
+                //$this->_view->objNombrePax  =  $objCarrPax[0]->getNombre();
+                //$this->_view->objApellidoPax  =  $objCarrPax[0]->getApellido();
+                //$this->_view->objNombreChild = $objCarrPax[0]->getNombreCh();
+                //$this->_view->objApellidoChild = $objCarrPax[0]->getApellidoCh();
                 
                }
 
              $this->_view->objCarro = $this->_carro->getAddCarro(Session::get('sess_usuario'));
 
     $this->_view->renderizaCenterBox('paso3');
-     
+    }
+    else{
+        throw new Exception('Ha ocurrido un error, favor de comincarse con el administrador.');
+    }
     }
     
     public function seccionCarro(){
