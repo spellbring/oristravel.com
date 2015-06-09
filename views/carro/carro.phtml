@@ -226,11 +226,12 @@
                                                            if(Session::get('sess_BP_Chd_'.$i)){
                                                              for($k = 1; $k <=Session::get('sess_BP_Chd_'.$i) ; $k++){
                                                                  ?>
+                                                        <tr>
                                                                  <th>Child <?php echo $k;?></th>
                                                             <td><input type="text" class="form-control" id="Carr_txtNombreCh_<?php echo $i.'_'.$k?>" name="Carr_txtNombreCh_<?php echo $i.'_'.$k?>" value=""></td> <?php //if(isset($mL_ini)){ echo $mL_ini; } ?>
                                                             <td><input type="text" class="form-control" id="Carr_txtApellidoCh_<?php echo $i.'_'.$k?>" name="Carr_txtApellidoCh_<?php echo $i.'_'.$k?>" value=""></td><?php //if(isset($mL_ini)){ echo $mL_ini; } ?>
                                                             
-                                                                 <?php
+                                                        </tr>         <?php
                                                                  
                                                              }
                                                        }
