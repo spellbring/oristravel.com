@@ -15,7 +15,18 @@ class programaDTO
     private $_nombre;
     private $_codigo;
     private $_id;
+    private $_descripcion;
     
+    function getDescripcion() {
+        return $this->_descripcion;
+    }
+
+    function setDescripcion($descripcion) {
+        $this->_descripcion = $descripcion;
+        return $this;
+    }
+
+        
      public function getNombre() {
         return $this->_nombre;
     }

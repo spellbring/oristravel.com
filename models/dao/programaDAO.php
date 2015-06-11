@@ -82,8 +82,37 @@ class programaDAO extends Model
         }
     }
     
+    public function traeDescripcion($id){
+       $sql = "SELECT descripcion FROM h2h_pdfprog WHERE codigo = '".$id."'";
+       //echo $sql;
+       $datos = $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)> 0){
+            
+             $objetosPacke = array();
+            $arrayDescripcion =  $this->_db->fetchAll($datos);
+            
+            foreach($arrayDescripcion as $descDB){
+                $objDescripcion = new programaDTO();
+
+                $objDescripcion->setDescripcion(trim($descDB['descripcion']));   
+                $objetosPacke[] = $objDescripcion;
+                
+            }
+            
+            return $objetosPacke;
+        }
+        else{
+            return false;
+        }
+        
+    }
     
+    public function exeSQL($sql)
+    {
+        $this->_db->consulta($sql);
+        return true;
     
+    }
     
     
 

@@ -64,6 +64,55 @@ class programaController extends Controller{
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('adminProgramas');
     }
+    public function subirFoto(){
+         $SP_codigoFoto = $this->getTexto('txtFileFoto');
+        if (isset($_FILES['SpFileFoto']['name'])) {
+                                            if ($_FILES['SpFileFoto']['name']) {
+                                                if (Funciones::validaFoto($_FILES['SpFileFoto']['type']) == false) {
+                                                    echo 'La Imagen debe ser formato [.JPG] [.GIF] [.PNG]';
+                                                    exit;
+                                                }
+
+                                                if ($_FILES['SpFileFoto']['size'] > 524288) { //512KB
+                                                    echo 'La Imagen debe ser menor a <b>500kb</b>';
+                                                    exit;
+                                                }
+                                            }
+                                        
+            $this->getLibrary('upload' . DS . 'class.upload');
+            $rutaFoto = ROOT . 'public' . DS . 'img' . DS;
+            $upload = new upload($_FILES['SpFileFoto'], 'es_ES');
+            $upload->allowed = array('image/jpg', 'image/jpeg', 'image/png', 'image/gif');
+            $upload->file_max_size = '1048576'; //1Mb
+            $upload->file_new_name_body = 'upl_' . $SP_codigoFoto;
+
+            $upload->file_overwrite = true;
+            $upload->process($rutaFoto);
+            if ($upload->processed) {   //THUMBNAILS
+
+                            $thumb = new upload($upload->file_dst_pathname);
+                            $thumb->image_resize = true;
+                            $thumb->image_x = 150;
+                            $thumb->image_y = 150;
+                            $thumb->file_name_body_pre = 'thumb_';
+                            $thumb->process($rutaFoto . 'thumb' . DS);
+                            //$upload->process($rutaFoto);
+                             echo 'OK';
+            }
+
+           
+               
+             else {
+                //echo 'Error al subir el archivo';
+                throw new Exception('Error al subir el archivo');
+            }
+        }
+        else {
+            throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador.');
+        }
+                                        
+        
+    }
  /**
      * Metodo procesador: Renderiza el centerBox para subir los pdf
      * <PRE>
@@ -76,10 +125,36 @@ class programaController extends Controller{
     public function subirPdf() {//Pagina
         Session::acceso('Usuario');
 
-        $this->_view->SP_codProg = $this->getTexto('post_cod');
-        $this->_view->setJs(array('ajax'));
-
-        $this->_view->renderizaCenterBox('subirPdf');
+        Session::set('sess_Cod_Prog', $this->getTexto('post_cod'));
+        //$this->_view->setJs(array('ajax'));
+       
+        $texto_cambiado = str_replace(" ", "_",$this->getTexto('post_cod'));
+                                        
+                                           $foto = array('jpg', 'jpge','png', 'gif');
+                                           $nomArchivo='';
+                                           $archivoa = '';
+                                           for($i=0; $i<count($foto); $i++){
+                                               $rutaArchivo = ROOT. 'public'. DS .'img'. DS .'upl_'.$texto_cambiado.'.'.$foto[$i];
+                                               $archivo = 'upl_'.$texto_cambiado.'.'.$foto[$i];
+                                               //echo $rutaArchivo;
+                                             if(file_exists($rutaArchivo)){  
+                                             $nomArchivo = $rutaArchivo;
+                                             $archivoa = $archivo;
+                                             }
+                                           }
+        $this->_view->SP_rutaFoto  = BASE_URL.'public/img/'.$archivoa;                                   
+        $this->_view->SP_Foto = $archivoa;                                   
+        $this->_view->SP_archivoFoto =  $nomArchivo;
+        $objDescripcion = $this->_programa->traeDescripcion($this->getTexto('post_cod'));
+        
+        if($objDescripcion){
+            $this->_view->objDescripcion = $objDescripcion[0]->getDescripcion(); 
+        }
+        else{
+             $this->_view->objDescripcion = "";
+        }
+       
+        $this->_view->renderizaCenterBox('editarPrograma');
     }
      /**
      * Metodo procesador: Renderiza una vista para ver los pdf
@@ -168,6 +243,19 @@ class programaController extends Controller{
         //$this->redireccionar('programa/adminProgramas');
     }
     
+    public function eliminarFoto() {
+        $archivo = $this->getTexto('txtNombreFoto');
+        $ruta = ROOT . 'public' . DS . 'img' . DS . $archivo;
+        $rutaThumb = ROOT . 'public' . DS . 'img' . DS . 'thumb'. DS . 'thumb_'.$archivo ;
+        if (@unlink($ruta)) {
+            @unlink($rutaThumb);
+            echo 'OK';
+        } else {
+            echo $archivo;
+        }
+        //$this->redireccionar('programa/adminProgramas');
+    }
+    
     /**
      * Metodo procesador: Renderiza buscarProgramas y sus respectivos comoboBox y tablas, dependiendo del filtro del leftSideBar
      * <PRE> 
@@ -177,12 +265,41 @@ class programaController extends Controller{
      * @return _view 
      * @author: Jaime Reyes
      */
-    public function detallePrograma(){
+    public function subirDescripcion(){
+    if (strtolower($this->getServer('HTTP_X_REQUESTED_WITH')) == 'xmlhttprequest') {    
+   
+    $objDescripcion = $this->_programa->traeDescripcion(Session::get('sess_Cod_Prog'));
     
+     if($objDescripcion){
         
+      $sql = "UPDATE h2h_pdfprog SET descripcion = '".  str_replace('\\', '' ,  htmlentities($this->getPost('areaDescrip')))."' WHERE codigo = '".Session::get('sess_Cod_Prog')."'"; 
+      
+    }
+    else
+    {
+        $sql = "INSERT INTO h2h_pdfprog(codigo, descripcion) VALUES('".Session::get('sess_Cod_Prog')."', '".  str_replace('\\', '' ,  htmlentities($this->getPost('areaDescrip')))."')";
+       
+    }
+   
+    if($this->_programa->exeSQL($sql)){
+         echo 'OK';
+        
+         
+    }
+    else{
+         echo 'Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador.';
+    }
+    
     
        
     }
+    
+    else{
+        throw new Exception('Error inesperado, intente nuevamente. Si el error persiste comuniquese con el administrador.');
+    }
+    
+}
+
     
 }
 
