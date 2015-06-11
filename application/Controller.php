@@ -53,6 +53,10 @@ abstract class Controller
         }
     }
     
+    protected function getPost($clave){
+        return trim($_POST[$clave]);
+    }
+    
     protected function getInt($clave)
     {
         if(isset($_POST[$clave]) && !empty($_POST[$clave]))
