@@ -1,0 +1,318 @@
+<script type="text/javascript" src="<?php echo BASE_URL ?>public/js/tinymce/tinymce.min.js"></script>
+<div id="page-content">
+	<div id='wrap'>
+            <div id="page-heading">
+                <ol class="breadcrumb">
+                    <li><a href="<?php echo BASE_URL . 'sistema'; ?>">Inicio</a></li>
+                    <li class="active">Administraci&oacute;n de Servicios</li>
+                </ol>
+
+
+                <h1>Servicios</h1>
+            </div>
+		
+        
+        <div class="container">
+
+			
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-danger">
+					  
+					  
+						<div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4>Editando Servicio</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                            
+                                <div class="col-md-12">
+                                    <form method="post" id="frmAdmServ" action="<?php echo BASE_URL ?>process/admServicios">
+                                    <table align="left" cellspacing="5" cellpadding="5">
+                                        <tr>
+                                            <td>Ciudad:</td>
+                                           <td>
+                                           		<!-- <input type="text" id="txtCiudad-AdmProg" name="txtCiudad-AdmProg" style="width:200px" placeholder="Ingrese ciudad de destino" onkeyup="buscarCiudad(this.value, 'frmAdmProg', 'spnCiudad-prog', 'txtCiudad-AdmProg');" autocomplete="off">
+                                                        <span id="spnCiudad-prog" class="twitter-typeahead" style="position: relative; display: none; direction: ltr;"></span> -->
+                                                <select name="aS_txtCiudadDestino_S" id="aS_txtCiudadDestino_S" class="form-control" >
+                                                <option value="0">Seleccione destino</option>
+                                                    <?php
+                                                    if($this->objCiudadesServ)
+                                                    { 
+                                                        foreach($this->objCiudadesServ as $columCiudadesPRG)
+                                                        {
+                                                        
+                                                            $aP_codigoCiuPRG= trim($columCiudadesPRG->getCodCiudad());
+                                                            $aP_nombreCiuPRG= trim($columCiudadesPRG->getCiudad());
+                                                            $aP_nombreCiudadPRG = $aP_nombreCiuPRG." (".$aP_codigoCiuPRG.")";
+                                                            
+                                                            if(Session::get('sess_pC_aP_ciudad')==$aP_nombreCiuPRG)
+                                                            {
+                                                            ?>
+                                                                <option value="<?php echo $aP_nombreCiuPRG; ?>" selected="selected"><?php echo $aP_nombreCiudadPRG; ?></option>
+                                                            <?php
+                                                            }
+                                                            else
+                                                            {
+                                                            ?>
+                                                                <option value="<?php echo $aP_nombreCiuPRG; ?>"><?php echo $aP_nombreCiudadPRG; ?></option>
+                                                            <?php
+                                                            }
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                           </td>
+                                           <td><span style="padding-left:10px;">Servicios:</span></td>
+                                <td>
+                                	<!-- style="background:#d2d3d6;" -->
+                                        
+                                     <select name="aS_txtServicio_S" id="aS_txtServicio_S" class="form-control" >
+                                                    <option value="0">Seleccione servicio</option>
+                                                    <?php 
+                                                    if($this->objServicios)// traer datos de la tabla 'tablaser 12/05/2015'
+                                                    { 
+                                                        foreach($this->objServicios as $objSer)
+                                                        {                                                            
+                                                                if(Session::get('sess_pC_aS_servicio')== $objSer->getNumero()){
+                                                                ?>
+                                                                    <option value="<?php echo $objSer->getNumero();?>" selected="selected"> <?php echo $objSer->getNombre();  ?></option>
+                                                                               
+                                                                <?php
+                                                                                                                      
+                                                                }
+                                                                else
+                                                                {
+                                                                ?>
+                                                                    <option value="<?php echo $objSer->getNumero(); ?>"><?php echo $objSer->getNombre(); ?></option>
+                                                                <?php
+                                                                }
+                                                        }
+                                                    }         
+                                                    ?>
+                                                </select>
+                                        
+                                </td>
+
+                                           
+                                               
+                                           <td>&nbsp;&nbsp;&nbsp;
+                                                <input type="button"  id="btnAdmServ" class="btn btn-primary" value="Buscar Servicio">
+                                                <img id="imgLoading" src="<?php echo $_layoutParams['ruta_img']; ?>loading.gif" style="display:none" width="32" border="0" />
+                                           </td>
+                                        </tr>
+                                    </table>
+                                    </form>
+                                    
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>	
+								
+								
+								
+
+					  
+					</div>
+                    
+                    
+                    <?php
+                    if(isset($_SESSION["sess_pC_aP_ciudad"]))//sess_pAP_ciudad
+					{
+					?>
+                     <script>				
+					$('#btnAdmProg').delay( 10 ).fadeOut( 10 );
+					$('#btnAdmProg').animate({
+										'display': 'none'
+									}); 
+					$('#imgLoading').fadeIn( 100 );
+					$('#imgLoading').animate({
+										'display': 'block'
+									});
+					</script>
+                    
+                    
+                    
+                    <div class="panel panel-sky" id="contenedorBusqueda" style="display:none">
+                        <div class="panel-heading">
+                            <h4>Resultado de la busqueda</h4>
+                        </div>
+                        <div class="panel-body collapse in">
+                            <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered datatables" id="example">
+                                <thead>
+                                    <tr style="background-color:#76c4ed;">
+                                        <th>C&oacute;digo</th>
+                                        <th>Nombre</th>
+                                        <th>Ciudad</th>
+                                        <th width="100"></th>
+                                        <th width="100">Ver PDF</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	
+                                    <?php
+									//echo $_SESSION["sess_pAP_ciudad"];
+                                    //$var_getProgAdmin=false; // $privateFunctions->getProgramasAdmin($_SESSION["sess_pAP_ciudad"]);
+									if($this->objProgramas)
+									{ 
+										foreach($this->objProgramas as $columProgAdm)
+										{
+											$aP_codigoProg= mb_convert_encoding(trim($columProgAdm->getCodigo()), "UTF-8", "ISO-8859-1");
+											$aP_nombreProg= mb_convert_encoding(trim($columProgAdm->getNombre()), "UTF-8", "ISO-8859-1");
+											$aP_ciudadProg= mb_convert_encoding(trim($columProgAdm->getCiudad()), "UTF-8", "ISO-8859-1");
+											//Session::set('sess_cod_prog',$aP_codigoProg);
+                                                                                        /*
+											$aP_documento= trim($columProgAdm['ruta_pdf']);
+											
+											if(strpos($aP_documento, '.pdf') !== FALSE)
+											{
+												$aP_icono='pdf';
+											}
+											else
+											{
+												$aP_icono='word';
+											}
+                                                                                         */ 
+                                                                                         
+									?>
+                                       <tr class="odd gradeX">
+                                           <td><?php echo $aP_codigoProg; ?></td>
+                                           <td><?php echo $aP_nombreProg; ?></td>
+                                           <td><?php echo $aP_ciudadProg; ?></td>
+                                            <?php
+                                           $texto_cambiado = str_replace(" ", "_",$aP_codigoProg);  
+                                           $nomArchivo = ROOT. DS .'public'. DS .'pdf'. DS .'upl_'.$texto_cambiado.'.pdf';
+                                           
+                                           //if (file_exists($nomArchivo)) 
+                                           //{                                             
+                                                ?>
+                                                <td align="center">
+                                                <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/subirPdf', 'Administraci&oacute;n de archivos y fotos', '<?php echo $aP_codigoProg; ?>');">
+                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
+                                                </a></td>
+                                                <?php
+                                           //}
+                                                /*
+                                           else
+                                           {
+                                                ?>
+                                                <td align="center">
+                                                <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/subirPdf', 'Subir Archivo', '<?php echo $aP_codigoProg; ?>');">
+                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
+                                                </a></td>    
+                                                <?php                                                  
+                                           }*/
+                                           if (file_exists($nomArchivo)) 
+                                           {  
+                                                ?>
+                                                <td align="center">
+                                                <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/verPDF', 'Ver Pdf', '<?php echo $aP_codigoProg; ?>');">
+                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>pdf.png" width="24" border="0" />
+                                                </a></td>
+                                                <?php  
+                                           }  
+                                            else{
+                                                
+                                                ?> 
+                                               <td align="center">
+
+                                               </td>
+                                                <?php     
+                                            }
+                                            
+                                            
+                                            
+                                           ?>
+                                               
+                                           
+                                       </tr>
+                                   <?php }
+									}
+								   ?>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <script>
+					$('#btnAdmProg').fadeIn( 100 );
+					$('#btnAdmProg').animate({
+										'display': 'block'
+									});
+									
+					$('#imgLoading').delay( 10 ).fadeOut( 10 );
+					$('#imgLoading').animate({
+										'display': 'none'
+									});
+					
+					$('#contenedorBusqueda').fadeIn( 2000 );
+					$('#contenedorBusqueda').animate({
+										'display': 'block'
+									});
+					
+					</script>
+                    <?php }else{ echo '<br><br><br><br><br><br><br><br><br>'; } ?>
+				</div>
+			</div>
+            
+            
+
+
+			
+
+		</div> <!-- container -->
+	</div> <!--wrap -->
+</div> <!-- page-content -->
+<script>
+
+
+
+$('#btnAdmServ').on('click',function()
+{
+    $("#btnAdmServ").attr('disabled', 'disabled');
+    if($('#aS_txtCiudadDestino_S').val()==0  && $('#aS_txtServicio_S').val()==0)
+    {
+        $('#divAlertWarHot').fadeIn( 1500 );
+        $('#divAlertWarHot').animate({
+                'display': 'block'
+        });
+        
+        $("#btnAdmServ").delay(2000).queue(function(dis)
+        {
+            $("#btnAdmServ").removeAttr("disabled");
+            dis();
+        });
+    }
+    else
+    {
+        $(document).skylo('start');
+
+        setTimeout(function(){
+                $(document).skylo('set',50);
+        },1000);
+
+        setTimeout(function(){
+                $(document).skylo('end');
+        },1500);
+        setTimeout(function(){
+                document.getElementById('frmAdmServ').submit();
+        },2500);
+        
+        $("#btnAdmServ").delay(5000).queue(function(dis)
+        {
+            $("#btnAdmServ").removeAttr("disabled");
+            dis();
+        });
+    }
+    
+});
+
+
+
+</script>

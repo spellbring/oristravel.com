@@ -709,11 +709,12 @@ $(function()
                 <i>&nbsp;</i>
                 <span>Administraci&oacute;n</span> <span  style="float: right;"><img src="<?php echo $_layoutParams['ruta_img']; ?>down.png" width="12px" /></span>
             </a>
-            <ul class="acc-menu" <?php if($this->currentMenu==2 || $this->currentMenu==3 || $this->currentMenu==4 || $this->currentMenu==5){ ?>style="display: block;"<?php } ?>>
+            <ul class="acc-menu" <?php if($this->currentMenu==2 || $this->currentMenu==3 || $this->currentMenu==4 || $this->currentMenu==5 || $this->currentMenu==12){ ?>style="display: block;"<?php } ?>>
                 <li <?php if($this->currentMenu==2){ ?>class="active"<?php } ?>><a id="menuHoteles" href="javascript:;"><span>Hoteles</span></a></li>
                 <li <?php if($this->currentMenu==3){ ?>class="active"<?php } ?>><a id="menuAdminProg" href="javascript:;"><span>Programas</span></a></li>
                 <li <?php if($this->currentMenu==4){ ?>class="active"<?php } ?>><a id="menuUsuarios" href="javascript:;"><span>Usuarios</span></a></li>
                 <li <?php if($this->currentMenu==5){ ?>class="active"<?php } ?>><a id="menuImagenes" href="javascript:;"><span>Imagenes</span></a></li>
+                <li <?php if($this->currentMenu==12){ ?>class="active"<?php } ?>><a id="menuServicios" href="javascript:;"><span>Servicios</span></a></li>
             </ul>
         </li>
         <?php } ?>
@@ -998,8 +999,8 @@ function sumaFechas(fechaIni, dias, fechaOut)
             window.location.href = '<?php echo BASE_URL; ?>booking/consultarBooking';
         },2500);
     });
-    /*
-    $('#menuAnulaBook').on('click',function(){
+    
+    $('#menuServicios').on('click',function(){
         $(document).skylo('start');
 
         setTimeout(function(){
@@ -1010,10 +1011,10 @@ function sumaFechas(fechaIni, dias, fechaOut)
             $(document).skylo('end');
         },1500);
 		setTimeout(function(){
-            window.location.href = '<?php echo BASE_URL; ?>sistema/anularBooking';
+            window.location.href = '<?php echo BASE_URL; ?>servicio/servicios';
         },2500);
     });
-    */
+    
     
     $('#menuHoteles').on('click',function(){
         $(document).skylo('start');

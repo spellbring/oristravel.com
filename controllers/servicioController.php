@@ -5,7 +5,7 @@
  * Autor    : Tsyacom Ltda.
  * Fecha    : Lunes, 28 de julio de 2014
  */
-class buscarServicioController extends Controller{
+class servicioController extends Controller{
    public function __construct() {
        parent::__construct();
        $this->_view->setJs(array('Servicios'));
@@ -47,7 +47,15 @@ class buscarServicioController extends Controller{
       $this->_view->renderizaSistema('buscarServicios');  
     }
     
-    public function buscarServicios(){
-        
+    public function servicios(){
+     Session::acceso('Usuario');
+     $this->_view->currentMenu=12;
+     $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ(); 
+     $this->_view->objServicios = $this->_servicio->getServicios();
+     
+     
+     $this->_view->renderizaSistema('adminServicios');  
+     
+     
     }
 }

@@ -48,7 +48,7 @@ $("#" + btn).attr('disabled', 'disabled');
                                 setTimeout("location.href = '"+urlCarga+"'", 2000);
                             }
                             else{
-                               exito(); 
+                               $("#ML_divPopup").html('<div class="alert alert-dismissable alert-success"><strong>Terminado</strong><br/> Proceso realizado con &eacute;xito.</div>');
                             }
                  }                 
              }

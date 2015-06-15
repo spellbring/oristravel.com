@@ -93,7 +93,7 @@ class processController extends Controller
         Session::set('sess_sBP_childs', $this->getTexto('mL_cmbChild_S'));
         
         
-        $this->redireccionar('buscarServicio');
+        $this->redireccionar('servicio');
     
     }
     
@@ -175,5 +175,14 @@ class processController extends Controller
         //$this->redireccionar('sistema/insertUsuarios');
         
         
+    }
+    
+    public function admServicios(){
+       Session::acceso('Usuario');
+        
+        Session::set('sess_pC_aS_ciudad',$this->getTexto('aS_txtCiudadDestino_S'));
+        Session::set('sess_pC_aS_servicio',$this->getTexto('aS_txtServicio_S'));  
+        
+        $this->redireccionar('servicio/servicios');
     }
 }
