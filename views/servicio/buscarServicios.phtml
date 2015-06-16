@@ -20,43 +20,127 @@
                     <div class="panel panel-danger">
 
                         <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h4>Buscar Servicio</h4>
-                            </div>
-                            <div class="panel-body">
+                           
+                            
                                 <div class="row">
 
 
                                     <div class="col-md-12">
-
-
-                                        <div id="divAlertWarHot" class="alert alert-dismissable alert-warning" style="display:none;">
-                                            <strong>Atenci&oacute;n!</strong>
-                                            Debe ingresar una <b>Ciudad</b>, <b>Nombre de hotel</b> o seleccionar una <b>Categoria</b>.
-                                            <button type="button" class="close" onClick="muestraOculta('divAlertWarHot', '2')">&times;</button>
-                                        </div>
-                                        <form id="frmServicio_">
-                                            
-                                            <div>
-                                            <a data-toggle="modal" href="#" id="btnCarroServicios_" class="btn btn-success btn-sm" style="width: 88px;" onclick="Servicios.prototype.procesoAddCarro('frmServicio_','<?php echo BASE_URL;?>carro/insertServicio','btnCarroServicios_');">RESERVAR</a>
-                                            </div>
-                                            
-                                        </form>
                                         
+                             <?php 
+                             
+                             $pest = 0 ;
+                             if($this->objBusquedaSer){
+                                 
+                                 foreach($this->objBusquedaSer as $objServicios){
+                                     $pest++;
+                             
+                             ?>
+                            <div class="panel-heading">
+                                <h4><?php echo $objServicios->getNombre(); ?></h4>
+                            </div>
+                             <div class="panel-body">
+                            <form class="formSecSer_<?php echo $pest; ?> " action="#" method="post">
+                                <div>
+                                    
+                                    <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
+                                         <th width = 10%></th>
+                                         <th width = 55%></th>
+                                        <tr>
+                                            <td rowspan="2" width="210" valign="top">
+                                            <img src="" width="200" class="img-thumbnail" style="margin-right: 10px;">  
+                                            </td>
+                                            
+                                            
+                                        </tr>
+                                        <tr>
+                                            
+                                            <td>
+                                                <P ><b style="color:#FF9900;">Descripci&oacute;n:</b></P><p><?php echo $objServicios->getNotas(); ?></p>
+                                            </td>
+                                            <td valign="top">
+                                                <!-- <hr> -->
+                                                <table cellpadding="0" cellspacing="0" border="0" class="" style="width: 65%; margin-left: 58px; margin-top: 10px; font-size:12px"> <!-- class="table table-striped table-bordered" -->
+                                                   
+                                                       
+                                                        <tr>
+                                                            <?php 
+                                                            $compv =  $objServicios->getCompv();
+                                                            
 
+                                                            if(($this->objTiposSer=='TRF' || $this->objTiposSer=='EXC') && (Session::get('sess_grupo')=='1' || Session::get('sess_grupo')=='2' ||Session::get('sess_grupo')=='3'))
+                                                            {
+                                                                                         $compv=Session::get('sess_comag');
+                                                                                         $dgcomag=0;
+                                                            }
+                                                           
+                                                            $total_venta= ((($objServicios->getTarifa()*((100-$objServicios->getComcts())/100))/((100-$objServicios->getCompv())/100))*((100-Session::get('sess_comag'))/100)*((100-$this->objDgComag)/100)); ?>
+                                                            
+                                                            <td style="color: #DF5F00; font-weight: bold; padding: 2px; vertical-align: middle;">
+                                                               <?php if($objServicios->getMoneda() == 'D'){echo 'USD'.'  '. number_format($total_venta, 2);} else{echo '$'.'  '. number_format($total_venta, 2);}  ?> 
+                                                            </td>
+                                                            <td width="30%">
+                                                             <a data-toggle="modal" href="#" id="btnCarroServicios_<?php echo $pest; ?>" class="btn btn-success btn-sm" style="width: 88px;" onclick="Servicios.prototype.procesoAddCarro('formSecSer_<?php echo $pest; ?>','<?php echo BASE_URL;?>carro/insertServicio','btnCarroServicios_<?php echo $pest; ?>');">RESERVAR</a>
+                                                            <input type="hidden" name="tipo_serv_" value ="<?php foreach($objServicios->getTipos()as $objs){ echo $objs->getCodigo();} ?>">
+                                                            <input type="hidden" name="nombre_serv_" value ="<?php echo $objServicios->getNombre()  ?>">
+                                                            <input type="hidden" name="ope_serv_" value ="<?php echo $objServicios->getOpe()  ?>">
+                                                            <input type="hidden" name="codigo_serv_" value ="<?php echo $objServicios->getCodigo()  ?>">
+                                                            <input type="hidden" name="totalneto_serv_" value ="<?php echo $objServicios->getTarifa()  ?>">
+                                                            <input type="hidden" name="comcts_serv_" value ="<?php echo $objServicios->getComcts()  ?>">
+                                                            <input type="hidden" name="compv_serv_" value ="<?php echo $objServicios->getCompv()  ?>">
+                                                            <input type="hidden" name="compv_serv_" value ="<?php echo $objServicios->getCompv()  ?>">
+                                                            <input type="hidden" name="moneda_serv_" value ="<?php echo $objServicios->getMoneda()  ?>">
+                                                            <input type="hidden" name="conv_serv_" value ="<?php echo $objServicios->getConv()  ?>">
+                                                           
+                                                            
+                                                            </td>
+                                                        <tr>
+                                                    
+
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                            
+                                    
+                                </div>
+
+                            </form>
                                         
+                                            
+                                            
+                                            
+                                       
 
-                                    </div>
+                                   
 
                                 </div>
+                                        <br>
+                                        <br>
+                                       <?php  
+                                  }      
+                             }
+                             else{
+                                 ?>
+                                        <div class="panel-body">
+                                            
+                                            <center><strong>No se encontraron registros</strong></center>
+                                            
+                                        </div>      
+                                 <?php 
+                                 
+                             }
+                                        ?>
                             </div>
                         </div>
 
-                    </div>
+                    
                 </div>
             </div>
         </div>
     </div> 
+</div>
+    </div>
 </div>
 
 
