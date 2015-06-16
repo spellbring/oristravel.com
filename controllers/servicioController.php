@@ -37,7 +37,17 @@ class servicioController extends Controller{
         
         $this->_view->objServicios = $this->_servicio->getServicios();
         
+        $this->_view->objBusquedaSer = $this->_servicio->getBuscarServicios();
         
+        $objTiposer= $this->_servicio->getServiciosNum(Session::get('sess_sBP_serv'));
+        
+        $this->_view->objTiposSer = $objTiposer[0]->getCodigo();
+        
+        $objdgcomag = $this->_servicio->getDgComac($objTiposer[0]->getCodigo());
+        
+        
+        
+        $this->_view->objDgComag = $objdgcomag[0]->getDgcomac();
         
         $this->_view->mL_expandeFiltrosServ = 'block';
         
