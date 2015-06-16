@@ -12,7 +12,8 @@ class loginController extends Controller
     
     public function __construct() {
         parent::__construct();
-        $this->_login= $this->loadModel('usuario');   // para cargar el modelo para todo el controller
+        $this->_login= $this->loadModel('usuario');
+        $this->_servicio = $this->loadModel('servicio');// para cargar el modelo para todo el controller
     }
     
     public function index()
@@ -88,6 +89,8 @@ class loginController extends Controller
                         $carroServicio = array(array(0=>''));
                         Session::set('sess_CarroServicio',$carroServicio);
                         
+                        $objTcambio = $this->_servicio->traeCambio();
+                        Session::set('sess_t_cambioServ', $objTcambio[0]->getTcambio());
                         
                         /*$_SESSION[0][0]='10:30';
                         $_SESSION[0][1]='10:40';
@@ -150,6 +153,8 @@ class loginController extends Controller
         Session::destroy('sess_alerts');
         Session::destroy('sess_alerts_msg');
     }
+    
+    
 }
 
 ?>
