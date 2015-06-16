@@ -61,10 +61,118 @@ class carroController extends Controller{
     }
     
     public function insertServicio(){
-        $sql = "INSERT INTO `ol_venta` (`id`, `usuario`, `key_`, `tipo_ser`, `num_dias`, `hotel`, `codigo_htl`, `cod_provee`, `cod_servicio`, `cod_programa`, `tipoh`, `c_tipoh`, `pa`, `c_pa`, `fecha_in`, `fecha_out`, `tot_hab`, `pais`, `ciudad`, `tot_pax`, `tot_pax_1`, `tot_child_1`, `edad_child_1_1`, `edad_child_1_2`, `tot_pax_2`, `tot_child_2`, `edad_child_2_1`, `edad_child_2_2`, `tot_pax_3`, `tot_child_3`, `edad_child_3_1`, `edad_child_3_2`, `total_neto`, `total_venta`, `moneda`, `tipo_vta`, `status`, `adultos_a`, `adultos_b`, `adultos_c`, `clave`, `vuelo`, `registro`, `comcts`, `compv`, `comag`, `conv`, `fecha_proceso`) VALUES"
+       $compv =  $this->getTexto('compv_serv_');
+        $objDgcomag = $this->_servicio->getDgComac($this->getTexto('tipo_serv_'));
+  
+        $dgcomag = $objDgcomag[0]->getDgcomac();
+        
+     
+        if(($this->getTexto('tipo_serv_')=='TRF' || $this->getTexto('tipo_serv_')=='EXC') && (Session::get('sess_grupo')=='1' || Session::get('sess_grupo')=='2' ||Session::get('sess_grupo')=='3'))
+                                                 {
+                                                                              $compv=Session::get('sess_comag');
+                                                                              $dgcomag=0;
+                                                 }            
 
-                                        ."(3136, 'ereyes', '".Session::get('sess_key_')."', 'TRF', 0, 'Traslado Acercamiento Hoteles Exc. v.v. Privado', 0, 'SEA', 89, '', '', NULL, '', NULL, '2015-06-05', '0000-00-00', 0, 'CHILE', 'SANTIAGO', 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 25.91, 'D', NULL, 'AVAILABLE', 0, 0, 0, '88afdfc1', NULL, NULL, '0.00', '50.87', '30.00', '', '2015-06-02 19:04:15')";
-    
+        
+        $total_venta= ((($this->getTexto('totalneto_serv_')*((100-$this->getTexto('comcts_serv_'))/100))/((100-$this->getTexto('compv_serv_'))/100))*((100-Session::get('sess_comag'))/100)*((100-$dgcomag)/100));//
+        $sql = "INSERT INTO `ol_venta` (`usuario`, "
+                                        . "`key_`, "
+                                        . "`tipo_ser`, "
+                                        . "`num_dias`, "
+                                        . "`hotel`, "
+                                        . "`codigo_htl`, "
+                                        . "`cod_provee`, "
+                                        . "`cod_servicio`, "
+                                        . "`cod_programa`, "
+                                        . "`tipoh`, "
+                                        . "`c_tipoh`, "
+                                        . "`pa`, "
+                                        . "`c_pa`, "
+                                        . "`fecha_in`, "
+                                        . "`fecha_out`, "
+                                        . "`tot_hab`, "
+                                        . "`pais`, "
+                                        . "`ciudad`, "
+                                        . "`tot_pax`, "
+                                        . "`tot_pax_1`, "
+                                        . "`tot_child_1`, "
+                                        . "`edad_child_1_1`, "
+                                        . "`edad_child_1_2`, "
+                                        . "`tot_pax_2`, "
+                                        . "`tot_child_2`, "
+                                        . "`edad_child_2_1`, "
+                                        . "`edad_child_2_2`, "
+                                        . "`tot_pax_3`, "
+                                        . "`tot_child_3`, "
+                                        . "`edad_child_3_1`, "
+                                        . "`edad_child_3_2`, "
+                                        . "`total_neto`, "
+                                        . "`total_venta`, "
+                                        . "`moneda`, "
+                                        . "`tipo_vta`, "
+                                        . "`status`, "
+                                        . "`adultos_a`, "
+                                        . "`adultos_b`, "
+                                        . "`adultos_c`, "
+                                        . "`clave`, "
+                                        . "`vuelo`, "
+                                        . "`registro`, "
+                                        . "`comcts`, "
+                                        . "`compv`, "
+                                        . "`comag`, "
+                                        . "`conv`, "
+                                        . "`fecha_proceso`) "
+                
+                . "VALUES"                 
+                
+                                        ."('".Session::get('sess_usuario')."', "      
+                                        . "'".Session::get('sess_key_')."', "
+                                        . "'".$this->getTexto('tipo_serv_')."',"
+                                        . " 0, "
+                                        . "'".$this->getTexto('nombre_serv_')."',"
+                                        . " 0,"
+                                        . " '".$this->getTexto('ope_serv_')."',"
+                                        . " '".$this->getTexto('codigo_serv_')."',"
+                                        . " '',"//
+                                        . " '',"//
+                                        . " NULL,"
+                                        . " '',"
+                                        . " NULL,"
+                                        . " '".Funciones::invertirFecha(Session::get('sess_sBP_fechaIn'), '/', '-')."',"
+                                        . " '0000-00-00',"
+                                        . " ".Session::get('sess_sBP_Hab').","
+                                        . " 'CHILE',"
+                                        . " '".Session::get('sess_sCH_ciudad')."',"
+                                        . " '".Session::get('sess_sum_paxSer')."',"
+                                        . " '".Session::get('sess_sBP_adultos')."',"
+                                        . " '".Session::get('sess_sBP_childs')."',"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " '".$this->getTexto('totalneto_serv_')."',"
+                                        . " ".$total_venta.","//
+                                        . " '".$this->getTexto('moneda_serv_')."',"
+                                        . " NULL,"
+                                        . " 'AVAILABLE',"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " 0,"
+                                        . " '88afdfc1',"//
+                                        . " NULL, "
+                                        . "NULL, "
+                                        . "".$this->getInt('comcts_serv_').","
+                                        . " ".$compv.", "
+                                        . "'".Session::get('sess_comag')."', "
+                                        . "".$this->getInt('conv_serv_').", "
+                                        . "'".date('d-m-Y')."')";
+        //echo $sql;                            
         $this->_buscarHoteles->exeSQL($sql);    
     $tmp = Session::get('sess_CarroServicio');
     $tmp1 = Session::get('sess_CarroPrograma');
@@ -72,6 +180,9 @@ class carroController extends Controller{
     $tmp[0][] = date('H:i:s');
     Session::set('sess_CarroServicio',$tmp);
     echo (count($tmp[0])-1)+(count($tmp1[0])-1)+(count($tmp2[0])-1);
+   
+    
+                                                 
     }
      
     public function insertPrograma(){
@@ -277,6 +388,7 @@ class carroController extends Controller{
                         </tr>';
               
               for($j = 1; $j<= Session::get('sess_BP_Adl_'.$i); $j++){
+                 
                  $objHeader.='<tr>
                                     <td>Adulto '.$j.'</td>
                                     <td>'.$this->getTexto('Carr_txtNombrePas_'.$i.'_'.$j).'</td> 
@@ -296,9 +408,10 @@ class carroController extends Controller{
                                     <td>'.$this->getTexto('Carr_txtNombreCh_'.$i.'_'.$k).'</td> 
                                     <td>'.$this->getTexto('Carr_txtApellidoCh_'.$i.'_'.$k).'</td> 
                                                                        
-                              </tr>';    
+                              </tr>';
+                 
                   
-                  }
+               }
      
                 
                
