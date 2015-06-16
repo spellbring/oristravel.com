@@ -239,6 +239,7 @@ function postCarro(docPHP, div, div2){
         //post_cod: cod   
     }, function(data)
     {
+        
         $('#'+div).html(data);
         $('#'+div2).html('<?php if($cantTmpH > 0){ echo 'Tiene '.$cantTmpH.' elementos en el carro'; } ?>');
     

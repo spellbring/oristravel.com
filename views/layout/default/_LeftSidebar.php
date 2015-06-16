@@ -446,7 +446,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=4; $i++)
 										{
-											if(Session::get('sess_sBP_adultos')==$i)
+											if(Session::get('sess_BP_Adl_1')==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
@@ -468,7 +468,7 @@ $(function()
 										<?php 
 										for($i=1; $i<=2; $i++)
 										{
-											if(Session::get('sess_sBP_childs')==$i)
+											if(Session::get('sess_BP_Chd_1')==$i)
 											{
 										?>
                                             <option value="<?php echo $i; ?>" selected="selected"><?php echo $i; ?></option>
