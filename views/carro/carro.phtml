@@ -115,7 +115,7 @@
                                                                                 <td class="text-muted">
                                                                                     <?php if($objCar->getFecha_out()=='0000-00-00'){echo "";} else {echo Funciones::invertirFecha($objCar->getFecha_out(),'-','/');} ?></td>
                                                                                 <td><?php if($objCar->getServicio() == 'TRF'){echo '<input type="text" id="txtCarroVuelo_'.$contProductos.'" name="txtCarroVuelo_'.$contProductos.'">'; }else{echo $objCar->getVuelo();}?></td>
-                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php if($objCar->getPrograma() != '' && $objCar->getTotal()== 0){echo '';} else{ echo $objCar->getTotal(); }?></td>                                                                               
+                                                                                <td style="color: #DF5F00; font-weight: bold;"><?php if($objCar->getPrograma() != '' && $objCar->getTotal()== 0){echo '';} else{ echo number_format($objCar->getTotal(), 2); }?></td>                                                                               
                                                                                 <td>
                                                                                     <?php
                                                                                     if($objCar->getTotal()!= 0){
@@ -146,7 +146,7 @@
                                                                             <tr>
                                                                                 
                                                                                 <td colspan="11" align="right"><h5>Total</h5></td>
-                                                                                <td colspan="2" style="color: #DF5F00; font-weight: bold;"><h5><?php echo $totalCompras ?></h5></td>
+                                                                                <td colspan="2" style="color: #DF5F00; font-weight: bold;"><h5><?php echo number_format($totalCompras, 2) ?></h5></td>
                                                                                 
                                                                             </tr>   
                                                                         </table>
