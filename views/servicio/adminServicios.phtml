@@ -120,8 +120,7 @@
                     
                     
                     <?php
-                    if(isset($_SESSION["sess_pC_aP_ciudad"]))//sess_pAP_ciudad
-					{
+                   
 					?>
                      <script>				
 					$('#btnAdmProg').delay( 10 ).fadeOut( 10 );
@@ -148,49 +147,37 @@
                                         <th>Nombre</th>
                                         <th>Ciudad</th>
                                         <th width="100"></th>
-                                        <th width="100">Ver PDF</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
                                 	
                                     <?php
-									//echo $_SESSION["sess_pAP_ciudad"];
-                                    //$var_getProgAdmin=false; // $privateFunctions->getProgramasAdmin($_SESSION["sess_pAP_ciudad"]);
-									if($this->objProgramas)
+			
+									if($this->objAdminServicios)
 									{ 
-										foreach($this->objProgramas as $columProgAdm)
+										foreach($this->objAdminServicios as $columServAdm)
 										{
-											$aP_codigoProg= mb_convert_encoding(trim($columProgAdm->getCodigo()), "UTF-8", "ISO-8859-1");
-											$aP_nombreProg= mb_convert_encoding(trim($columProgAdm->getNombre()), "UTF-8", "ISO-8859-1");
-											$aP_ciudadProg= mb_convert_encoding(trim($columProgAdm->getCiudad()), "UTF-8", "ISO-8859-1");
-											//Session::set('sess_cod_prog',$aP_codigoProg);
-                                                                                        /*
-											$aP_documento= trim($columProgAdm['ruta_pdf']);
+                                                                                        $aS_codigoServ= mb_convert_encoding(trim($columServAdm->getCodigo()), "UTF-8", "ISO-8859-1");
+											$aS_nombreServ= mb_convert_encoding(trim($columServAdm->getNombre()), "UTF-8", "ISO-8859-1");
+											$aS_ciudadServ= mb_convert_encoding(trim($columServAdm->getCiudad()), "UTF-8", "ISO-8859-1");
 											
-											if(strpos($aP_documento, '.pdf') !== FALSE)
-											{
-												$aP_icono='pdf';
-											}
-											else
-											{
-												$aP_icono='word';
-											}
-                                                                                         */ 
+                                                                                         
                                                                                          
 									?>
                                        <tr class="odd gradeX">
-                                           <td><?php echo $aP_codigoProg; ?></td>
-                                           <td><?php echo $aP_nombreProg; ?></td>
-                                           <td><?php echo $aP_ciudadProg; ?></td>
+                                           <td><?php echo $aS_codigoServ; ?></td>
+                                           <td><?php echo $aS_nombreServ; ?></td>
+                                           <td><?php echo $aS_ciudadServ; ?></td>
                                             <?php
-                                           $texto_cambiado = str_replace(" ", "_",$aP_codigoProg);  
+                                           $texto_cambiado = str_replace(" ", "_",$aS_codigoServ);  
                                            $nomArchivo = ROOT. DS .'public'. DS .'pdf'. DS .'upl_'.$texto_cambiado.'.pdf';
                                            
                                            //if (file_exists($nomArchivo)) 
                                            //{                                             
                                                 ?>
                                                 <td align="center">
-                                                <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/subirPdf', 'Administraci&oacute;n de archivos y fotos', '<?php echo $aP_codigoProg; ?>');">
+                                                <a data-toggle="modal" href="#myModal" onClick="Servicios.prototype.abrePopupCenter('<?php echo BASE_URL ?>servicio/editarServicio', 'Administraci&oacute;n de archivos y fotos', '<?php echo $aS_codigoServ; ?>');">
                                                 <img src="<?php echo $_layoutParams['ruta_img']; ?>edit.png" width="24" border="0" />
                                                 </a></td>
                                                 <?php
@@ -205,23 +192,8 @@
                                                 </a></td>    
                                                 <?php                                                  
                                            }*/
-                                           if (file_exists($nomArchivo)) 
-                                           {  
-                                                ?>
-                                                <td align="center">
-                                                <a data-toggle="modal" href="#myModal" onClick="Programas.prototype.abrePopupCenter('<?php echo BASE_URL ?>programa/verPDF', 'Ver Pdf', '<?php echo $aP_codigoProg; ?>');">
-                                                <img src="<?php echo $_layoutParams['ruta_img']; ?>pdf.png" width="24" border="0" />
-                                                </a></td>
-                                                <?php  
-                                           }  
-                                            else{
-                                                
-                                                ?> 
-                                               <td align="center">
-
-                                               </td>
-                                                <?php     
-                                            }
+                                             
+                                            
                                             
                                             
                                             
@@ -241,8 +213,8 @@
                     
                     
                     <script>
-					$('#btnAdmProg').fadeIn( 100 );
-					$('#btnAdmProg').animate({
+					$('#btnAdmServ').fadeIn( 100 );
+					$('#btnAdmServ').animate({
 										'display': 'block'
 									});
 									
@@ -257,7 +229,7 @@
 									});
 					
 					</script>
-                    <?php }else{ echo '<br><br><br><br><br><br><br><br><br>'; } ?>
+                    <?php  ?>
 				</div>
 			</div>
             
