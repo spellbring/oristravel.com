@@ -12,13 +12,17 @@ class servicioDAO extends Model
         parent::__construct();
     }
     
-    public function getCiudadesServ() {
-        $sql = 'SELECT pais.nombre AS nombre_pais, pais.codigo AS codigo_pais, ciudad.nombre AS nombre_ciudad, ciudad.codigo AS codigo_ciudad '
+    public function getCiudadesServ($id) {
+           $sql = 'SELECT pais.nombre AS nombre_pais, pais.codigo AS codigo_pais, ciudad.nombre AS nombre_ciudad, ciudad.codigo AS codigo_ciudad '
                 . 'FROM pais '
-                . 'JOIN ciudad ON (pais.codigo = ciudad.codigop) '
-                //. 'WHERE'
-                //. 'ciudad.nombre LIKE "%'.$nombre_h.'%" OR pais.nombre LIKE "%'.$nombre_h.'%" OR ciudad.codigo LIKE "%'.$nombre_h.'%" '
-                . 'ORDER BY ciudad.nombre ASC';
+                . 'JOIN ciudad ON (pais.codigo = ciudad.codigop) ';
+                if($id != ''){
+                 $sql .= 'WHERE codigo_ciudad = ' .$id.'';    
+                }
+                
+        $sql .= ' ORDER BY ciudad.nombre ASC';  
+        
+      // echo $sql; 
 
         $ciudadesServ = $this->_db->consulta($sql);
         if ($this->_db->numRows($ciudadesServ) > 0) {
@@ -45,9 +49,12 @@ class servicioDAO extends Model
         }
     }
     
-    public function getServicios(){
+    public function getServicios($id){
         $sql = 'SELECT numero, nombre FROM tablaser';
-        
+        if($id!= ''){
+            $sql .=' WHERE numero ='.$id;
+        }
+        //echo $sql;
         $serv= $this->_db->consulta($sql);
         if($this->_db->numRows($serv)> 0){
             
@@ -243,4 +250,66 @@ class servicioDAO extends Model
         }
     
     }
+    
+    public function getAdminServicios(){
+      $sql = 'SELECT codigo, nombre, ciudad FROM servicio';
+      
+      $datos = $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)>0){
+            $arrayServicios = $this->_db->fetchAll($datos);
+            $array = array();
+            foreach($arrayServicios as $arrServ){
+                $objServ = new servicioDTO();
+                $objServ->setCodigo($arrServ['codigo']);
+                $objServ->setNombre($arrServ['nombre']);
+                $objServ->setCiudad($arrServ['ciudad']);
+             $array[] = $objServ; 
+                
+            }
+           return $array; 
+        }
+        else{
+            return false;
+        }
+        
+    }
+    
+    public function traeDescripcionServ($id){
+        
+        $sql = "SELECT codigo,descripcion FROM h2h_servicios";
+        if($id != ''){
+            $sql .= " WHERE codigo = ".$id;  
+        }
+        
+       //echo $sql;
+       $datos = $this->_db->consulta($sql);
+        if($this->_db->numRows($datos)> 0){
+            
+             $objetosPacke = array();
+            $arrayDescripcion =  $this->_db->fetchAll($datos);
+            
+            foreach($arrayDescripcion as $descDB){
+                $objDescripcion = new servicioDTO();
+                $objDescripcion->setCodigo(trim($descDB['codigo']));
+                $objDescripcion->setNotas(trim($descDB['descripcion']));   
+                $objetosPacke[] = $objDescripcion;
+                
+            }
+            
+            return $objetosPacke;
+        }
+        else{
+            return false;
+        }
+        
+    }
+    
+    public function exeSQL($sql)
+    {
+        $this->_db->consulta($sql);
+        return true;
+    
+    }
+    
+    
 }

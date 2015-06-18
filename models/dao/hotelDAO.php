@@ -63,13 +63,18 @@ class hotelDAO extends Model
         }
     }
 
-    public function getCiudadesHot() {
+    public function getCiudadesHot($id) {
         $sql = 'SELECT pais.nombre AS nombre_pais, pais.codigo AS codigo_pais, ciudad.nombre AS nombre_ciudad, ciudad.codigo AS codigo_ciudad '
                 . 'FROM pais '
-                . 'JOIN ciudad ON (pais.codigo = ciudad.codigop) '
-                //. 'WHERE'
+                . 'JOIN ciudad ON (pais.codigo = ciudad.codigop) ';
+                if($id != ''){
+                 $sql .= 'WHERE codigo_ciudad = ' .$id.'';    
+                }
+                
+        $sql .= ' ORDER BY ciudad.nombre ASC';        
+              
                 //. 'ciudad.nombre LIKE "%'.$nombre_h.'%" OR pais.nombre LIKE "%'.$nombre_h.'%" OR ciudad.codigo LIKE "%'.$nombre_h.'%" '
-                . 'ORDER BY ciudad.nombre ASC';
+                //. 'ORDER BY ciudad.nombre ASC';
 
         $ciudadesHot = $this->_db->consulta($sql);
         if ($this->_db->numRows($ciudadesHot) > 0) {
