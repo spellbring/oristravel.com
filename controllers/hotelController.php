@@ -32,11 +32,11 @@ public function __construct() {
 public function index() {
     Session::acceso('Usuario');
         $this->_view->setJs(array('ajax'));
-        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
-        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         $this->_view->mL_expandeFiltrosHot='block';
-        $this->_view->objServicios = $this->_servicio->getServicios();    
+        $this->_view->objServicios = $this->_servicio->getServicios('');    
         $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
         
 
