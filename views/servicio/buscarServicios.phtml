@@ -6,17 +6,9 @@
                     <li class="active">Buscar Servicios</li>
                 </ol>
 
-
-                <h1>Buscar Servicios</h1>
-            </div>
-
-
-        <div class="container">
-
-
-
-            <div class="row">
-                <div class="col-md-12">
+                <h1>Buscar Servicios de <?php if(substr($this->nombreServicio,0,4)== 'A - '){echo substr($this->nombreServicio,3,strlen($this->nombreServicio));  }else{ echo $this->nombreServicio; }?> en <?php echo Session::get('sess_sCH_ciudad') ?></h1>
+            </div>   
+                <div class="col-md-11" style="margin-left: 70px;">
                     <div class="panel panel-danger">
 
                         <div class="panel panel-info">
@@ -24,8 +16,8 @@
                             
                                 <div class="row">
 
-
-                                    <div class="col-md-12">
+                                  
+                             <div class="col-md-11">
                                         
                              <?php 
                              
@@ -44,11 +36,41 @@
                                 <div>
                                     
                                     <table width="100%"  style="margin-top: -15px; margin-left: -15px;">
-                                         <th width = 10%></th>
+                                         <th width = 15%></th>
                                          <th width = 55%></th>
                                         <tr>
-                                            <td rowspan="2" width="210" valign="top">
-                                            <img src="" width="200" class="img-thumbnail" style="margin-right: 10px;">  
+                                            <td rowspan="2" width="250" valign="top">
+                                                
+                                             <?php 
+                                              $texto_cambiado = str_replace(" ", "_",$objServicios->getCodigo());
+                                        
+                                           $foto = array('jpg', 'jpge','png', 'gif');
+                                           $nomArchivo='';
+                                           $archivoa = '';
+                                           $rutaArchivo='';
+                                           
+                                           for($i=0; $i<count($foto); $i++){
+                                               $rutaArchivo = ROOT. 'public'. DS .'img'. DS .'upl_'.$texto_cambiado.'.'.$foto[$i];
+                                               $archivo = 'upl_'.$texto_cambiado.'.'.$foto[$i];
+                                               //echo $rutaArchivo;
+                                            if(file_exists($rutaArchivo)){  
+                                             $nomArchivo = $rutaArchivo;
+                                             $archivoa = $archivo;
+                                             
+                                             }
+                                            
+                                            
+                                           }  
+                                           
+                                            $fotoa = BASE_URL.'public/img/'.$archivoa;        
+                                            $fotob = BASE_URL.'public/img/images.jpg';   
+                                      
+                                            
+                                        
+                                             
+                                             
+                                             ?>   
+                                            <img src="<?php echo $fotoa ?>" onerror="src='<?php echo $fotob ?>'"width="120" class="" style="margin-right: 10px;">  
                                             </td>
                                             
                                             
@@ -56,7 +78,46 @@
                                         <tr>
                                             
                                             <td>
-                                                <P ><b style="color:#FF9900;">Descripci&oacute;n:</b></P><p><?php echo $objServicios->getNotas(); ?></p>
+                                                <P ><b style="color:#FF9900;">Descripci&oacute;n:</b></P><p>
+                                                   <?php
+                                                  //260 caracteres
+                                                    if($objServicios->getNotas() == ''){
+                                                            foreach($this->objDescrip as $objDes){
+                                                                if($objServicios->getCodigo() == $objDes->getCodigo()){
+                                                                    
+                                                                    if(strlen(html_entity_decode($objDes->getNotas())) <= 200){
+                                                                      echo html_entity_decode($objDes->getNotas()); 
+                                                                    }
+                                                                    else{
+                                                                       $primerTexto =  substr(html_entity_decode($objDes->getNotas()),0, 200);
+                                                                       $segundoTexto = substr(html_entity_decode($objDes->getNotas()),201, strlen(html_entity_decode($objDes->getNotas())));
+                                                                       echo $primerTexto;
+                                                                       echo '...';?><strong><a data-toggle="modal" href="#myModal" id="despliegueDescripcion" onclick="despliegue(<?php echo $pest ?>)">Ver mas</a></strong><div style="display:none;" id="descripcion_<?php echo $pest ?>"> <?php echo $primerTexto.$segundoTexto ?></div><?php
+                                                                       ?> <script>  </script> <?php
+                                                                        
+                                                                    }
+                                                                }    
+                                                            }
+                                                        
+                                                          } 
+                                                          else{
+                                                              
+                                                              if(strlen($objServicios->getNotas()) <= 200){
+                                                              echo $objServicios->getNotas();
+                                                              }
+                                                              else{
+                                                                  $primerTexto =  substr(html_entity_decode($objServicios->getNotas()),0, 200);
+                                                                  $segundoTexto = substr(html_entity_decode($objServicios->getNotas()),201, strlen(html_entity_decode($objServicios->getNotas())));
+                                                                  echo $primerTexto;
+                                                                  echo '...';?><strong><a data-toggle="modal" href="#myModal" id="despliegueDescripcion" onclick="despliegue(<?php echo $pest ?>);">Ver mas</a></strong><div style="display:none;" id="descripcion_<?php echo $pest ?>"> <?php echo $primerTexto.$segundoTexto ?></div><?php
+                                                              ?> <?php
+                                                                  
+                                                              } 
+                                                   } ?>
+                                                    
+                                                </p> 
+                                                <!-- <a data-toggle="modal" href="#myModal" id="btnDescServicios" class="btn btn-success btn-sm" style="width: 100px;" onclick="Servicios.prototype.abreDescripcion('<?php echo $objServicios->getCodigo()?>','<?php echo $objServicios->getNotas() ?>','<?php echo BASE_URL;?>servicio/verDescripcion');">Ver Descripci&oacute;n</a> -->  
+                                            
                                             </td>
                                             <td valign="top">
                                                 <!-- <hr> -->
@@ -76,7 +137,7 @@
                                                            
                                                             $total_venta= ((($objServicios->getTarifa()*((100-$objServicios->getComcts())/100))/((100-$objServicios->getCompv())/100))*((100-Session::get('sess_comag'))/100)*((100-$this->objDgComag)/100)); ?>
                                                             
-                                                            <td style="color: #DF5F00; font-weight: bold; padding: 2px; vertical-align: middle;">
+                                                            <td style="font-size: 15px; color: #DF5F00; font-weight: bold; padding: 2px; vertical-align: middle;">
                                                                <?php if($objServicios->getMoneda() == 'D'){echo 'USD'.'  '. number_format($total_venta, 2);} else{echo '$'.'  '. number_format($total_venta, 2);}  ?> 
                                                             </td>
                                                             <td width="30%">
@@ -91,6 +152,7 @@
                                                             <input type="hidden" name="compv_serv_" value ="<?php echo $objServicios->getCompv()  ?>">
                                                             <input type="hidden" name="moneda_serv_" value ="<?php echo $objServicios->getMoneda()  ?>">
                                                             <input type="hidden" name="conv_serv_" value ="<?php echo $objServicios->getConv()  ?>">
+                                                            
                                                            
                                                             
                                                             </td>
@@ -132,15 +194,30 @@
                              }
                                         ?>
                             </div>
-                        </div>
-
+                                      
+                                </div>
+                               
                     
                 </div>
             </div>
         </div>
-    </div> 
+    
+    
 </div>
+    
     </div>
-</div>
+<script>
+    
+    
+    function despliegue( pest)
+      {
+        $("#ML_divPopup").html('');
+        $("#ML_tituloForm").html('<strong>Descripci&oacute;n</strong>');
+        $("#modal_dialog").css({"width":"40%"});
+        $("#descripcion_"+pest).clone().appendTo("#ML_divPopup").css('display','block');
+        
+      }
+
+</script>
 
 
