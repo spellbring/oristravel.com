@@ -129,4 +129,21 @@ $("#" + btn).attr('disabled', 'disabled');
 }
 
 
+Hoteles.prototype.abrePopupFoto = function(docPHP, titulo, imgenc, img1, img2, img3, img4){
+    $("#ML_divPopup").html('');
+    $("#ML_tituloForm").html(titulo);
+    $.post(docPHP, 
+    {
+        post_open: 'on',
+        post_img_enc: imgenc,
+        post_img1: img1,
+        post_img2: img2,
+        post_img3: img3,
+        post_img4: img4
+    }, function(data)
+    {
+        $("#ML_divPopup").html(data);
+    });
+}
+
 
