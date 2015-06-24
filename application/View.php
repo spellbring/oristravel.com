@@ -105,8 +105,7 @@ class View /*extends Smarty*/
             'ruta_img' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/img/', 
             'ruta_js' => BASE_URL . 'views/layout/' . DEFAULT_LAYOUT . '/js/',
             'ruta_hoteles' => BASE_URL . 'public/img/hoteles/',
-            'ruta_voucher' => BASE_URL . 'public/img/voucher/'
-            
+            'ruta_voucher' => BASE_URL . 'public/img/voucher/'   
         );
         $rutaView= ROOT . 'views' . DS . $this->_controlador . DS . 'centerBox' . DS . $vista . '.phtml';
         if(is_readable($rutaView))
