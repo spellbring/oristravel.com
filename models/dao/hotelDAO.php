@@ -12,9 +12,12 @@ class hotelDAO extends Model
         parent::__construct();
     }
         
-    public function getCatHoteles() {
-        $sql = 'SELECT codigo, nombre FROM cath ORDER BY nombre ASC';
-        //echo $sql;
+    public function getCatHoteles($cod) {
+        $sql = 'SELECT codigo, nombre FROM cath';
+        if($cod != ''){
+            $sql .= " WHERE codigo = '".$cod."' ";
+        }     
+        $sql.= ' ORDER BY nombre ASC';
 
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
@@ -53,7 +56,7 @@ class hotelDAO extends Model
             //$sql.=' AND pais="CHILE" ';
         }
 
-        echo $sql;
+        //echo $sql;
 
         $datos = $this->_db->consulta($sql);
         if ($this->_db->numRows($datos) > 0) {
@@ -68,7 +71,7 @@ class hotelDAO extends Model
                 . 'FROM pais '
                 . 'JOIN ciudad ON (pais.codigo = ciudad.codigop) ';
                 if($id != ''){
-                 $sql .= 'WHERE codigo_ciudad = ' .$id.'';    
+                 $sql .= " WHERE ciudad.codigo = '" .$id."'";    
                 }
                 
         $sql .= ' ORDER BY ciudad.nombre ASC';        

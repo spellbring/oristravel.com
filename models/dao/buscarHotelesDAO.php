@@ -81,6 +81,10 @@ class buscarHotelesDAO extends Model
                 $objHotel->setCiudad(trim($dbHotel['ciudad']));
                 $objHotel->setCat(trim($dbHotel['cat']));
                 $objHotel->setImgEnc(trim($dbHotel['img_encabezado']));
+                $objHotel->setImgCont(trim($dbHotel['img_contenido']));
+                $objHotel->setImgCont2(trim($dbHotel['img_contenido2']));
+                $objHotel->setImgCont3(trim($dbHotel['img_contenido3']));
+                $objHotel->setImgCont4(trim($dbHotel['img_contenido4']));
                 $objHotel->setDirec(trim($dbHotel['direc']));
                 //servicios de hotel
                 $objHotel->setRestaurante(trim($dbHotel['restaurante']));

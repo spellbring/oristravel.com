@@ -50,7 +50,7 @@ class programaDAO extends Model
             FROM h2h_programa P
             JOIN ciudad	C ON (C.codigo = P.Ciudad)
              
-            WHERE C.nombre = '" . Session::get('sess_pC_aP_ciudad') ."'
+            WHERE C.nombre = '" . Session::get('sess_prog_Ciudad') ."'
 	    ORDER BY P.nombre ASC";
            
         //echo $sql;
