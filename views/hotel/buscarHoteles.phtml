@@ -58,7 +58,17 @@ function initialize(lat, lon, nombre, id) {
                 </ol>
 
 
-                <h1>Hoteles en <?php echo  Session::get('sess_sCH_ciudad'); ?> </h1>
+            <h1>Hoteles  <?php 
+            if(Session::get('sess_pBP_Cagegorias'))
+                {
+                if(is_numeric(substr(Session::get('sess_pBP_Cagegorias'),0,1))){ 
+                    echo 'de '.substr(Session::get('sess_pBP_Cagegorias'),0,1).' Estrellas';
+                    
+                }
+                else{ 
+                    echo $this->objCatHot; 
+                }    
+                } ?> en <?php echo  $this->objCiudadesHotelDet; ?> </h1>
             </div>
                 <?php 
                 
@@ -68,7 +78,7 @@ function initialize(lat, lon, nombre, id) {
                 $catEstrellas = ''; 
                 $detalleHoteles='';
                 $html='';
-                    
+                   
                 foreach($this->objGetHoteles as $objHoteles){    
                  if($tempCodHTL != $objHoteles->getCodigoHtl()){
                      
@@ -167,7 +177,7 @@ function initialize(lat, lon, nombre, id) {
                               $detalleHoteles.= '<tr class="colorText">'                              
                                     . '<td style="padding: 2px; vertical-align: middle;">'.$objTipoH->getTipoh().'</td>'
                                     . '<td style="padding: 2px; vertical-align: middle;">'.$objTipoH->getPalimt().'</td>'
-                                    . '<td style="color: #DF5F00; font-weight: bold; padding: 2px; vertical-align: middle;">'.$objTipoH->getPrecioFinal().' '.$monedaHot.'</td>'
+                                    . '<td style="color: #DF5F00; font-weight: bold; padding: 2px; vertical-align: middle;">'.$monedaHot.' '.$objTipoH->getPrecioFinal().'</td>'
                                     . '<td style="padding: 2px; vertical-align: middle;">'
                                     
                                     . '<input type="hidden" name="BH_codHotel"'.$contPest.'" value="'.$objTipoH->getCodigoHtl().'"> '
@@ -180,7 +190,7 @@ function initialize(lat, lon, nombre, id) {
                                    
                             }
                             
-                        }
+                        }///'.$objHot->getImgEnc().'/'.$objHot->getImgCont().'/'.$objHot->getImgCont2().'/'.$objHot->getImgCont3().'/'.$objHot->getImgCont4().
                 
                         $arrayHoteles = array(
                                             'DetalleHotel'=>$detalleHoteles,
@@ -188,7 +198,9 @@ function initialize(lat, lon, nombre, id) {
                                             'pest'=>$contPest,
                                             'categoria'=>(string)$catHotel,
                                             'hotel'=>$objHot->getNombre(),
+                                            'errorFotos'=>$_layoutParams['ruta_img'].'hotel/sinImagen.jpg',
                                             'fotos'=>$_layoutParams["ruta_hoteles"].$objHot->getImgEnc(),
+                                            'rutaFotos'=>"Hoteles.prototype.abrePopupFoto('".BASE_URL."hotel/verFotos','<strong>Im&aacute;genes en Hotel ".$objHot->getNombre()."</strong>','".$objHot->getImgEnc()."','".$objHot->getImgCont()."','".$objHot->getImgCont2()."','".$objHot->getImgCont3()."','".$objHot->getImgCont4()."')",
                                             'direccion'=>$objHot->getDirec(),
                                             'nota'=>$objHoteles->getNota(),
                                             'servicios_hotel'=>$imgServHotel,
@@ -228,28 +240,12 @@ function initialize(lat, lon, nombre, id) {
                   break;  
                 }*/
                 }
-
-                ?> 
+                
+                
+                ?>
         
-       <!-- 
-       <?php //if(isset($this->paginacion)){ echo $this->paginacion; }else{ ?>
-               <center>
-                <div class="tab-pane active" id="dompaginate">
-                    <ul class="pagination">
-                      <li class="disabled"><a href="#">&ll;</a></li>
-                      <li class="disabled"><a href="#">&lt;</a></li>
-                      <li class="active"><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                      <li><a href="#">&gt;</a></li>
-                      <li><a href="#">&gg;</a></li>
-                    </ul>
-                </div>
-                </center>  
-                <?php //} ?>
-        -->
+      
+    
        
         
     </div> <!--wrap -->
