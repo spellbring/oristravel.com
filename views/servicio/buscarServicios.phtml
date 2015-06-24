@@ -63,14 +63,14 @@
                                            }  
                                            
                                             $fotoa = BASE_URL.'public/img/'.$archivoa;        
-                                            $fotob = BASE_URL.'public/img/images.jpg';   
+                                            
                                       
                                             
                                         
                                              
                                              
                                              ?>   
-                                            <img src="<?php echo $fotoa ?>" onerror="src='<?php echo $fotob ?>'"width="120" class="" style="margin-right: 10px;">  
+                                            <img src="<?php echo $fotoa ?>" onerror="src='<?php echo $_layoutParams['ruta_img']; ?>hotel/sinImagen.jpg'" width="120" class="" style="margin-right: 10px;">  
                                             </td>
                                             
                                             
@@ -213,7 +213,9 @@
       {
         $("#ML_divPopup").html('');
         $("#ML_tituloForm").html('<strong>Descripci&oacute;n</strong>');
-        $("#modal_dialog").css({"width":"40%"});
+        $("#modal_dialog").css({"width":"50%"});
+        $("#modal_dialog").css({"max-height":"70%"});
+        //$("#modal_dialog").css({"overflow-y": "auto"});
         $("#descripcion_"+pest).clone().appendTo("#ML_divPopup").css('display','block');
         
       }
