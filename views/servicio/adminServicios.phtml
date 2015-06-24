@@ -48,7 +48,7 @@
                                                             $aP_nombreCiuPRG= trim($columCiudadesPRG->getCiudad());
                                                             $aP_nombreCiudadPRG = $aP_nombreCiuPRG." (".$aP_codigoCiuPRG.")";
                                                             
-                                                            if(Session::get('sess_pC_aP_ciudad')==$aP_nombreCiuPRG)
+                                                            if(Session::get('sess_pC_aS_ciudad')==$aP_nombreCiuPRG)
                                                             {
                                                             ?>
                                                                 <option value="<?php echo $aP_nombreCiuPRG; ?>" selected="selected"><?php echo $aP_nombreCiudadPRG; ?></option>
@@ -120,11 +120,11 @@
                     
                     
                     <?php
-                   
+                   if(isset($_SESSION['sess_pC_aS_ciudad']) ||  isset($_SESSION['sess_pC_aS_servicio'])){
 					?>
                      <script>				
-					$('#btnAdmProg').delay( 10 ).fadeOut( 10 );
-					$('#btnAdmProg').animate({
+					$('#btnAdmServ').delay( 10 ).fadeOut( 10 );
+					$('#btnAdmServ').animate({
 										'display': 'none'
 									}); 
 					$('#imgLoading').fadeIn( 100 );
@@ -229,7 +229,7 @@
 									});
 					
 					</script>
-                    <?php  ?>
+                   <?php  }?>
 				</div>
 			</div>
             
