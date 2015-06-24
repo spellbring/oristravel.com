@@ -42,7 +42,7 @@ class carroController extends Controller{
         $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
-        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
         
         $this->_view->objServicios = $this->_servicio->getServicios('');
         
@@ -164,7 +164,7 @@ class carroController extends Controller{
                                         . " 0,"
                                         . " 0,"
                                         . " 0,"
-                                        . " '88afdfc1',"//
+                                        . " '".substr(sha1(uniqid()),0,8)."',"//
                                         . " NULL, "
                                         . "NULL, "
                                         . "".$this->getInt('comcts_serv_').","
@@ -289,18 +289,18 @@ class carroController extends Controller{
                                         . "'".$objHotel->getPais()."',"
                                         . "'".$objHotel->getCiudad()."',"
                                         . "'".$objChoteles->getTotPax()."',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
-                                        . "'',"
+                                        . "'".Session::get('sess_BP_Adl_1')."',"
+                                        . "'".Session::get('sess_BP_Chd_1')."',"
+                                        . "'".Session::get('sess_BP_edadChd_1_1')."',"
+                                        . "'".Session::get('sess_BP_edadChd_1_2')."',"
+                                        . "'".Session::get('sess_BP_Adl_2')."',"
+                                        . "'".Session::get('sess_BP_Chd_2')."',"
+                                        . "'".Session::get('sess_BP_edadChd_2_1')."',"
+                                        . "'".Session::get('sess_BP_edadChd_2_2')."',"
+                                        . "'".Session::get('sess_BP_Adl_3')."',"
+                                        . "'".Session::get('sess_BP_Chd_3')."',"
+                                        . "'".Session::get('sess_BP_edadChd_3_1')."',"
+                                        . "'".Session::get('sess_BP_edadChd_3_2')."',"
                                         . "'".$objChoteles->getTotalNeto()."',"
                                         . "'".$objChoteles->getTotalVenta()."',"
                                         . "'".$objChoteles->getMoneda()."',"
@@ -309,7 +309,7 @@ class carroController extends Controller{
                                         . "'',"//adultos_a
                                         . "'',"//adultos_b
                                         . "'',"//adultos_c
-                                        . "'',"//clave
+                                        . "'".substr(sha1(uniqid()),0,8)."',"//clave
                                         . "'',"//vuelo
                                         . "'',"//registro
                                         . "'',"//comcts

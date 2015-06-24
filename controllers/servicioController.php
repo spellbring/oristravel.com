@@ -33,7 +33,7 @@ class servicioController extends Controller{
         $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
         
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
-        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
         
         
         $this->_view->objServicios = $this->_servicio->getServicios('');
@@ -65,11 +65,16 @@ class servicioController extends Controller{
     
     public function servicios(){
      Session::acceso('Usuario');
+     $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
+    
+        
+     $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
+     $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
      $this->_view->currentMenu=12;
      $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ(''); 
      $this->_view->objServicios = $this->_servicio->getServicios('');
      
-     $this->_view->objAdminServicios = $this->_servicio->getAdminServicios();
+     $this->_view->objAdminServicios = $this->_servicio->getAdminServicios(Session::get('sess_pC_aS_ciudad'), Session::get('sess_pC_aS_servicio'));
      
      
      $this->_view->renderizaSistema('adminServicios');  

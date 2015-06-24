@@ -25,9 +25,10 @@ class programaController extends Controller{
        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
        $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
-       $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+       $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
        
-        $this->_view->objServicios = $this->_servicio->getServicios();
+        $this->_view->objServicios = $this->_servicio->getServicios('');
+        $this->_view->objProgramasBusq = $this->_programa->getAdmProgramas();
         
         $this->_view->mL_expandeFiltrosProg = 'block';
        
@@ -52,10 +53,10 @@ class programaController extends Controller{
         Session::acceso('Usuario');
         $this->_view->setJs(array('ajax'));
 
-        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
-        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG(); //Session::get('sess_combo_pais')
-        $this->_view->objServicios = $this->_servicio->getServicios();
+        $this->_view->objServicios = $this->_servicio->getServicios('');
         $this->_view->objPais = $this->_pais->getPaises();
 
         $this->_view->objProgramas = $this->_programa->getAdmProgramas();

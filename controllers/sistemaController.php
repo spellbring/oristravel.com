@@ -31,12 +31,12 @@ class sistemaController extends Controller {
     public function index() {
         Session::acceso('Usuario');
 
-        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
-        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
-        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
         
-        $this->_view->objServicios = $this->_servicio->getServicios();
+        $this->_view->objServicios = $this->_servicio->getServicios('');
 
         $this->_view->setJs(array('ajax'));
 

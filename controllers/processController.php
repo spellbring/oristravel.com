@@ -39,6 +39,7 @@ class processController extends Controller
         for ($i = 1; $i <= 3; $i++) {
             if($i <= Session::get('sess_pBP_cntHab')) {
                 Session::set('sess_BP_Adl_' . $i, $this->getTexto('mL_cmbAdultos_' . $i));
+                
             } else {
                 Session::set('sess_BP_Adl_' . $i, 0);
             }
@@ -186,4 +187,6 @@ class processController extends Controller
         
         $this->redireccionar('servicio/servicios');
     }
+    
+    
 }
