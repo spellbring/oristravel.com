@@ -37,7 +37,11 @@ public function index() {
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         $this->_view->mL_expandeFiltrosHot='block';
         $this->_view->objServicios = $this->_servicio->getServicios('');    
-        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
+        
+        $objCategoriaHoteles = $this->_hotel->getCatHoteles(Session::get('sess_pBP_Cagegorias'));
+        
+        $this->_view->objCatHot = $objCategoriaHoteles[0]->getCategoria();
         
 
         
@@ -100,7 +104,8 @@ public function index() {
         //if
         
         
-        
+        $objCiudadHot =  $this->_hotel->getCiudadesHot(Session::get('sess_pCH_ciudad')); 
+        $this->_view->objCiudadesHotelDet = $objCiudadHot[0]->getCiudad(); 
         $this->_view->currentMenu = 8;
         $this->_view->titulo = 'ORISTRAVEL';
         $this->_view->renderizaSistema('buscarHoteles');
@@ -115,12 +120,19 @@ public function index() {
 
         //$this->_view->setJs(array('ajax'));
 
-        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles();
-        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot();
-        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ();
+        $this->_view->objCategoriaHoteles = $this->_hotel->getCatHoteles('');
+        $this->_view->objCiudadesHotel = $this->_hotel->getCiudadesHot('');
+        
+        
+        
+        
+                
+        $this->_view->objCiudadesServ = $this->_servicio->getCiudadesServ('');
         $this->_view->objCiudadesPRG = $this->_programa->getCiudadesPRG();
         
-         $this->_view->objServicios = $this->_servicio->getServicios();
+        $this->_view->objServicios = $this->_servicio->getServicios('');
+        
+        
 
 
         $this->_view->getHoteles = $this->_hotel->getAdmHoteles(
@@ -556,6 +568,21 @@ public function index() {
        //echo 'HOLA';
        $this->_view->renderizaCenterBox('mapaHotel');
        
+   }
+   public function verFotos(){
+    $fotoEnc = $this->getTexto('post_img_enc');
+    $foto1 =   $this->getTexto('post_img1');
+    $foto2  =  $this->getTexto('post_img2');
+    $foto3 =    $this->getTexto('post_img3');    
+    $foto4 =   $this->getTexto('post_img4');
+   $this->_view->objFotoEnc =  $fotoEnc;    
+   $this->_view->objFoto1 =  $foto1;    
+   $this->_view->objFoto2 =  $foto2;    
+   $this->_view->objFoto3 =  $foto3;    
+   $this->_view->objFoto4 =  $foto4;    
+       
+       
+    $this->_view->renderizaCenterBox('verFotos');   
    }
    
         
