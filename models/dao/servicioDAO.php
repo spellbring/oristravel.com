@@ -52,7 +52,7 @@ class servicioDAO extends Model
     public function getServicios($id){
         $sql = 'SELECT numero, nombre FROM tablaser';
         if($id!= ''){
-            $sql .=' WHERE numero ='.$id;
+        $sql .=' WHERE numero ='.$id;
         }
         //echo $sql;
         $serv= $this->_db->consulta($sql);
@@ -87,52 +87,12 @@ class servicioDAO extends Model
         $f_servicio = Funciones::invertirFecha(Session::get('sess_sBP_fechaIn'), '/', '-');
         $nom_ciudad = Session::get('sess_sCH_ciudad');
         $t_cambio = Session::get('sess_t_cambioServ');
-        
-        $sql="SELECT servicio.nombre, 
-                                    servicio.notas, 
-                                    servicio.codigo,
-                                    servicio.tipos,
-                                    servicio.desde, 
-                                    servicio.hasta, 
-                                    servicio.ciudad,
-                                    servicio.pais, 
-                                    servicio.por, 
-                                    servicio.conv, 
-                                    det_ser.pax_i, 
-                                    det_ser.pax_f,
-                                    servicio.comcts,
-                                    CASE WHEN det_ser.compv > 0
-                                    THEN det_ser.compv
-                                    ELSE servicio.compv
-                                    END compv,
-                                    servicio.moneda,
-                                    servicio.ope,
-                                    CASE 
-                                    WHEN servicio.por=1 AND servicio.tcambio>0 AND servicio.moneda='P' THEN (det_ser.tarifa * ".$pax." ) / servicio.tcambio
-                                    WHEN servicio.por=2 AND servicio.tcambio>0 AND servicio.moneda='P' THEN (det_ser.tarifa / ".$pax." ) / servicio.tcambio
-                                    WHEN servicio.por=1 AND ".$t_cambio.">0 AND servicio.moneda='P' THEN (det_ser.tarifa * ".$pax." ) / ".$t_cambio." 
-                                    WHEN servicio.por=2 AND ".$t_cambio.">0 AND servicio.moneda='P' THEN (det_ser.tarifa / ".$pax." ) / ".$t_cambio."
-                                    WHEN servicio.por=1 AND servicio.moneda='D' THEN (det_ser.tarifa * ".$pax." ) 
-                                    WHEN servicio.por=2 AND servicio.moneda='D' THEN (det_ser.tarifa / ".$pax.")
-                                    END tarifa
-        FROM servicio
-        JOIN det_ser ON ( servicio.codigo = det_ser.codigo )
-        WHERE estado != 'N'
-        AND servicio.tipos = ".$servicios."
-        AND ".$pax."  BETWEEN det_ser.pax_i AND det_ser.pax_f
-        AND '".$f_servicio."' BETWEEN servicio.desde AND servicio.hasta
-        
-        AND servicio.ciudad = '".$nom_ciudad."'
-        AND det_ser.tarifa > 0";
-
-        $sql.=" AND ((servicio.id_agen= 0 OR servicio.id_agen= '') OR (servicio.id_agen= '". Session::get('sess_id_agencia')."'))";
-
-        $sql.=" ORDER BY det_ser.tarifa ASC";
-        //echo $sql;  
-        $datos = $this->_db->consulta($sql);
-        if($this->_db->numRows($datos)>0){
+ 
+         $sql = "CALL get_servicios(".$pax.", ".$servicios.",'".$f_servicio."','".$nom_ciudad."',".$t_cambio.",".Session::get('sess_id_agencia').")";  
+         $datos = $this->_db->consultaSP($sql);
+        //if($this->_db->numRows($datos)>0){
          
-            $serviciosArray = $this->_db->fetchAll($datos);
+            $serviciosArray = $this->_db->fetchAllSP($datos);
             $arrayObjSer = array();
             foreach($serviciosArray as $serObj){
                $objServ = new servicioDTO();
@@ -166,11 +126,11 @@ class servicioDAO extends Model
             
             return $arrayObjSer;
             
-        }
-        else{
+        //}
+        //else{
             
-            return false;
-        }
+            //return false;
+        //}
 
         
         
@@ -251,9 +211,18 @@ class servicioDAO extends Model
     
     }
     
-    public function getAdminServicios(){
-      $sql = 'SELECT codigo, nombre, ciudad FROM servicio';
-      
+    public function getAdminServicios($ciudad, $serv){
+      $sql = 'SELECT codigo, nombre, ciudad, tipos FROM servicio';
+      if($ciudad != '' && $serv != '' ){
+          $sql.= " WHERE ciudad = '".$ciudad."' and tipos = ".$serv.""; 
+      }
+      if($ciudad != '' && $serv == ''){
+        $sql.= " WHERE ciudad = '".$ciudad."'";  
+      }
+      if($serv != '' && $ciudad == ''){
+        $sql.= " WHERE tipos = ".$serv."";  
+      }
+      //echo $sql;
       $datos = $this->_db->consulta($sql);
         if($this->_db->numRows($datos)>0){
             $arrayServicios = $this->_db->fetchAll($datos);
@@ -263,6 +232,7 @@ class servicioDAO extends Model
                 $objServ->setCodigo($arrServ['codigo']);
                 $objServ->setNombre($arrServ['nombre']);
                 $objServ->setCiudad($arrServ['ciudad']);
+                $objServ->setTipos($arrServ['tipos']);
              $array[] = $objServ; 
                 
             }
