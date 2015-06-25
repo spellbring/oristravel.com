@@ -1,7 +1,11 @@
+<?php $publicFotos = ROOT . 'public' . DS . 'img' . DS . 'hoteles'. DS; 
+
+
+if(file_exists($publicFotos.$this->objFotoEnc) || file_exists($publicFotos.$this->objFoto1) || file_exists($publicFotos.$this->objFoto2) || file_exists($publicFotos.$this->objFoto3) || file_exists($publicFotos.$this->objFoto4)){
+?>
+
 <center><div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
-  
-<?php $publicFotos = ROOT . 'public' . DS . 'img' . DS . 'hoteles'. DS; ?>
   <ol class="carousel-indicators">
     <?php if(file_exists($publicFotos.$this->objFotoEnc)  && $this->objFotoEnc){?> 
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -75,3 +79,11 @@
     <span class="sr-only">Next</span>
   </a>
     </div></center>
+<?php 
+}
+else
+{
+ ?>
+<center>No se encontraron Fotos, si desea subir fotos ingrese a la: <strong><a href="<?php echo BASE_URL ?>hotel/hoteles">Administraci&oacute;n de hoteles</a></strong></center>
+<?php 
+}
