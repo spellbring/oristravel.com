@@ -18,7 +18,7 @@ class buscarHotelesDAO extends Model
             $sql= "CALL get_hoteles(".$idUs.",'".$ciudad."','".$fechain."','".$fechaout."','".$grupo."',".$cantHab.",".$cantS.",".$cantD.",".$cantT.",".$cantC.",".$cantChild.")";
             Session::set('sess_getHotelesSP', $sql);
         }
-        
+        //echo $sql;
         $this->_db->consultaSP($sql);
 
         /*if($this->_db->numRows($datos)>0)
@@ -40,6 +40,9 @@ class buscarHotelesDAO extends Model
                 $objHoteles->setComcts($objarrHot['comcts']);
                 $objHoteles->setDgcomag($objarrHot['dgcomag']);
                 $objHoteles->setCodigoHtl($objarrHot['codigo_htl']);
+                $objHoteles->setTipoh_nombre($objarrHot['nombreTipoh']);
+                $objHoteles->setPalimt_nombre($objarrHot['nombrePalimt']);
+                
 
 
 

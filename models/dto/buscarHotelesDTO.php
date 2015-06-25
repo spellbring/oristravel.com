@@ -13,6 +13,8 @@ private $_nota;
 private $_tipoh;
 private $_cat;
 private $_palimt;
+private $_palimt_nombre;
+private $_tipoh_nombre;
 private $_precioFinal;
 private $_compv;
 private $_comcts;
@@ -28,6 +30,24 @@ private $_moneda;
 private $_status;
 private $_tarifaIG;
 private $_hotel;
+
+function getPalimt_nombre() {
+    return $this->_palimt_nombre;
+}
+
+function getTipoh_nombre() {
+    return $this->_tipoh_nombre;
+}
+
+function setPalimt_nombre($palimt_nombre) {
+    $this->_palimt_nombre = $palimt_nombre;
+    return $this;
+}
+
+function setTipoh_nombre($tipoh_nombre) {
+    $this->_tipoh_nombre = $tipoh_nombre;
+    return $this;
+}
 
 function getHotel() {
     return $this->_hotel;
